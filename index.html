@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="Récap projet de groupe WF3">
+        <meta name="author" content="moi">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <STYLE type="text/css">
+            body { background-color: rgb(218, 213, 213); }
+        </style>
+        <title>RECAP Projet de groupe</title>
+    </head>
+    <body>
+        <div class="container">
+
+            <h1 class="display-3 text-center my-5">Projet de groupe WF3</h1>
+
+
+            <section>
+                <h2 class="display-4 my-3">Description du projet</h2>
+                <p>Nous sommes donc parties sur l’idée d’un site permettant l'échange et la location de jeux de société et de jeux vidéo. <br>Il permettrait de mettre en contact, via l’interface du site, des loueurs et emprunteurs en fonction de leur département. </p>
+
+                <p>Il nous faut trouver une idée de nom.</p>
+
+                <h3>Rôles dans l'equipe :</h3>
+                <p>Véronique : front</p>
+                <p>Céline S. : back</p>
+                <p>Céline T. : plutôt back mais peut soutenir le front</p>
+                <p>Aurélie : plutôt back mais peut soutenir le front</p>
+            </section>
+
+            <section>
+                <h2 class="display-4 my-3">Base de données</h2>
+                <h3>Bdd : "trouver un nom de bdd"</h3>
+
+                <div class="d-flex flex-column justify-content-around">
+                    <div id="jeux_video">
+                        <h4>Table jeux_video :</h4>
+                        <blockquote>
+                            “idJeuxVideo” INT(11) AI PK <br>
+                            "idPossesseur" INT(11) SK (secondary key liée à PK table membres) <br>
+                            “titre” VAR(255) <br>
+                            “support” ENUM (pc, ps3, ps4, switch, wii, wii-u, …) <br>
+                            “public” ENUM (pegi3, pegi7, pegi12, pegi16, pegi18) <br>
+                            “genre” ENUM (action, aventure, rpg, simulation, strategie, sport, reflexion, contemplatif) <br>
+                            “description” TEXT
+                        </blockquote>
+                    </div>
+
+                    <div id="jeux_societe">
+                        <h4>Table jeux_de_societe :</h4>
+                        <blockquote>
+                            “idJeuxSociete” INT(11) AI PK <br>
+                            "idPossesseur" INT(11) SK (secondary key liée à PK table membres) <br>
+                            “titre” VAR(255) <br>
+                            “public” ENUM (+6/7ans, +9/10ans, +12/14ans) <br>
+                            “nombreJoueurs” ENUM (1, 1-2, 2-4, 4-6, 6-8) <br>
+                            “genre” ENUM (adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation) <br>
+                            “description” TEXT
+                        </blockquote>
+                    </div>
+
+                    <div id="membres">
+                        <h4>Table membres :</h4>
+                        <blockquote>
+                            “idMembre” INT(11) AI PK <br>
+                            “pseudo” VAR(255) <br>
+                            “email” VAR(255) <br>
+                            “nom” VAR(255) <br>
+                            “prenom” VAR(255) <br>
+                            “adresse” VAR(255) <br>
+                            “code_postal” INT(5) <br>
+                            “ville” VAR(255) <br>
+                            “departement” INT(2) <br>
+                        </blockquote>
+                    </div>
+
+                    <div id="emprunts_jeuxVideo">
+                        <h4>Table emprunts_JeuxVideo :</h4>
+                        <blockquote>
+                            “idEmprunt” INT(11) AI PK <br>
+                            “idMembreLoueur” INT(11) SK  (secondary key liée à table membres)<br>
+                            “idMembreEmprunteur” INT(11) SK  (secondary key liée à table membres) <br>
+                            “idJeux” INT(11) SK (secondary key liée à table jeux_video) <br>
+                        </blockquote>
+                    </div>
+
+                    <div id="emprunts_jeuxSociete">
+                        <h4>Table emprunts_jeuxSociete :</h4>
+                        <blockquote>
+                            “idEmprunt” INT(11) AI PK <br>
+                            “idMembreLoueur” INT(11) SK  (secondary key liée à table membres)<br>
+                            “idMembreEmprunteur” INT(11) SK  (secondary key liée à table membres) <br>
+                            “idJeux” INT(11) SK (secondary key liée à table jeux_societe) <br>
+                        </blockquote>
+                    </div>
+                </div> 
+            </section>
+
+            <section>
+                <h2 class="display-4 my-3">Interface du site</h2>
+
+                <div class="d-flex flex-column justify-content-around">
+                    <div id="accueil">
+                        <h4>Page d'accueil :</h4>
+                        <ul>
+                            <li>liste des jeux</li>
+                            <li>champs de recherche</li>
+                            <li>système affichage par catégories (jeux video et jeux de société) et par sous catégories (pour chacune des catégories)</li>
+                        </ul>
+                    </div>
+                    <div id="jeux">
+                        <h4>Page des jeux :</h4>
+                        <ul>
+                            <li>Affichage détaillé du jeux sélectionné</li>
+                            <li>Liens vers option de location</li>
+                        </ul>
+                    </div>
+                    <div id="emprunt">
+                        <h4>Page emprunt  :</h4>
+                        <ul>
+                            <li>location du jeux</li>
+                            <li>réservation (système de file d’attente, pouvoir annuler sa réservation)</li>
+                            <li> location pour 1 mois pour les jeux de plateau</li>
+                            <li>location 2 mois pour les jeux vidéo</li>
+                            <li>délai de 48h pour retirer le jeu</li>
+                        </ul>
+                    </div>
+                    <div id="inscription">
+                        <h4>Page d’inscription membre :</h4>
+                        <ul>
+                            <li>formulaire d’inscription</li>
+                        </ul>
+                    </div>
+                    <div id="membre">
+                        <h4>Page espace membre :</h4>
+                        <ul>
+                            <li>profil</li>
+                            <li>liste des empruntés (passés / en cours)</li>
+                            <li>fonctionnalité ajout de jeux à louer</li>
+                        </ul>
+                    </div>
+                    <div id="backoffice">
+                        <h4>Backoffice :</h4>
+                        <ul>
+                            <li>validation d’inscription membre</li>
+                            <li>système de bannissement si rating trop bas</li>
+                            <li>gestion de la bdd (insert, update, delete)</li>
+                        </ul>
+                    </div>
+                    <div id="bonus">
+                        <h4>Fonctionnalités supplémentaires:</h4>
+                        <ul>
+                            <li>appréciations loueur/emprunteur (rating)</li>
+                            <li>fonction recherche et affichage profil autres membres</li>
+                            <li>système de caution pour les jeux</li>
+                            <li>système de communication / tchat / forum entre membres</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>    
+    </body>
+</html>
