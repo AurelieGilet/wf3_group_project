@@ -20,52 +20,52 @@
 
             <section>
                 <h2 class="display-4 my-3">Description du projet</h2>
-                <p>Nous sommes donc parties sur l’idée d’un site permettant l'échange et la location de jeux de société et de jeux vidéo. <br>Il permettrait de mettre en contact, via l’interface du site, des loueurs et emprunteurs en fonction de leur département. </p>
+                <p>Nous sommes parties sur l’idée d’un site permettant le prêt de jeux de société. <br>Il permettrait de mettre en contact, via l’interface du site, des loueurs et emprunteurs dans le département des Yvelines. Chaque membre sera en mesure d'ajouter ses jeux à la location et d'emprunter ceux des autres. </p>
 
-                <p>Il nous faut trouver une idée de nom.</p>
+                <h3>Nom du Projet : "Jeux Partage !"</h3>
 
                 <h3>Rôles dans l'equipe :</h3>
-                <p>Véronique : front</p>
-                <p>Céline S. : back</p>
-                <p>Céline T. : plutôt back mais peut soutenir le front</p>
-                <p>Aurélie : plutôt back mais peut soutenir le front</p>
+                <ul>
+                    <li> Front :
+                        <ul>
+                            <li>Véronique</li>
+                            <li>Céline T.</li>
+                        </ul>
+                    </li>
+                    <li> Back :
+                        <ul>
+                            <li>Céline S.</li>
+                            <li>Aurélie</li>
+                        </ul>
+                    </li>
+                </ul>
             </section>
 
             <section>
                 <h2 class="display-4 my-3">Base de données</h2>
-                <h3>Bdd : "trouver un nom de bdd"</h3>
+                <h3>Nom Bdd : "jeux_partage"</h3>
 
                 <div class="d-flex flex-column justify-content-around">
-                    <div id="jeux_video">
-                        <h4>Table jeux_video :</h4>
-                        <blockquote>
-                            “idJeuxVideo” INT(11) AI PK <br>
-                            "idPossesseur" INT(11) SK (secondary key liée à PK table membres) <br>
-                            “titre” VAR(255) <br>
-                            “support” ENUM (pc, ps3, ps4, switch, wii, wii-u, …) <br>
-                            “public” ENUM (pegi3, pegi7, pegi12, pegi16, pegi18) <br>
-                            “genre” ENUM (action, aventure, rpg, simulation, strategie, sport, reflexion, contemplatif) <br>
-                            “description” TEXT
-                        </blockquote>
-                    </div>
 
-                    <div id="jeux_societe">
-                        <h4>Table jeux_de_societe :</h4>
+                    <div id="jeux">
+                        <h4>Table "jeux" :</h4>
                         <blockquote>
-                            “idJeuxSociete” INT(11) AI PK <br>
-                            "idPossesseur" INT(11) SK (secondary key liée à PK table membres) <br>
-                            “titre” VAR(255) <br>
-                            “public” ENUM (+6/7ans, +9/10ans, +12/14ans) <br>
-                            “nombreJoueurs” ENUM (1, 1-2, 2-4, 4-6, 6-8) <br>
-                            “genre” ENUM (adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation) <br>
-                            “description” TEXT
+                            “id_jeux” INT(11) AI PK <br>
+                            "id_possesseur" INT(11) SK (secondary key liée à PK table membres) <br>
+                            “nom” VAR(255) <br>
+                            “public” ENUM (6+, 8+, 10+) <br>
+                            “nb_joueurs_min” INT(11) NOT NULL (1 min) <br>
+                            “nb_joueurs_max” INT(11) <br>
+                            “categorie” ENUM (adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation) <br>
+                            “description” TEXT (regle du jeu)
+                            "photo" VAR(255) (url ou input type file ?)
                         </blockquote>
                     </div>
 
                     <div id="membres">
-                        <h4>Table membres :</h4>
+                        <h4>Table "membres" :</h4>
                         <blockquote>
-                            “idMembre” INT(11) AI PK <br>
+                            “id_membre” INT(11) AI PK <br>
                             “pseudo” VAR(255) <br>
                             “email” VAR(255) <br>
                             “nom” VAR(255) <br>
@@ -73,27 +73,16 @@
                             “adresse” VAR(255) <br>
                             “code_postal” INT(5) <br>
                             “ville” VAR(255) <br>
-                            “departement” INT(2) <br>
                         </blockquote>
                     </div>
 
-                    <div id="emprunts_jeuxVideo">
-                        <h4>Table emprunts_JeuxVideo :</h4>
+                    <div id="emprunts">
+                        <h4>Table "emprunts" :</h4>
                         <blockquote>
-                            “idEmprunt” INT(11) AI PK <br>
-                            “idMembreLoueur” INT(11) SK  (secondary key liée à table membres)<br>
-                            “idMembreEmprunteur” INT(11) SK  (secondary key liée à table membres) <br>
-                            “idJeux” INT(11) SK (secondary key liée à table jeux_video) <br>
-                        </blockquote>
-                    </div>
-
-                    <div id="emprunts_jeuxSociete">
-                        <h4>Table emprunts_jeuxSociete :</h4>
-                        <blockquote>
-                            “idEmprunt” INT(11) AI PK <br>
-                            “idMembreLoueur” INT(11) SK  (secondary key liée à table membres)<br>
-                            “idMembreEmprunteur” INT(11) SK  (secondary key liée à table membres) <br>
-                            “idJeux” INT(11) SK (secondary key liée à table jeux_societe) <br>
+                            “id_emprunt” INT(11) AI PK <br>
+                            “id_membre_loueur” INT(11) SK  (secondary key liée à table membres)<br>
+                            “id_membre_emprunteur” INT(11) SK  (secondary key liée à table membres) <br>
+                            “id_jeux” INT(11) SK (secondary key liée à table jeux_societe) <br>
                         </blockquote>
                     </div>
                 </div> 
@@ -103,64 +92,105 @@
                 <h2 class="display-4 my-3">Interface du site</h2>
 
                 <div class="d-flex flex-column justify-content-around">
-                    <div id="accueil">
+                    <div id="template">
+                        <h4>Template :</h4>
+                        <ul>
+                            <li>Navbar : 
+                                <ul>
+                                    <li>Brand name : Jeux partage -> envoi vers la page d'accueil</li>
+                                    <li>Catalogue -> envoi vers la page des jeux</li>
+                                    <li>inscription -> envoi vers la page d'inscription</li>
+                                    <li>connexion -> envoi vers la page de connexion</li>
+                                </ul>
+                            </li>
+                            <li>Footer :
+                                <ul>
+                                    <li>copyight</li>
+                                    <li>mentions légales et CGU: lien vers page des mentions légales</li>
+                                    <li>contact : lien vers page contact</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="accueil">
                         <h4>Page d'accueil :</h4>
                         <ul>
-                            <li>liste des jeux</li>
-                            <li>champs de recherche</li>
-                            <li>système affichage par catégories (jeux video et jeux de société) et par sous catégories (pour chacune des catégories)</li>
+                            <li>Nom du site avec bannière</li>
+                            <li>Description du site (son but)</li>
+                            <li>Bouton "insciption"</li>
+                        </ul>
+                    </div>
+                    <div id="catalogue">
+                        <h4>Page du catalogue :</h4>
+                        <ul>
+                            <li>Affichage de la liste des jeux (cards bootstrap ?)</li>
+                            <li>Possibilité de classement par categories</li>
+                            <li>Fomulaire de recherche : champ "nom du jeu" + filtres supplémentaires (categorie, nombre de joueurs min) </li>
                         </ul>
                     </div>
                     <div id="jeux">
                         <h4>Page des jeux :</h4>
                         <ul>
                             <li>Affichage détaillé du jeux sélectionné</li>
-                            <li>Liens vers option de location</li>
+                            <li>Affichage disponibilité du jeu</li>
+                            <li>Affichage map de l'emplacement du jeu (rayon) -> API google map</li>
+                            <li>Bouton "emprunter" qui envoi vers la page d'emprunt</li>
                         </ul>
                     </div>
                     <div id="emprunt">
                         <h4>Page emprunt  :</h4>
                         <ul>
-                            <li>location du jeux</li>
-                            <li>réservation (système de file d’attente, pouvoir annuler sa réservation)</li>
-                            <li> location pour 1 mois pour les jeux de plateau</li>
-                            <li>location 2 mois pour les jeux vidéo</li>
+                            <li>Affichage récap du jeu</li>
+                            <li>réservation (système de file d’attente, possibilité d'annuler sa réservation) ou location selon disponibilité</li>
+                            <li>location pour 1 mois pour les jeux de plateau</li>
                             <li>délai de 48h pour retirer le jeu</li>
+                            <li>Bouton validation reservation/location qui renvoi vers l'espace du membre</li>
                         </ul>
                     </div>
                     <div id="inscription">
                         <h4>Page d’inscription membre :</h4>
                         <ul>
-                            <li>formulaire d’inscription</li>
+                            <li>Affichage conditions d'utilisation du site : limitée à la region Yveline</li>
+                            <li>formulaire d’inscription : pseudo*, email*, code postal de résidence (refus si n'est pas dans le 78), mot de passe*, verif mot de passe*</li>
+                            <li>Envoi email de confirmation d'inscription avec lien vérification d'email</li>
+                        </ul>
+                    </div>
+                    <div id="connexion">
+                        <h4>Page de connexion :</h4>
+                        <ul>
+                            <li>Formulaire de connexion : pseudo*, mot de passe*</li>
+                            <li>Lien "oublie de mot de passe"</li>
                         </ul>
                     </div>
                     <div id="membre">
                         <h4>Page espace membre :</h4>
                         <ul>
-                            <li>profil</li>
-                            <li>liste des empruntés (passés / en cours)</li>
-                            <li>fonctionnalité ajout de jeux à louer</li>
+                            <li>profil : récap des champs du formulaire + champs "nom", "prénom", "adresse", "ville", "code postal" à remplir obligatoirement pour pouvoir eprunter un jeu. Posibilité de modification des informations.</li>
+                            <li>liste des emprunts (passés / en cours), liste des reservations</li>
+                            <li>Ajouter un jeu à louer + liste des jeux ajoutés + possibilité de modifier les infos d'un jeu + suspendre/rétablir la disponibilité d'un jeu à la location</li>
+                            <li>Espace de gestion prêt des jeux : recap de la demande de prêt (jeu, date de location, pseudo de l'emprunteur), accepter ou refuser la location, messagerie enter loueur et emprunteur pour récupération du jeu.</li>
                         </ul>
                     </div>
                     <div id="backoffice">
                         <h4>Backoffice :</h4>
                         <ul>
-                            <li>validation d’inscription membre</li>
-                            <li>système de bannissement si rating trop bas</li>
-                            <li>gestion de la bdd (insert, update, delete)</li>
-                        </ul>
-                    </div>
-                    <div id="bonus">
-                        <h4>Fonctionnalités supplémentaires:</h4>
-                        <ul>
-                            <li>appréciations loueur/emprunteur (rating)</li>
-                            <li>fonction recherche et affichage profil autres membres</li>
-                            <li>système de caution pour les jeux</li>
-                            <li>système de communication / tchat / forum entre membres</li>
+                            <li>accès aux profils des membres pour modif/suppression</li>
+                            <li>accès au contenu du catalogue pour modif/suppression</li>
                         </ul>
                     </div>
                 </div>
-
+            </section>
+            <section>
+                <h2 class="display-4 my-3">Fonctionnalités supplémentaires:</h2>
+                <div id="bonus">
+                    <ul>
+                        <li>appréciations loueur/emprunteur (rating) -> table commentaires</li>
+                        <li>Système de bannissement si rating trop bas</li>
+                        <li>fonction recherche et affichage profil autres membres</li>
+                        <li>système de forum entre membres (pour discuter des jeux, organiser des rencontres jeux, ...)</li>
+                        <li>système de caution pour les jeux</li>
+                    </ul>
+                </div>
             </section>
 
     </div>
