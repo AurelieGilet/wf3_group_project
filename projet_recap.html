@@ -39,15 +39,15 @@
                     </li>
                 </ul>
 
-					<h3>Conventions de développement</h3>
-					<ul>
-						<li>Avant de travailler sur le projet, ne pas oublier de créer sa branch sur ce modèle : INITIALES_datedujour. <br>Par exemple : AG_170321 <br>Cela permettra de savoir qui a fait quoi et quel jour</li>
-						<li>Lorsque vous décidez de travailler sur une partie du projet, assurez-vous qu'aucune des autres n'est pas dejà en train de développer cette même partie. <br>Cela pourra aider à limiter les conflits de branch</li>
-						<li>Respectez les conventions de nomage pour les fichiers, classes, variables, ... : Majuscules pour les classes, usage du camelCase, etc ... </li>
-						<li>Un code professionnel est un code en anglais : pensez-y dans le choix des noms de vos classes, variables et fonctions</li>
-					</ul>
+		<h3>Conventions de développement</h3>
+		<ul>
+			<li>Avant de travailler sur le projet, ne pas oublier de créer sa branch sur ce modèle : INITIALES_datedujour. <br>Par exemple : AG_170321 <br>Cela permettra de savoir qui a fait quoi et quel jour</li>
+			<li>Lorsque vous décidez de travailler sur une partie du projet, assurez-vous qu'aucune des autres n'est pas dejà en train de développer cette même partie. <br>Cela pourra aider à limiter les conflits de branch</li>
+			<li>Respectez les conventions de nomage pour les fichiers, classes, variables, ... : Majuscules pour les classes, usage du camelCase, etc ... </li>
+			<li>Un code professionnel est un code en anglais : pensez-y dans le choix des noms de vos classes, variables et fonctions</li>
+		</ul>
 
-					<p>Les conventions devront être déclarées au fur et à mesure du développement du projet, selon les besoins, et appliquées par toutes afin de faciliter la compréhension et la lisibilité du code. N'hésitez pas à faire part des conventions que vous souhaiteriez voir appliquer.</p>
+		<p>Les conventions devront être déclarées au fur et à mesure du développement du projet, selon les besoins, et appliquées par toutes afin de faciliter la compréhension et la lisibilité du code. N'hésitez pas à faire part des conventions que vous souhaiteriez voir appliquer.</p>
             </section>
 
             <section>
@@ -59,42 +59,42 @@
                     <div id="jeux">
                         <h4>Table "Game" :</h4>
                         <blockquote>
-						“id" INT(11) AI PK <br>
-						"owner" relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à PK table membres) <br>
-						“name” VAR(255) NOT NULL<br>
-						“category” ENUM NOT NULL(adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation) <br>
-						“public” ENUM (6+, 8+, 10+) NOT NULL<br>
-						“minPlayers” INT(11) NOT NULL (1 min) <br>
-						“maxPlayers” INT(11) <br>
-						“description” TEXT NOT NULL(regle du jeu)<br>
-						"image" VAR(255) NOT NULL(url ou input type file ?)
+			“id" INT(11) AI PK <br>
+			"owner" relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à PK table membres) <br>
+			“name” VAR(255) NOT NULL<br>
+			“category” ENUM NOT NULL(adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation) <br>
+			“public” ENUM (6+, 8+, 10+) NOT NULL<br>
+			“minPlayers” INT(11) NOT NULL (1 min) <br>
+			“maxPlayers” INT(11) <br>
+			“description” TEXT NOT NULL(regle du jeu)<br>
+			"image" VAR(255) NOT NULL(url ou input type file ?)
                         </blockquote>
                     </div>
 
                     <div id="membres">
                         <h4>Table "User" :</h4>
                         <blockquote>
-						“id” INT(11) AI PK <br>
-						“username” VAR(255) NOT NULL<br>
-						“email” VAR(255) NOT NULL<br>
-						"password" VAR(255) NOT NULL<br>
-						“lastname” VAR(255) NOT NULL<br>
-						“firstname” VAR(255) NOT NULL<br>
-						“address” VAR(255) NOT NULL<br>
-						“zipCode” INT(5) NOT NULL<br>
-						“city” VAR(255) NOT NULL<br>
-						"role" json NOT NULL
-						"games" relation OneToMany
+			“id” INT(11) AI PK <br>
+			“username” VAR(255) NOT NULL<br>
+			“email” VAR(255) NOT NULL<br>
+			"password" VAR(255) NOT NULL<br>
+			“lastname” VAR(255) NOT NULL<br>
+			“firstname” VAR(255) NOT NULL<br>
+			“address” VAR(255) NOT NULL<br>
+			“zipCode” INT(5) NOT NULL<br>
+			“city” VAR(255) NOT NULL<br>
+			"role" json NOT NULL
+			"games" relation OneToMany
                         </blockquote>
                     </div>
 
                     <div id="emprunts">
                         <h4>Table "Borrowing" :</h4>
                         <blockquote>
-						“id” INT(11) AI PK <br>
-						“lender” relation ManyToOne : INT(11) SK  (secondary key liée à table membres)<br>
-						“borrower” relation ManyToOne : INT(11) SK  (secondary key liée à table membres) <br>
-						“game” relation ManyToOne INT(11) SK (secondary key liée à table jeux_societe) <br>
+			“id” INT(11) AI PK <br>
+			“lender” relation ManyToOne : INT(11) SK  (secondary key liée à table membres)<br>
+			“borrower” relation ManyToOne : INT(11) SK  (secondary key liée à table membres) <br>
+			“game” relation ManyToOne INT(11) SK (secondary key liée à table jeux_societe) <br>
                         </blockquote>
                     </div>
                 </div> 
