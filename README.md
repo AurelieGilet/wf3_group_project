@@ -25,5 +25,5 @@ _Pour installer le site en local :_
 *	$ cd jeux_partage
 *	$ composer install
 
-_configuration connexion BDD dans le fichier .env :_
+_Configuration connexion BDD dans le fichier .env :_
 * DATABASE_URL="mysql://root:@127.0.0.1:3306/jeux_partage?" pour le serveur Xampp
