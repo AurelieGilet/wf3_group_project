@@ -9,10 +9,10 @@ C'est un site de mise en relation de personnes qui souhaitent partager leurs jeu
 ## Qui l'a fait ?
 
 4 développeuses web junior:
-[Céline Saint-Martin](https://github.com/CelineSaintMartin)
-[Céline Trivier](https://github.com/titiceline)
-[Véronique Khammisouk](https://github.com/VeroniqueKhammisouk)
-[Aurélie Gilet](https://github.com/AurelieGilet)
+* [Céline Saint-Martin](https://github.com/CelineSaintMartin)
+* [Céline Trivier](https://github.com/titiceline)
+* [Véronique Khammisouk](https://github.com/VeroniqueKhammisouk)
+* [Aurélie Gilet](https://github.com/AurelieGilet)
 
 ## Quelles Technos ?
 
