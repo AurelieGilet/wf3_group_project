@@ -2,18 +2,38 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="author" content="Aurelie Gilet, Veronique Khammisouk, Celine Saint-Martin, Celine Trivier">
+        <meta name="description" content="JEUX PARTAGE est une plateforme basée sur l'échange et mettant en relation les habitants des Yvelines adeptes des jeux de société. Chacun étant libre de proposer sa propre collection de jeux à la location afin que d'autres puissent les emprunter pour s'amuser.">
+        <meta name="keywords" content="jeux, partage, louer, emprunter, jeu de société, Yvelines">
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <link rel="stylesheet" href="{{asset('bootstrap-4.6.0-dist/css/bootstrap.min.css')}}">
+            <link rel="stylesheet" href="{{asset('css/style.css')}}">
         {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}"/>
+        <title>{% block title %}Jeux Partage{% endblock %}</title>
     </head>
+
+
     <body>
-        {% block body %}{% endblock %}
+        <header>
+
+        </header>
+
+        <main class="container-fluid">
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer>
+
+        </footer>
     </body>
+
+
+    {% block javascripts %}
+        <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
+        <script src="{{asset('bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('js/js.js')}}"></script>
+    {% endblock %}
 </html>
