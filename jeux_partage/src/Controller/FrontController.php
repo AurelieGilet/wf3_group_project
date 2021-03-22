@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\GameRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FrontController extends AbstractController
 {
@@ -19,6 +19,7 @@ class FrontController extends AbstractController
         ]);
     }
 
+
 	/**
 	 * @Route("/catalogue", name="catalogue")
 	 */
@@ -31,4 +32,5 @@ class FrontController extends AbstractController
 			'games' => $games
 		]);
 	}
+
 }
