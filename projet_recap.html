@@ -64,7 +64,7 @@
 						<h4>Table "Game" :</h4>
 						<blockquote>
 							“id" INT(11) AI PK<br>
-							"owner" relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à PK table membres)<br>
+							"owner_id" relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à PK table membres)<br>
 							“name” VAR(255) NOT NULL<br>
 							“category” ENUM NOT NULL(adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation)<br>
 							“public” ENUM (6+, 8+, 10+) NOT NULL<br>
@@ -82,12 +82,12 @@
 							“username” VAR(255) NOT NULL<br>
 							“email” VAR(255) NOT NULL<br>
 							"password" VAR(255) NOT NULL<br>
-							“lastname” VAR(255) NOT NULL<br>
+							"role" json NOT NULL (["ROLE_ADMIN"] et "[ROLE_USER]"<br>
 							“firstname” VAR(255) NOT NULL<br>
+							“lastname” VAR(255) NOT NULL<br>						
 							“address” VAR(255) NOT NULL<br>
-							“zipCode” INT(5) NOT NULL<br>		<!-- UNSIGNED ZEROFILL -->
+							“zipCode” INT(5) NOT NULL (unsigned zerofill à ajouter à la bdd définitive)<br>
 							“city” VAR(255) NOT NULL<br>
-							"role" json NOT NULL<br>			<!-- Quels seraient les rôles définis ? Loueur, emprunteur... Pour gérer l'accessibilité des fonctionnalités selon si loueur / emprunteur ou les 2 -->
 							"games" relation OneToMany
 						</blockquote>
 					</div>
@@ -96,11 +96,12 @@
 						<h4>Table "Borrowing" :</h4>
 						<blockquote>
 							“id” INT(11) AI PK<br>
-							“lender” relation ManyToOne : INT(11) SK  (secondary key liée à table membres)<br>
-							“borrower” relation ManyToOne : INT(11) SK  (secondary key liée à table membres)<br>
-							“game” relation ManyToOne INT(11) SK (secondary key liée à table jeux_societe)<br>
-			<!--			"borrowingDate" DATE NOT NULL<br>		-->
-			<!--			"borrowingEnd" DATE NOT NULL<br>		-->
+							“lender_id” relation ManyToOne : INT(11) SK  (secondary key liée à table membres) NOT NULL<br>
+							“borrower_id” relation ManyToOne : INT(11) SK  (secondary key liée à table membres) NOT NULL<br>
+							“game_id” relation ManyToOne INT(11) SK (secondary key liée à table jeux_societe) NOT NULL<br>
+							"start_date" datetime NOT NULL<br>
+							"end_date" datetime NOT NULL<br>
+							"return_date" datetime<br>
 						</blockquote>
 					</div>
 				</div>
@@ -119,14 +120,14 @@
 									<li>Catalogue -> envoi vers la page des jeux</li>
 									<li>inscription -> envoi vers la page d'inscription</li>
 									<li>connexion -> envoi vers la page de connexion</li>
-					<!--			<li>{{username}} -> envoi vers la page compte de l'utilisateur</li>			-->
+									<li>Mon Compte -> envoi vers la page compte de l'utilisateur</li>
 								</ul>
 							</li>
 							<li>Footer :
 								<ul>
 									<li>copyight</li>
 									<li>mentions légales et CGU: lien vers page des mentions légales</li>
-									<li>contact : lien vers page contact</li>
+									<li>contact : lien vers page contact (à faire en dernier)</li>
 								</ul>
 							</li>
 						</ul>
@@ -137,7 +138,6 @@
 							<li>Nom du site avec bannière</li>
 							<li>Description du site (son but)</li>
 							<li>Bouton "insciption"</li>
-			<!--			<li>Bouton "catalogue"</li>			-->
 						</ul>
 					</div>
 					<div id="catalogue">
@@ -171,20 +171,20 @@
 						<h4>Page d’inscription membre :</h4>
 						<ul>
 							<li>Affichage conditions d'utilisation du site : limitée à la region Yvelines</li>
-							<li>formulaire d’inscription : pseudo*, email*, code postal de résidence (refus si n'est pas dans le 78), mot de passe*, verif mot de passe*</li>	<!-- Les champs 'lastname', 'firstname', 'adress', 'zipCode' et 'city' de la table User sont NOT NULL donc autant demander de remplir tout d'un coup lors de l'inscription et retirer cette partie demandée de la page 'Espace Membre' -->
+							<li>formulaire d’inscription : pseudo*, email*, code postal de résidence (refus si n'est pas dans le 78), mot de passe*, verif mot de passe*</li>
 							<li>Envoi email de confirmation d'inscription avec lien vérification d'email</li>
 						</ul>
 					</div>
 					<div id="connexion">
 						<h4>Page de connexion :</h4>
 						<ul>
-							<li>Formulaire de connexion : pseudo*, mot de passe*</li>
+							<li>Formulaire de connexion : email*, mot de passe*</li>
 							<li>Lien "oublie de mot de passe"</li>
 						</ul>
 					</div>
 					<div id="membre">
 						<h4>Page espace membre :</h4>
-						<ul>										<!-- | Cette partie serait plutôt à intégrer directement dans le formulaire d'inscription -->
+						<ul>									
 							<li>profil : récap des champs du formulaire + champs "nom", "prénom", "adresse", "ville", "code postal" à remplir obligatoirement pour pouvoir emprunter un jeu. Posibilité de modification des informations.</li>
 							<li>liste des emprunts (passés / en cours), liste des reservations</li>
 							<li>Ajouter un jeu à louer + liste des jeux ajoutés + possibilité de modifier les infos d'un jeu + suspendre/rétablir la disponibilité d'un jeu à la location</li>
@@ -196,6 +196,7 @@
 						<ul>
 							<li>accès aux profils des membres pour modif/suppression</li>
 							<li>accès au contenu du catalogue pour modif/suppression</li>
+							<li>accès à la gestion des emprunts pour modif/suppression</li>
 						</ul>
 					</div>
 				</div>
