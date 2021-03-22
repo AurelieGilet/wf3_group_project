@@ -85,9 +85,9 @@
 							“lastname” VAR(255) NOT NULL<br>
 							“firstname” VAR(255) NOT NULL<br>
 							“address” VAR(255) NOT NULL<br>
-							“zipCode” INT(5) NOT NULL<br>
+							“zipCode” INT(5) NOT NULL<br>		<!-- UNSIGNED ZEROFILL -->
 							“city” VAR(255) NOT NULL<br>
-							"role" json NOT NULL<br>
+							"role" json NOT NULL<br>			<!-- Quels seraient les rôles définis ? Loueur, emprunteur... Pour gérer l'accessibilité des fonctionnalités selon si loueur / emprunteur ou les 2 -->
 							"games" relation OneToMany
 						</blockquote>
 					</div>
@@ -99,6 +99,8 @@
 							“lender” relation ManyToOne : INT(11) SK  (secondary key liée à table membres)<br>
 							“borrower” relation ManyToOne : INT(11) SK  (secondary key liée à table membres)<br>
 							“game” relation ManyToOne INT(11) SK (secondary key liée à table jeux_societe)<br>
+			<!--			"borrowingDate" DATE NOT NULL<br>		-->
+			<!--			"borrowingEnd" DATE NOT NULL<br>		-->
 						</blockquote>
 					</div>
 				</div>
@@ -117,6 +119,7 @@
 									<li>Catalogue -> envoi vers la page des jeux</li>
 									<li>inscription -> envoi vers la page d'inscription</li>
 									<li>connexion -> envoi vers la page de connexion</li>
+					<!--			<li>{{username}} -> envoi vers la page compte de l'utilisateur</li>			-->
 								</ul>
 							</li>
 							<li>Footer :
@@ -134,6 +137,7 @@
 							<li>Nom du site avec bannière</li>
 							<li>Description du site (son but)</li>
 							<li>Bouton "insciption"</li>
+			<!--			<li>Bouton "catalogue"</li>			-->
 						</ul>
 					</div>
 					<div id="catalogue">
@@ -166,8 +170,8 @@
 					<div id="inscription">
 						<h4>Page d’inscription membre :</h4>
 						<ul>
-							<li>Affichage conditions d'utilisation du site : limitée à la region Yveline</li>
-							<li>formulaire d’inscription : pseudo*, email*, code postal de résidence (refus si n'est pas dans le 78), mot de passe*, verif mot de passe*</li>
+							<li>Affichage conditions d'utilisation du site : limitée à la region Yvelines</li>
+							<li>formulaire d’inscription : pseudo*, email*, code postal de résidence (refus si n'est pas dans le 78), mot de passe*, verif mot de passe*</li>	<!-- Les champs 'lastname', 'firstname', 'adress', 'zipCode' et 'city' de la table User sont NOT NULL donc autant demander de remplir tout d'un coup lors de l'inscription et retirer cette partie demandée de la page 'Espace Membre' -->
 							<li>Envoi email de confirmation d'inscription avec lien vérification d'email</li>
 						</ul>
 					</div>
@@ -180,8 +184,8 @@
 					</div>
 					<div id="membre">
 						<h4>Page espace membre :</h4>
-						<ul>
-							<li>profil : récap des champs du formulaire + champs "nom", "prénom", "adresse", "ville", "code postal" à remplir obligatoirement pour pouvoir eprunter un jeu. Posibilité de modification des informations.</li>
+						<ul>										<!-- | Cette partie serait plutôt à intégrer directement dans le formulaire d'inscription -->
+							<li>profil : récap des champs du formulaire + champs "nom", "prénom", "adresse", "ville", "code postal" à remplir obligatoirement pour pouvoir emprunter un jeu. Posibilité de modification des informations.</li>
 							<li>liste des emprunts (passés / en cours), liste des reservations</li>
 							<li>Ajouter un jeu à louer + liste des jeux ajoutés + possibilité de modifier les infos d'un jeu + suspendre/rétablir la disponibilité d'un jeu à la location</li>
 							<li>Espace de gestion prêt des jeux : recap de la demande de prêt (jeu, date de location, pseudo de l'emprunteur), accepter ou refuser la location, messagerie enter loueur et emprunteur pour récupération du jeu.</li>
