@@ -1,9 +1,0 @@
-
-Se positionner dans le dossier du projet (cd mon_projet) et dans le terminal entrer cette ligne de commande :
-symfony server:start
-
-Récupérer l'adresse du serveur (https://127.0.0.1:xxxx) Ou bien ouvrir un second terminal et entrer cette ligne de commande :
-symfony open:local
-
-Stopper le serveur à la fin en entrant cette ligne de commande :
-symfony server:stop
