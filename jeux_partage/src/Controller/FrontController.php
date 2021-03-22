@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-
-use Doctrine\ORM\EntityManager;
-
-use Symfony\Component\BrowserKit\Request;
+use App\Repository\GameRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +19,18 @@ class FrontController extends AbstractController
         ]);
     }
 
-    
+
+	/**
+	 * @Route("/catalogue", name="catalogue")
+	 */
+	public function catalogue(GameRepository $gameRepo): Response
+	{
+		$games = $gameRepo->findAll();
+
+		// dump($games);
+		return $this->render('front/catalogue.html.twig', [
+			'games' => $games
+		]);
+	}
 
 }
