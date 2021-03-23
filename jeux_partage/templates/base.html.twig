@@ -69,7 +69,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Mon Compte</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="">Profil</a>
+                                <a class="dropdown-item" href="{{ path("security_profil", {'id': app.user.id}) }}">Profil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="">Emprunts</a>
                                 <a class="dropdown-item" href="">Prêts</a>
@@ -91,8 +91,8 @@
                                     <a class="dropdown-item" href="">Espace personnalisé</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="">Gestion des Membres</a>
-                                    <a class="dropdown-item" href="}">Gestion du Catalogue</a>
-                                    <a class="dropdown-item" href="}">Gestion des Emprunts</a>
+                                    <a class="dropdown-item" href="">Gestion du Catalogue</a>
+                                    <a class="dropdown-item" href="">Gestion des Emprunts</a>
                                 </div>
                             </li>
                         {% endif %}
