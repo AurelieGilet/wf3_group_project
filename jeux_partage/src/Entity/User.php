@@ -5,11 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ * 		fields={"email"},
+ * 		message="Un compte existe déjà avec cette adresse email !"
+ * )
  */
 class User implements UserInterface
 {
@@ -22,30 +27,51 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir un nom d'utilisateur"
+	 * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir une adresse email !"
+	 * )
+	 * 
+	 * @Assert\Email(
+	 * 		message="Merci de saisir une adresse email valide !"
+	 * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="7", minMessage="Votre mot de passe doit faire avoir au minimum 7 caractères")
+	 * 
+     * @Assert\Length(
+	 * 		min="7", 
+	 * 		minMessage="Votre mot de passe doit faire au moins 7 caractères"
+	 * )
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir un mot de passe"
+	 * )
      * @Assert\EqualTo(
-     *              propertyPath="confirm_password",
-     *              message="Les mots de passe ne sont pas identiques"
+     * 		propertyPath="confirm_password",
+     *      message="Les mots de passe ne sont pas identiques"
      * )
      */
     private $password;
 
     /**
-     * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de confirmer le mot de passe"
+	 * )
      * @Assert\EqualTo(
-     *          propertyPath="password",
-     *          message="Les mots de passe ne sont pas identiques"
-     *  
+     * 		propertyPath="password",
+     *      message="Les mots de passe ne sont pas identiques"
      * )
      */
     public $confirm_password;
@@ -53,7 +79,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $role = [];
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -126,14 +152,25 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?array
+	public function eraseCredentials()
     {
-        return $this->role;
+
     }
 
-    public function setRole(array $role): self
+    public function getSalt()
     {
-        $this->role = $role;
+
+    }
+
+    public function getRoles()
+    {
+        // return ['ROLE_USER'];
+		return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
@@ -226,19 +263,5 @@ class User implements UserInterface
         }
 
         return $this;
-    }
-    public function eraseCredentials()
-    {
-
-    }
-
-    public function getSalt()
-    {
-
-    }
-
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
     }
 }
