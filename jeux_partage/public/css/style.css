@@ -53,10 +53,25 @@ body {
     box-shadow: rgba(0, 0, 0, 0.6) 0.1em 0.1em 1em;
 }
 
+#overlay
+{
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.85);
+	z-index: 10;
+}
+
 /* ********************** DEBUT HEADER ********************** */
 
 header {
     margin-bottom: 3.7vh !important;
+    position: relative;
 }
 
 header h2 a {
@@ -86,6 +101,9 @@ header a:hover {
 
 header ul {
     list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #pawn_icon {
@@ -106,6 +124,39 @@ header li {
 
 header li:last-child {
     margin-right: 0;
+}
+
+nav button {
+    border: none;
+    background-color: transparent;
+}
+
+#burger {
+    height: 35px;
+    width: 35px;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.burger_line {
+    height: 4px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 30%;
+    background-color: rgb(0, 10, 30);
+}
+
+#cross_line2 {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: none;
 }
 
 /* ********************** FIN HEADER ********************** */
@@ -223,8 +274,15 @@ footer a {
         width: 14px;
         height: 15px;
     }
+    header ul {
+        position: absolute;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+    }
     header li {
-        margin: 0 0.8em;
+        margin: 0;
+        padding: 0.5vh 0;
     }
     /* ********************** FIN HEADER ********************** */
     
@@ -264,8 +322,19 @@ footer a {
     header a {
         font-size: 3vw;
     }
+    header ul {
+        position: absolute;
+        right: 0;
+        top: 4vh;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.2vh;
+        background-color: #f7cc99;
+        border-radius: 5px;
+    }
     header li {
-        margin: 0 0.8em;
+        margin: 0;
+        padding: 0.5vh 0;
     }
     /* ********************** FIN HEADER ********************** */
     
