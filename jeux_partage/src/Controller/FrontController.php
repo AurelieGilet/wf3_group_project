@@ -32,4 +32,15 @@ class FrontController extends AbstractController
 		]);
 	}
 
+
+	/**
+	 * @Route("/compte/jeux", name="compte_jeux")
+	 */
+	public function jeux()
+	{
+		return $this->render('front/compte_jeux.html.twig');
+	}
+
+
+
 }

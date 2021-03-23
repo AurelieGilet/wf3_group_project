@@ -22,16 +22,17 @@
 
 	<form method="post" class="col-md-5 mx-auto" action="{{ path('security_login') }}">
         <div class="form-group">
-            <label for="_username">Email</label>
-            <input type="email" class="form-control" id="_username" name="_username" value="{{lastUsername}}">
+            <label for="username">Email</label>
+            <input type="email" class="form-control" id="username" name="_username" value="{{lastUsername}}">
         </div>
         <div class="form-group">
-            <label for="_password">Mot de passe</label>
-            <input type="password" class="form-control" id="_password" name="_password">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" name="_password">
         </div>
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <button type="submit" class="btn btn-primary mx-auto">Connexion</button>
 
-		<p>Pas encore de compte ? <a href="{{ path('security_registration') }}">S'inscrire</a></p>
+		<p class="text-center">Pas encore de compte ? <a href="{{ path('security_registration') }}">S'inscrire</a></p>
     </form>	
 
 {% endblock %}
