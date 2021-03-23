@@ -33,43 +33,41 @@
                 <nav>
                     <!-- BURGER MENU -->
                     <button class="d-lg-none p-0" id="burger">
-                        <div class="burger_line"></div>
-                        <div class="burger_line" id="cross_line1"></div>
-                        <div class="burger_line" id="cross_line2"></div>
-                        <div class="burger_line"></div>
+                        <div class="burger_line cross_off"></div>
+                        <div class="burger_line cross_line" id="cross_line1"></div>
+                        <div class="burger_line cross_line" id="cross_line2"></div>
+                        <div class="burger_line cross_off"></div>
+                        <div class="burger_line cross_off"></div>
                     </button>
                     <!-- BURGER MENU -->
 
                     <ul>
-                        <li class="d-flex justify-content-end align-items-center">
-                            <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
-                            <a href="{{ path("catalogue") }}">Catalogue</a>
-                        </li>
-                    
-                        <li class="nav-item dropdown d-flex justify-content-end align-items-center">
-                            <img src="{{ asset('img/my_account.png') }}" alt="icone mon compte" id="account_icon">
-                        {% if app.user %}
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mon Compte</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="">Profil</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="">Emprunts</a>
-                                <a class="dropdown-item" href="">Prêts</a>
-                                <a class="dropdown-item" href="">Ajouter un jeu</a>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="{{ path('security_logout') }}">Déconnexion</a>
-                        {% else %}
-                            <a href="{{ path("security_login") }}">Se connecter / S'inscrire</a>
-                        {% endif %}
-                        </li>
+                        <div>
+                            <li class="d-flex justify-content-start align-items-center">
+                                <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
+                                <a href="{{ path("catalogue") }}" class="nav-link px-2 py-0">Catalogue</a>
+                            </li>
+                            <div class="d-none d-lg-block nav_hover"></div>
+                        </div>
 
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                BackOffice</a>
+                        <div>
+                            <li class="nav-item dropdown d-flex justify-content-start align-items-center">
+                                <img src="{{ asset('img/my_account.png') }}" alt="icone mon compte" id="account_icon">
+                            {% if is_granted("ROLE_USER") %}
+                                <a class="nav-link dropdown-toggle px-2 py-0" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Mon Compte
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="">Profil</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="">Emprunts</a>
+                                    <a class="dropdown-item" href="">Prêts</a>
+                                    <a class="dropdown-item" href="">Ajouter un jeu</a>
+                                </div>
+                            {% elseif is_granted("ROLE_ADMIN") %}
+                                <a class="nav-link dropdown-toggle px-2 py-0" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    BackOffice
+                                </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="">Espace personnalisé</a>
                                     <div class="dropdown-divider"></div>
@@ -77,7 +75,21 @@
                                     <a class="dropdown-item" href="}">Gestion du Catalogue</a>
                                     <a class="dropdown-item" href="}">Gestion des Emprunts</a>
                                 </div>
+                            {% else %}
+                                <a href="{{ path("security_login") }}" class="nav-link px-2 py-0">Se connecter / S'inscrire</a>
+                            {% endif %}
                             </li>
+                            <div class="d-none d-lg-block nav_hover"></div>
+                        </div>
+
+                        {% if app.user %}
+                        <div>
+                            <li class="d-flex justify-content-start align-items-center">
+                                <img src="{{ asset('img/logout.png') }}" alt="icone déconnexion" id="logout_icon">
+                                <a href="{{ path('security_logout') }}" class="nav-link px-2 py-0">Déconnexion</a>
+                            </li>
+                            <div class="d-none d-lg-block nav_hover"></div>
+                        </div>
                         {% endif %}
                     </ul>
                 </nav>

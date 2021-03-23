@@ -5,10 +5,12 @@
 	src: url('../fonts/PatrickHand-Regular.ttf');
 }
 
+/* ********************** BASE ********************** */
+
 html, body, .container, .container-fluid, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
+del, dfn, em, img, input, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
@@ -44,13 +46,67 @@ body {
 }
 
 .container-fluid {
-    min-height: 10vh;
+    min-height: 90vh;
     width: 80%; 
     margin: 0 auto;
     background-color: white; 
     padding: 5vh 4em; 
     border-radius: 10px; 
     box-shadow: rgba(0, 0, 0, 0.6) 0.1em 0.1em 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main {
+    min-height: 60vh;
+}
+
+.h1 {
+    font-size: 3.5vw;
+    color: #8a0030;
+    text-align: center;
+}
+
+label {
+    font-size: 1.4vw;
+    padding: 0 0.5rem;
+}
+
+input {
+    border: none !important;
+    border-bottom: #000a1e solid 3px !important;
+    padding: 0 0.5rem !important;
+}
+
+input:focus {
+    box-shadow: none !important;
+    border-bottom: #f3bc75 solid 3px !important;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+a, a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-jp {
+    max-width: max-content;
+    padding: 0.8vh 0.6em; 
+    border-radius: 5px;
+    border: #8a0030 solid 1px;
+    background-color: #f7cc99; 
+    color: #8a0030;
+    font-size: 1.4vw;
+    align-self: center;
+}
+
+.btn-jp:hover {
+    background-color: #f3bc75;
+    color: #8a0030;
 }
 
 #overlay
@@ -80,6 +136,7 @@ header h2 a {
     font-weight: bold; 
     text-align: center; 
     color: transparent; 
+    background-color: #8a0030;
     background-image: linear-gradient(to top, #001c42, #371950, #67004a, #8a0030, #990000); 
     background-size: 100% 100%; 
     background-clip: text;
@@ -87,16 +144,23 @@ header h2 a {
     -webkit-text-fill-color: transparent;
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
-    background-color: #8a0030;
 }
 
 header a {
-    text-decoration: none;
     font-size: 1.4vw;
 }
 
-header a:hover {
-    text-decoration: none;
+header nav {
+    z-index: 15;
+    position: relative;
+}
+
+.nav_hover {
+    height: 2px;
+    width: 0;
+    margin: 0 auto;
+    background-color: #f3bc75;
+    display: none;
 }
 
 header ul {
@@ -104,26 +168,34 @@ header ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: max-content;
 }
 
 #pawn_icon {
     width: 22px;
     height: 22px;
-    margin: 0 0.5em;
+    margin: 0 0.2em;
 }
 
-#account_icon {
+#account_icon, #logout_icon {
     width: 18px;
     height: 22px;
-    margin: 0 0.5em;
+    margin: 0 0.2em;
 }
 
 header li {
-    margin: 0 1.4em;
+    margin: 0 1em 0.8vh 1em;
+}
+
+header li:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 header li:last-child {
     margin-right: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 nav button {
@@ -148,11 +220,11 @@ nav button {
     height: 4px;
     width: 90%;
     margin: 0 auto;
-    border-radius: 30%;
+    border-radius: 10px;
     background-color: rgb(0, 10, 30);
 }
 
-#cross_line2 {
+.cross_line {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -214,23 +286,11 @@ nav button {
     font-weight: bold;
 }
 
-.home a {
-    max-width: min-content;
-    text-decoration: none; 
-    padding: 1vh 0.6em; 
-    border-radius: 5px;
-    border: #990000 solid 1px;
-    background-color: #f7cc99; 
-    color: #990000;
-    font-size: 1.4vw;
-    align-self: center;
-}
-
-.home a:hover {
-    background-color: #f3bc75;
-}
-
 /* ********************** FIN HOME ********************** */
+
+
+/* ********************** DEBUT LOGIN ********************** */
+
 
 
 
@@ -270,19 +330,32 @@ footer a {
     header a {
         font-size: 1.8vw;
     }
-    #pawn_icon, #account_icon {
+    #pawn_icon, #account_icon, #logout_icon {
         width: 14px;
         height: 15px;
+        margin: 0 0.5em;
     }
     header ul {
         position: absolute;
         right: 0;
+        top: 10vh;
         flex-direction: column;
         align-items: flex-start;
+        background-color: #f7cc99;
+        border-radius: 5px;
+        display: none;
     }
     header li {
+        width: 100%;
         margin: 0;
-        padding: 0.5vh 0;
+        padding: 2vh 1.2rem;
+    }
+    header li:hover {
+        background-color: #f3bc75;
+    }
+    #burger {
+        height: 30px;
+        width: 30px;
     }
     /* ********************** FIN HEADER ********************** */
     
@@ -290,7 +363,7 @@ footer a {
     .home {
         padding: 3vh 2em;
     }
-    .home p, .home a {
+    .home p, .btn-jp {
         font-size: 1.8vw;
     }
     .dices_icon {
@@ -322,19 +395,26 @@ footer a {
     header a {
         font-size: 3vw;
     }
+    #pawn_icon, #account_icon, #logout_icon {
+        margin: 0 0.5em;
+    }
     header ul {
         position: absolute;
         right: 0;
-        top: 4vh;
+        top: 4.5vh;
         flex-direction: column;
         align-items: flex-start;
-        padding: 1.2vh;
         background-color: #f7cc99;
         border-radius: 5px;
+        display: none;
     }
     header li {
+        width: 100%;
         margin: 0;
-        padding: 0.5vh 0;
+        padding: 1.5vh 1.5rem;
+    }
+    header li:hover {
+        background-color: #f3bc75;
     }
     /* ********************** FIN HEADER ********************** */
     
@@ -348,7 +428,7 @@ footer a {
     .dices_icon img {
         margin: 0 0.6em;
     }
-    .home p, .home a {
+    .home p, .btn-jp {
         font-size: 3vw;
     }
     .home p {
@@ -376,12 +456,25 @@ footer a {
     .container-fluid {
         width: 95%;
     }
+    header h2 a {
+        font-size: 4.5vw;
+    }
     header a {
         font-size: 3.5vw;
     }
-    #pawn_icon, #account_icon {
+    #pawn_icon, #account_icon, #logout_icon {
         width: 12px;
         height: 13px;
+    }
+    header li {
+        padding: 1.5vh 1rem;
+    }
+    #burger {
+        height: 25px;
+        width: 25px;
+    }
+    .burger_line {
+        height: 3px;
     }
     /* ********************** FIN HEADER ********************** */
     
@@ -392,7 +485,7 @@ footer a {
     .dices_icon {
         width: 15%;
     }
-    .home p, .home a {
+    .home p, .btn-jp {
         font-size: 3.5vw;
     }
     footer div {
