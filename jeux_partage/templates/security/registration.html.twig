@@ -7,34 +7,17 @@
 
 {% block body %}
    
-         <h2 class="display-4 text-center">Créer votre compte</h2>
+        <h1 class="h1 my-4">Créer votre compte</h1>
 
-   
 {# importer "form_themes: ['bootstrap_4_layout.html.twig']" dans config -> packages -> twig.yaml pr avoir un formulaire bootstrap#}
-        {{ form_start(form, {'attr' : {'class': 'col-md-4 mx-auto' }}) }}
+    {{ form_start(form, {'attr' : {'class': 'col-md-5 mx-auto'}}) }}
 
+        {{ form_row(form.username, {'label' : "Nom d'utilisateur", 'attr' : {'class': 'col-md-12', 'placeholder': "Nom d'utilisateur"}}) }}
+        {{ form_row(form.email, {'attr': {'class': 'col-md-12', 'placeholder': 'Adresse e-mail'}}) }}
+        {{ form_row(form.password, {'label' : 'Mot de passe', 'attr' : {'class': 'col-md-12', 'placeholder' : 'Mot de passe'}}) }}
+        {{ form_row(form.confirm_password, {'label' : 'Confirmation du mot de passe', 'attr' : {'class': 'col-md-12', 'placeholder' : 'Confirmez votre mot de passe'}}) }}
+        <button type="submit" class="btn-jp mx-auto my-4">Créer mon compte</button>
 
-            {{ form_row(form.username, {'label' : "Nom d'utilisateur", 'attr' : {'placeholder': "Nom d'utilisateur" }}) }}
-
-            {{ form_row(form.email, {'attr': {'placeholder': 'Adresse e-mail'}}) }}
-
-            {{ form_row(form.password, {'label' : 'Mot de passe', 'attr' : {'placeholder' : 'Mot de passe'}}) }}
-
-            {{ form_row(form.confirm_password, {'label' : 'Confirmation du mot de passe', 'attr' : {'placeholder' : 'Confirmez votre mot de passe'}}) }}
-
-            <button type="submit" class="btn btn-dark"> Créer mon compte</button>
-    
-        {{ form_end(form) }}
-
-    
-
-
-
-
-
-
-
-
-
+    {{ form_end(form) }}
 
 {% endblock %}
