@@ -13,7 +13,7 @@ C'est un site de mise en relation de personnes qui souhaitent partager leurs jeu
 * [Aurélie Gilet](https://github.com/AurelieGilet)
 * [Céline Saint-Martin](https://github.com/CelineSaintMartin)
 * [Céline Trivier](https://github.com/titiceline)
-* [Véronique Khammisouk](https://github.com/VeroniqueKhammisouk)
+* [Véronique Khammisouk](https://github.com/KhammisoukVeronique)
 
 
 ## Quelles Technos ?

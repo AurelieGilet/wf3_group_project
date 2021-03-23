@@ -10,7 +10,7 @@
          <h2 class="display-4 text-center mt-5">Créer votre compte</h2>
 
 
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'class': 'col-md-8 mx-auto'} }) }}
 
         {{ form_row(form.username, {'label' : "Nom d'utilisateur", 'attr' : {'placeholder': "Nom d'utilisateur"}}) }}
 

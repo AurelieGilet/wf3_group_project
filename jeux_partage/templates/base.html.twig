@@ -43,7 +43,7 @@
                     <ul>
                         <li class="d-flex justify-content-end align-items-center">
                             <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
-                            <a href="">Catalogue</a>
+                            <a href="{{ path("catalogue") }}">Catalogue</a>
                         </li>
                     
                         <li class="nav-item dropdown d-flex justify-content-end align-items-center">
@@ -60,9 +60,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="">Déconnexion</a>
+                            <a href="{{ path('security_logout') }}">Déconnexion</a>
                         {% else %}
-                            <a href="">Se connecter / S'inscrire</a>
+                            <a href="{{ path("security_login") }}">Se connecter / S'inscrire</a>
                         {% endif %}
                         </li>
 
