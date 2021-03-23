@@ -68,6 +68,11 @@ header h2 a {
     background-image: linear-gradient(to top, #001c42, #371950, #67004a, #8a0030, #990000); 
     background-size: 100% 100%; 
     background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    background-color: #8a0030;
 }
 
 header a {
@@ -130,8 +135,12 @@ header li:last-child {
     background-image: linear-gradient(to top, #001c42, #371950, #67004a, #8a0030, #990000); 
     background-size: 100% 100%; 
     background-clip: text;
-    margin-right: 0.1em;
-}
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    background-color: #8a0030;
+    }
 
 .dices_icon {
     width: 13%;
