@@ -6,23 +6,18 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class RegistrationFormType extends AbstractType
+class ProfilFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('username')
-            ->add('email')
-            ->add('password', PasswordType::class)
-            ->add('confirm_password', PasswordType::class)
-            // ->add('roles')
-            // ->add('firstname')
-            // ->add('lastname')
-            // ->add('address')
-            // ->add('zipcode')
-            // ->add('city')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('address')
+            ->add('zipcode')
+            ->add('city')
         ;
     }
 
@@ -30,7 +25,6 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-			'validation_groups' => ['registration']
         ]);
     }
 }

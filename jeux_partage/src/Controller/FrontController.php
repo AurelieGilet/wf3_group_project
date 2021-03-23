@@ -27,7 +27,7 @@ class FrontController extends AbstractController
 
 		
 		// dump($games);
-		return $this->render('front/catalogue.html.twig', [
+		return $this->render('front/catalog.html.twig', [
 			'games' => $games
 		]);
 	}

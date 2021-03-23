@@ -4,7 +4,9 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Form\ProfilFormType;
 use App\Form\RegistrationFormType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +34,10 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword() );
 
             $user->setPassword($hash);
+			
+			$roles = ["ROLE_USER"];
+
+			$user->setRoles($roles);
 
             $manager->persist($user);
             $manager->flush();
@@ -56,10 +62,13 @@ class SecurityController extends AbstractController
 		$error = $authenticationUtils->getLastAuthenticationError();
 		$lastUsername = $authenticationUtils->getLastUsername();
 
+		dump($authenticationUtils);
+
 		return $this->render('security/login.html.twig', [
 			'error' => $error,
 			'lastUsername' => $lastUsername
 		]);
+		
 	}
 
 	/**
@@ -68,6 +77,29 @@ class SecurityController extends AbstractController
 	public function logout()
 	{
 
+	}
+
+	/**
+	 * @Route("/profil/{id}", name="security_profil")
+	 */
+	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user): Response
+	{
+		$form = $this->createForm(ProfilFormType::class, $user);
+		$form->handleRequest($request);
+
+		if($form->isSubmitted() && $form->isValid())
+		{
+			$manager->persist($user);
+			$manager->flush();
+
+			$this->addFlash('success', "Votre profil a bien été mis à jour");
+		}
+
+		return $this->render('security/profil.html.twig', [
+			'form' => $form->createView(),
+			'idUser' => $user->getId()
+		]);
+		
 	}
     
 }
