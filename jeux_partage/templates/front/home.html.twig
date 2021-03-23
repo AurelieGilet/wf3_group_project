@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="home d-flex flex-column justify-content-between">
+        <!-- <img src="{{ asset('img/board-game.jpg') }}" alt="plateau jeu de société" width="100%" height="auto"> -->
+        <div class="d-flex justify-content-center align-items-center">
+            <h1>JEUX PARTAGE</h1>
+            <div class="dices_icon">
+                <img src="{{ asset('img/dices.png') }}" alt="dés de jeux">
+            </div>
+        </div>
+        <p>Vous aimez jouer, partager de bons moments en famille ou entre amis, alors rejoignez JEUX PARTAGE. </p>
+        <p>JEUX PARTAGE est une plateforme basée sur l'échange et mettant en relation les habitants des <span id="yvelines">Yvelines</span> adeptes des jeux de société. Chacun étant libre de proposer ses propres jeux à la location afin que d'autres puissent les emprunter pour s'amuser. </p>
+        <p>Notre concept étant basé sur la convivialité, il convient à tous de respecter les biens d'autrui en prenant en compte que chaque personne est responsable du matériel qu'il emprunte. </p>
+        <p>Nous espérons que vous ferez de belles découvertes dans notre catalogue parmi entre autres des jeux de cartes, mémoire, stratégie ou encore adresse. </p>
+        <p>A vous les longues parties de jeu distrayantes et animées. </p>
+        <p>Alors à vos marques, prêts ? Jouez ! </p>
+        <a href="">Inscription</a>
+    </section>
+{% endblock %}

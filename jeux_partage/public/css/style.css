@@ -1,4 +1,323 @@
-a
-{
-    color: beige;
+@font-face {
+	font-family: 'Henny_Penny';
+	src: url('../fonts/HennyPenny-Regular.ttf');
+	font-family: 'Patrick_Hand';
+	src: url('../fonts/PatrickHand-Regular.ttf');
+}
+
+html, body, .container, .container-fluid, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, .row, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0; 
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box;
+	color: rgb(0, 10, 30);
+	font-family: 'Patrick_Hand', cursive; letter-spacing: 1px;
+}
+
+*::selection{
+	color: white;
+	background: rgb(0, 10, 30)
+}
+
+body {
+    min-height: 100vh;
+    padding: 5vh 0;
+    background-image: url("../img/background.jpg"); 
+    background-size: 120% 120%; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.container-fluid {
+    min-height: 10vh;
+    width: 80%; 
+    margin: 0 auto;
+    background-color: white; 
+    padding: 5vh 4em; 
+    border-radius: 10px; 
+    box-shadow: rgba(0, 0, 0, 0.6) 0.1em 0.1em 1em;
+}
+
+/* ********************** DEBUT HEADER ********************** */
+
+header {
+    margin-bottom: 3.7vh !important;
+}
+
+header h2 a {
+    font-family: 'Henny Penny', cursive; 
+    font-size: 2vw; 
+    font-weight: bold; 
+    text-align: center; 
+    color: transparent; 
+    background-image: linear-gradient(to top, #001c42, #371950, #67004a, #8a0030, #990000); 
+    background-size: 100% 100%; 
+    background-clip: text;
+}
+
+header a {
+    text-decoration: none;
+    font-size: 1.4vw;
+}
+
+header a:hover {
+    text-decoration: none;
+}
+
+header ul {
+    list-style-type: none;
+}
+
+#pawn_icon {
+    width: 22px;
+    height: 22px;
+    margin: 0 0.5em;
+}
+
+#account_icon {
+    width: 18px;
+    height: 22px;
+    margin: 0 0.5em;
+}
+
+header li {
+    margin: 0 1.4em;
+}
+
+header li:last-child {
+    margin-right: 0;
+}
+
+/* ********************** FIN HEADER ********************** */
+
+
+/* ********************** DEBUT HOME ********************** */
+
+.home {
+    height: 100%;
+    padding: 5vh 4em;
+    background-image: url("../img/board-game-light.jpg"); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.home div:first-child {
+    margin-bottom: 2vh;
+}
+
+.home h1 {
+    font-family: 'Henny Penny', cursive; 
+    font-size: 4vw; 
+    font-weight: bold; 
+    text-align: center; 
+    color: transparent; 
+    background-image: linear-gradient(to top, #001c42, #371950, #67004a, #8a0030, #990000); 
+    background-size: 100% 100%; 
+    background-clip: text;
+    margin-right: 0.1em;
+}
+
+.dices_icon {
+    width: 13%;
+}
+
+.dices_icon img {
+    width: 70%;
+    max-width: 80px;
+    height: auto;
+    max-height: 80px;
+    margin: 0 1em;
+}
+
+.home p {
+    font-size: 1.4vw;
+    margin-bottom: 2vh;
+}
+
+#yvelines {
+    font-weight: bold;
+}
+
+.home a {
+    max-width: min-content;
+    text-decoration: none; 
+    padding: 1vh 0.6em; 
+    border-radius: 5px;
+    border: #990000 solid 1px;
+    background-color: #f7cc99; 
+    color: #990000;
+    font-size: 1.4vw;
+    align-self: center;
+}
+
+.home a:hover {
+    background-color: #f3bc75;
+}
+
+/* ********************** FIN HOME ********************** */
+
+
+
+
+/* ********************** DEBUT FOOTER ********************** */
+
+footer {
+    margin-top: 3vh;
+    font-size: 1.2vw;
+}
+
+footer p, footer a, footer div {
+    color: rgb(100, 100, 100);
+}
+
+footer a {
+    margin: 0 1em;
+}
+
+/* ********************** FIN FOOTER ********************** */
+
+
+/* ********************** DEBUT RESPONSIVE ********************** */
+
+@media screen and (max-width: 991.98px) and (orientation: landscape) {  /* < 992 PAYSAGE */
+    .container-fluid {
+        width: 90%; 
+        margin: 0 auto;
+        padding: 2.5vh 2em; 
+    }
+    header {
+        margin-bottom: 2.5vh !important;
+    }
+    header h2 a {
+        font-size: 2.4vw;
+    }
+    header a {
+        font-size: 1.8vw;
+    }
+    #pawn_icon, #account_icon {
+        width: 14px;
+        height: 15px;
+    }
+    header li {
+        margin: 0 0.8em;
+    }
+    /* ********************** FIN HEADER ********************** */
+    
+    /* ********************** DEBUT HOME ********************** */
+    .home {
+        padding: 3vh 2em;
+    }
+    .home p, .home a {
+        font-size: 1.8vw;
+    }
+    .dices_icon {
+        width: 10%;
+    }
+    .dices_icon img {
+        margin: 0 0.6em;
+    }
+    /* ********************** FIN HOME ********************** */
+    
+    /* ********************** DEBUT FOOTER ********************** */
+    footer {
+        font-size: 1.3vw !important;
+    }
+}
+
+@media screen and (max-width: 991.98px) and (orientation: portrait) {   /* < 992 PORTRAIT */
+    .container-fluid {
+        width: 90%; 
+        margin: 0 auto;
+        padding: 2.5vh; 
+    }
+    header {
+        margin-bottom: 2.5vh !important;
+    }
+    header h2 a {
+        font-size: 4vw;
+    }
+    header a {
+        font-size: 3vw;
+    }
+    header li {
+        margin: 0 0.8em;
+    }
+    /* ********************** FIN HEADER ********************** */
+    
+    /* ********************** DEBUT HOME ********************** */
+    .home {
+        padding: 3vh 2em;
+    }
+    .home h1 {
+        font-size: 6vw;
+    }
+    .dices_icon img {
+        margin: 0 0.6em;
+    }
+    .home p, .home a {
+        font-size: 3vw;
+    }
+    .home p {
+        margin-bottom: 2.5vh;
+    }
+    /* ********************** FIN HOME ********************** */
+    
+    /* ********************** DEBUT FOOTER ********************** */
+    footer {
+        margin-top: 2.5vh;
+        font-size: 2.2vw !important;
+		flex-wrap: wrap;
+    }
+    footer p, footer div {
+        width: 100%;
+        text-align: center;
+    }
+    footer p {
+        margin-bottom: 0.5vh;
+    }
+
+}
+
+@media screen and (max-width: 575.98px) and (orientation: portrait) {   /* < 576 PORTRAIT */
+    .container-fluid {
+        width: 95%;
+    }
+    header a {
+        font-size: 3.5vw;
+    }
+    #pawn_icon, #account_icon {
+        width: 12px;
+        height: 13px;
+    }
+    /* ********************** FIN HEADER ********************** */
+    
+    /* ********************** DEBUT HOME ********************** */
+    .home {
+        padding: 3vh 1em;
+    }
+    .dices_icon {
+        width: 15%;
+    }
+    .home p, .home a {
+        font-size: 3.5vw;
+    }
+    footer div {
+        font-size: 2.5vw;
+    }
 }
