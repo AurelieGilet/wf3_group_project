@@ -80,7 +80,7 @@ class SecurityController extends AbstractController
 	}
 
 	/**
-	 * @Route("/profil/{id}", name="security_profil")
+	 * @Route("/compte/profil/{id}", name="security_profil")
 	 */
 	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user): Response
 	{

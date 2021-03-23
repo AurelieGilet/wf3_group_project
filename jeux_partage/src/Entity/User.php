@@ -95,16 +95,31 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir votre prénom",
+	 * 		groups={"profil"}
+	 * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir votre nom",
+	 * 		groups={"profil"}
+	 * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir votre adresse",
+	 * 		groups={"profil"}
+	 * )
      */
     private $address;
 
