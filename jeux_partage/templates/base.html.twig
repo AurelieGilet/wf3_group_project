@@ -10,6 +10,8 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{asset('bootstrap-4.6.0-dist/css/bootstrap.min.css')}}">
             <link rel="stylesheet" href="{{asset('css/style.css')}}">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap">
         {% endblock %}
         <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}"/>
         <title>{% block title %}Jeux Partage{% endblock %}</title>
@@ -17,17 +19,68 @@
 
 
     <body>
-        <header>
+        <div class="container-fluid">
+            <header class="row align-items-center justify-content-between">
+                <div class="col-lg-5 col-8 d-flex justify-content-start align-items-center p-0">
+                    <h2><a href="{{ path("home") }}">JEUX PARTAGE</a></h2>
+                    <div class="dices_icon">
+                        <img src="{{ asset('img/dices.png') }}" alt="dés de jeux">
+                    </div>
+                </div>
 
-        </header>
+                <nav>
+                    <ul class="d-flex justify-content-between align-items-center">
+                        <li class="d-flex justify-content-end align-items-center">
+                            <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
+                            <a href="">Catalogue</a>
+                        </li>
+                    
+                        <li class="nav-item dropdown d-flex justify-content-end align-items-center">
+                            <img src="{{ asset('img/my_account.png') }}" alt="icone mon compte" id="account_icon">
+                        {% if app.user %}
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mon Compte</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="">Profil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="">Emprunts</a>
+                                <a class="dropdown-item" href="">Prêts</a>
+                                <a class="dropdown-item" href="">Ajouter un jeu</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="">Déconnexion</a>
+                        {% else %}
+                            <a href="">Se connecter / S'inscrire</a>
+                        {% endif %}
+                        </li>
 
-        <main class="container-fluid">
-            {% block body %}{% endblock %}
-        </main>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                BackOffice</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="">Espace personnalisé</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="">Gestion des Membres</a>
+                                    <a class="dropdown-item" href="}">Gestion du Catalogue</a>
+                                    <a class="dropdown-item" href="}">Gestion des Emprunts</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
 
-        <footer>
+            <main>
+                {% block body %}{% endblock %}
+            </main>
 
-        </footer>
+            <footer class="d-flex justify-content-between align-items-center">
+                <p>&copy; 2021 créé par Aurélie, Véronique, Céline et Céline - Tous droits réservés</p>
+                <div><a href="">Mentions légales et CGU</a> | <a href="">Contact</a></div>
+            </footer>
+        </div>
     </body>
 
 
