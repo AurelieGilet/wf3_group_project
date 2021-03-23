@@ -15,6 +15,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * 		fields={"email"},
  * 		message="Un compte existe déjà avec cette adresse email !"
  * )
+ * @UniqueEntity(
+ * 		fields={"username"},
+ * 		message="Ce nom d'utilisateur existe déjà !"
+ * )
+ * 
  */
 class User implements UserInterface
 {
@@ -38,11 +43,13 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir une adresse email !"
+	 * 		message="Merci de saisir une adresse email !",
+	 * 		groups={"registration"}
 	 * )
 	 * 
 	 * @Assert\Email(
-	 * 		message="Merci de saisir une adresse email valide !"
+	 * 		message="Merci de saisir une adresse email valide !",
+	 * 		groups={"registration"}
 	 * )
      */
     private $email;
@@ -52,26 +59,31 @@ class User implements UserInterface
 	 * 
      * @Assert\Length(
 	 * 		min="7", 
-	 * 		minMessage="Votre mot de passe doit faire au moins 7 caractères"
+	 * 		minMessage="Votre mot de passe doit faire au moins 7 caractères",
+	 * 		groups={"registration"}
 	 * )
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir un mot de passe"
+	 * 		message="Merci de saisir un mot de passe",
+	 * 		groups={"registration"}
 	 * )
      * @Assert\EqualTo(
      * 		propertyPath="confirm_password",
-     *      message="Les mots de passe ne sont pas identiques"
+     *      message="Les mots de passe ne sont pas identiques",
+	 * 		groups={"registration"}
      * )
      */
     private $password;
 
     /**
 	 * @Assert\NotBlank(
-	 * 		message="Merci de confirmer le mot de passe"
+	 * 		message="Merci de confirmer le mot de passe",
+	 * 		groups={"registration"}
 	 * )
      * @Assert\EqualTo(
      * 		propertyPath="password",
-     *      message="Les mots de passe ne sont pas identiques"
+     *      message="Les mots de passe ne sont pas identiques",
+	 * 		groups={"registration"}
      * )
      */
     public $confirm_password;
@@ -98,11 +110,18 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * 
+	 * @Assert\Regex(
+     *     pattern="/^78[0-9]{3}/",
+     *     match=false,
+     *     message="Votre code postal doit commencer par 78"
+	 * )
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * 
      */
     private $city;
 
@@ -162,7 +181,7 @@ class User implements UserInterface
 
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         // return ['ROLE_USER'];
 		return $this->roles;

@@ -42,6 +42,7 @@
                     <!-- BURGER MENU -->
 
                     <ul>
+
                         <div>
                             <li class="d-flex justify-content-start align-items-center">
                                 <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
@@ -49,6 +50,48 @@
                             </li>
                             <div class="d-none d-lg-block nav_hover"></div>
                         </div>
+
+                        <li class="d-flex justify-content-end align-items-center">
+                            <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Catalogue</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path("catalogue") }}">Catalogue</a>
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item">Jeux par catégorie : </a>
+                                <a class="dropdown-item" href="">Cartes</a>
+                                <a class="dropdown-item" href="">Stratégie</a>
+                                <a class="dropdown-item" href="">Connaissance</a>
+                                <a class="dropdown-item" href="">Adresse</a>
+                                <a class="dropdown-item" href="">Coopération</a> 
+                                <a class="dropdown-item" href="">Logique</a>
+                                <a class="dropdown-item" href="">Lettre</a>
+                                <a class="dropdown-item" href="">Dés</a>
+                                <a class="dropdown-item" href="">Mémoire</a>                               
+
+                            </div>
+                        </li>
+                    
+                        <li class="nav-item dropdown d-flex justify-content-end align-items-center">
+                            <img src="{{ asset('img/my_account.png') }}" alt="icone mon compte" id="account_icon">
+                        {% if app.user %}
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mon Compte</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path("security_profil", {'id': app.user.id}) }}">Profil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="">Emprunts</a>
+                                <a class="dropdown-item" href="">Prêts</a>
+                                <a class="dropdown-item" href="">Ajouter un jeu</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{ path('security_logout') }}">Déconnexion</a>
+                        {% else %}
+                            <a href="{{ path("security_login") }}">Se connecter / S'inscrire</a>
+                        {% endif %}
+                        </li>
 
                         <div>
                             <li class="nav-item dropdown d-flex justify-content-start align-items-center">
@@ -72,8 +115,8 @@
                                     <a class="dropdown-item" href="">Espace personnalisé</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="">Gestion des Membres</a>
-                                    <a class="dropdown-item" href="}">Gestion du Catalogue</a>
-                                    <a class="dropdown-item" href="}">Gestion des Emprunts</a>
+                                    <a class="dropdown-item" href="">Gestion du Catalogue</a>
+                                    <a class="dropdown-item" href="">Gestion des Emprunts</a>
                                 </div>
                             {% else %}
                                 <a href="{{ path("security_login") }}" class="nav-link px-2 py-0">Se connecter / S'inscrire</a>
