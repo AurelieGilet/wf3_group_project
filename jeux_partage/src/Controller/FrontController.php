@@ -25,6 +25,7 @@ class FrontController extends AbstractController
 	{
 		$games = $gameRepo->findAll();
 
+		
 		// dump($games);
 		return $this->render('front/catalogue.html.twig', [
 			'games' => $games
