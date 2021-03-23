@@ -20,6 +20,8 @@
 
     <body>
         <div class="container-fluid">
+            <div id="overlay"></div>
+            
             <header class="row align-items-center justify-content-between">
                 <div class="col-lg-5 col-8 d-flex justify-content-start align-items-center p-0">
                     <h2><a href="{{ path("home") }}">JEUX PARTAGE</a></h2>
@@ -29,10 +31,19 @@
                 </div>
 
                 <nav>
-                    <ul class="d-flex justify-content-between align-items-center">
+                    <!-- BURGER MENU -->
+                    <button class="d-lg-none p-0" id="burger">
+                        <div class="burger_line"></div>
+                        <div class="burger_line" id="cross_line1"></div>
+                        <div class="burger_line" id="cross_line2"></div>
+                        <div class="burger_line"></div>
+                    </button>
+                    <!-- BURGER MENU -->
+
+                    <ul>
                         <li class="d-flex justify-content-end align-items-center">
                             <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
-                            <a href="">Catalogue</a>
+                            <a href="{{ path("catalogue") }}">Catalogue</a>
                         </li>
                     
                         <li class="nav-item dropdown d-flex justify-content-end align-items-center">
@@ -49,9 +60,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="">Déconnexion</a>
+                            <a href="{{ path('security_logout') }}">Déconnexion</a>
                         {% else %}
-                            <a href="">Se connecter / S'inscrire</a>
+                            <a href="{{ path("security_login") }}">Se connecter / S'inscrire</a>
                         {% endif %}
                         </li>
 

@@ -13,6 +13,7 @@
 {# importer "form_themes: ['bootstrap_4_layout.html.twig']" dans config -> packages -> twig.yaml pr avoir un formulaire bootstrap#}
         {{ form_start(form, {'attr' : {'class': 'col-md-4 mx-auto' }}) }}
 
+
             {{ form_row(form.username, {'label' : "Nom d'utilisateur", 'attr' : {'placeholder': "Nom d'utilisateur" }}) }}
 
             {{ form_row(form.email, {'attr': {'placeholder': 'Adresse e-mail'}}) }}

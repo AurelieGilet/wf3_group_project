@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    
     /**
      * @Route("/inscription", name="security_registration")
      */
@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
 
-        dump($request);
+        // dump($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -36,6 +36,10 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
+			$this->addFlash('success', "Votre compte a bien été créé");
+
+			return $this->redirectToRoute('security_login');
+
         }
 
         return $this->render('security/registration.html.twig', [
@@ -43,5 +47,27 @@ class SecurityController extends AbstractController
         ]);
 
     }
+
+	/**
+	 * @Route("/connexion", name="security_login")
+	 */
+	public function login(AuthenticationUtils $authenticationUtils): Response
+	{
+		$error = $authenticationUtils->getLastAuthenticationError();
+		$lastUsername = $authenticationUtils->getLastUsername();
+
+		return $this->render('security/login.html.twig', [
+			'error' => $error,
+			'lastUsername' => $lastUsername
+		]);
+	}
+
+	/**
+	 * @Route("/deconnexion", name="security_logout")
+	 */
+	public function logout()
+	{
+
+	}
     
 }
