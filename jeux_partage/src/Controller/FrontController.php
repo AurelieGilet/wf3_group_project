@@ -34,7 +34,7 @@ class FrontController extends AbstractController
 	public function catalogue(GameRepository $gameRepo): Response
 	{
 		$games = $gameRepo->findAll();
-
+		dump($games);
 		
 		// dump($games);
 		return $this->render('front/catalog.html.twig', [
@@ -72,7 +72,7 @@ class FrontController extends AbstractController
 	}
 
 	/**
-	 * @Route("/compte/jeux/new", name="account_games_create")
+	 * @Route("/compte/jeux/nouveau", name="account_games_create")
 	 * 
 	 */
 	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager,Game $game = null, User $user = null): Response
@@ -83,6 +83,7 @@ class FrontController extends AbstractController
 
 		$form = $this->createForm(GameFormType::class, $game);
 		$form->handleRequest($request);
+		dd($request);
 
 		if($form->isSubmitted() && $form->isValid())
 		{
