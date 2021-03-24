@@ -23,7 +23,8 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User;
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user, [ 'validation_groups' => ['registration'] 
+	]);
 
         $form->handleRequest($request);
 
@@ -80,11 +81,15 @@ class SecurityController extends AbstractController
 	}
 
 	/**
-	 * @Route("/compte/profil/{id}", name="security_profil")
+	 * @Route("/compte/profil", name="security_profil")
 	 */
-	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user): Response
+	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user = null): Response
 	{
-		$form = $this->createForm(ProfilFormType::class, $user);
+		$user = $this->getUser();
+
+		$form = $this->createForm(ProfilFormType::class, $user, [
+			'validation_groups' => ['profil'] 
+		]);
 		$form->handleRequest($request);
 
 		if($form->isSubmitted() && $form->isValid())
@@ -96,8 +101,7 @@ class SecurityController extends AbstractController
 		}
 
 		return $this->render('security/profil.html.twig', [
-			'form' => $form->createView(),
-			'idUser' => $user->getId()
+			'form' => $form->createView()
 		]);
 		
 	}

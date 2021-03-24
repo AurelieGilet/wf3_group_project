@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 22 mars 2021 à 21:20
+-- Généré le : mer. 24 mars 2021 à 12:13
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 7.4.15
 
@@ -110,7 +110,7 @@ CREATE TABLE `user` (
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
   `firstname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -122,17 +122,18 @@ CREATE TABLE `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `role`, `firstname`, `lastname`, `address`, `zipcode`, `city`) VALUES
-(1, 'Admin', 'admin@mail.com', 'admin', '[\"ROLE_ADMIN\"]', NULL, NULL, NULL, NULL, NULL),
-(2, 'Rififi', 'f.chatel@mail.com', 'password', '[\"ROLE_USER\"]', 'Franck', 'Chatel', '20 Rue Saint-Roch', 78200, 'Mantes-la-Jolie'),
-(3, 'Gallinette', 'gaelle.mercier@mail.com', 'password', '[\"ROLE_USER\"]', 'Gaelle', 'Mercier', '2 Rue de l\'Abbé Duval', 78130, 'Les Mureaux'),
-(4, 'Floflo', 'flo.pruvost@mail.com', 'password', '[\"ROLE_USER\"]', 'Florian', 'Pruvost', '32 Rue François Truffaut', 78370, 'Plaisir'),
-(5, 'Tilie', 'tilie78@mail.com', 'password', '[\"ROLE_USER\"]', 'Mathilde', 'Drouet', '2 Rue Thierry le Luron', 78180, 'Montigny-le-Bretonneux'),
-(6, 'Enzo', 'enzonimo@mail.com', 'password', '[\"ROLE_USER\"]', 'Enzo', 'Bisson', '5 Avenue Toulouse Lautrec', 78390, 'Bois-d\'Arcy'),
-(7, 'Aymé', 'aymeric.neveu@mail.com', 'password', '[\"ROLE_USER\"]', 'Aymeric', 'Neveu', '15 Rue Borgnis Desbordes', 78000, 'Versailles'),
-(8, 'Nissa', 'nissa@mail.com', 'password', '[\"ROLE_USER\"]', 'Anissa ', 'LeCorre', '17 Rue Clément Ader', 78140, 'Vélizy-Villacoublay'),
-(9, 'Karim', 'karim.maes@mail.com', 'password', '[\"ROLE_USER\"]', 'Karim', 'Maes', '14-34 Rue Costes et Bellonte', 78220, 'Viroflay'),
-(10, 'Didine', 'didine78@mail.com', 'password', '[\"ROLE_USER\"]', 'Amandine', 'Toutain', '23 Rue Wauthier', 78100, 'Saint-Germain-en-Laye');
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `roles`, `firstname`, `lastname`, `address`, `zipcode`, `city`) VALUES
+(1, 'Admin', 'admin@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_ADMIN\"]', NULL, NULL, NULL, NULL, NULL),
+(2, 'Rififi', 'f.chatel@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Franck', 'Chatel', '20 Rue Saint-Roch', 78200, 'Mantes-la-Jolie'),
+(3, 'Gallinette', 'gaelle.mercier@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Gaelle', 'Mercier', '2 Rue de l\'Abbé Duval', 78130, 'Les Mureaux'),
+(4, 'Floflo', 'flo.pruvost@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Florian', 'Pruvost', '32 Rue François Truffaut', 78370, 'Plaisir'),
+(5, 'Tilie', 'tilie78@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Mathilde', 'Drouet', '2 Rue Thierry le Luron', 78180, 'Montigny-le-Bretonneux'),
+(6, 'Enzo', 'enzonimo@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Enzo', 'Bisson', '5 Avenue Toulouse Lautrec', 78390, 'Bois-d\'Arcy'),
+(7, 'Aymé', 'aymeric.neveu@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Aymeric', 'Neveu', '15 Rue Borgnis Desbordes', 78000, 'Versailles'),
+(8, 'Nissa', 'nissa@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Anissa ', 'LeCorre', '17 Rue Clément Ader', 78140, 'Vélizy-Villacoublay'),
+(9, 'Karim', 'karim.maes@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Karim', 'Maes', '14-34 Rue Costes et Bellonte', 78220, 'Viroflay'),
+(10, 'Didine', 'didine78@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Amandine', 'Toutain', '23 Rue Wauthier', 78100, 'Saint-Germain-en-Laye'),
+(11, 'Test', 'test@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'test', 'test', '10 rue machin', 74654, 'paris');
 
 --
 -- Index pour les tables déchargées
@@ -186,7 +187,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Contraintes pour les tables déchargées

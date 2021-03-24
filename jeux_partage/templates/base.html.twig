@@ -55,7 +55,7 @@
                                         Jeux par Catégories
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="">Cartes</a>
+                                        <a class="dropdown-item" href="{{ path("catalogue", {'category': 'cartes'}) }}">Cartes</a>
                                         <a class="dropdown-item" href="">Stratégie</a>
                                         <a class="dropdown-item" href="">Connaissance</a>
                                         <a class="dropdown-item" href="">Adresse</a>
@@ -78,18 +78,18 @@
                                     Mon Compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">Profil</a>
+                                    <a class="dropdown-item" href="{{ path("security_profil") }}">Profil</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="">Emprunts</a>
                                     <a class="dropdown-item" href="">Prêts</a>
-                                    <a class="dropdown-item" href="">Ajouter un jeu</a>
+                                    <a class="dropdown-item" href="{{ path("account_games") }}">Vos jeux</a>
                                 </div>
                             {% elseif is_granted("ROLE_ADMIN") %}
                                 <a class="nav-link dropdown-toggle px-2 py-0" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     BackOffice
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">Espace personnalisé</a>
+                                    <a class="dropdown-item" href="">BackOffice</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="">Gestion des Membres</a>
                                     <a class="dropdown-item" href="">Gestion du Catalogue</a>

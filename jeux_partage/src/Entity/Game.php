@@ -84,6 +84,7 @@ class Game
 
     public function setCategory(string $category): self
     {
+		
         $this->category = $category;
 
         return $this;
