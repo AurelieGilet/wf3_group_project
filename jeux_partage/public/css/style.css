@@ -329,6 +329,33 @@ nav button {
     color: #8a0030;
 }
 
+/* ********************** BORDER CARDS CATALOGUE & DETAIL  ********************** */
+
+.border-dark
+{
+    border-width:2px !important;
+
+}
+
+/* ********************** BORDER AFFICHAGE PROFIL & INSCRIPTION ********************** */
+.border
+{
+    border: 3px solid black !important;
+    border-radius: 15px;
+
+}
+
+/* ********************** BACKGROUND PROFIL + REGISTRATION ********************** */
+.background_profil 
+{
+    background-image: url("../img/cartes-jouer-70797.jpg");
+    
+}
+.background_registation
+{
+    background-image: url("../img/jeux-de-societe.jpg");
+    background-size: cover;
+}
 
 
 /* ********************** DEBUT FOOTER ********************** */
