@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block  title %}
+    Mes Jeux
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="display-4 text-center my-5">
+	
+	Enregistrer un jeux
+	
+	</h1>
+
+	{{ form_start(form, {'attr' : {'class': 'col-md-8 mx-auto' }}) }}
+
+		{{ form_row(form.name, {'label' : "Nom du jeu", 'attr' : {'placeholder': "Nom du jeu" }}) }}
+
+		{{ form_row(form.category, {'label' : "Catégorie"}) }}
+
+		{{ form_row(form.public, {'label' : "Age"}) }}
+
+		{{ form_row(form.minPlayers, {'label' : "Nombre de joueurs minimum"}) }}
+
+		{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs maximum"}) }}
+
+		{{ form_row(form.description, {'label' : "Règle du jeu"}) }}
+
+		{{ form_row(form.image, {'label' : "Photo du jeu (taille max: 2Mo)", 'attr' : {'placeholder': "selectionnez une image au format jpg, jpeg ou png" }}) }}
+
+		<button type="submit" class="btn btn-dark">Enregistrer le jeu</button>
+
+	{{ form_end(form) }}
+
+
+{% endblock %}
