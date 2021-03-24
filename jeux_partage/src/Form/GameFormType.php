@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Game;
+use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,42 +20,34 @@ class GameFormType extends AbstractType
     {
         $builder
             ->add('name')
-            // ->add('category', EntityType::class, [
-			// 	'class' => Game::class, 
-			// 	'query_builder' => function (GameRepository $gameRepo) {
-			// 		return $gameRepo->createQueryBuilder('game')->groupBy('game.category')->distinct(true);
-			// 	},
-			// 	'choice_label' => 'category'
-			// ])
-			// ->add('public', EntityType::class, [
-			// 	'class' => Game::class,
-			// 	'query_builder' => function (GameRepository $gameRepo) {
-			// 		return $gameRepo->createQueryBuilder('game')->groupBy('game.public')->distinct(true);
-			// 	},
-			// 	'choice_label' => 'public'
-			// ])
-			->add('category', ChoiceType::class, [
-				'choices' => [
-					'Adresse' => 'adresse',
-					'Cartes' => 'cartes',
-					'Connaissance' => 'connaissance',
-					'Coopération' => 'cooperation',
-					'Dés' => 'des',
-					'Lettres' => 'lettres',
-					'Logique' => 'logique',
-					'Statégie' => 'strategie',
-				],
-
+            ->add('category', EntityType::class, [
+				'class' => Category::class, 
+				'choice_label' => 'name'
 			])
+			
+			// ->add('category', ChoiceType::class, [
+			// 	'choices' => [
+			// 		'Adresse' => 'adresse',
+			// 		'Cartes' => 'cartes',
+			// 		'Connaissance' => 'connaissance',
+			// 		'Coopération' => 'cooperation',
+			// 		'Dés' => 'des',
+			// 		'Lettres' => 'lettres',
+			// 		'Logique' => 'logique',
+			// 		'Statégie' => 'strategie',
+			// 	],
+
+			// ])
+
 			->add('public', ChoiceType::class, [
 				'choices' => [
 					'6 ans et +' => '6+',
 					'8 ans et +' => '8+',
 					'10 ans et +' => '10+',
+					'12 ans et +' => '12+',
 				],
 
 			])
-            
             ->add('minPlayers')
             ->add('maxPlayers')
             ->add('description')
