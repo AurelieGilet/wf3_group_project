@@ -47,7 +47,7 @@ body {
 
 .container-fluid {
     min-height: 90vh;
-    width: 80%; 
+    width: 85%; 
     margin: 0 auto;
     background-color: white; 
     padding: 5vh 4em; 
@@ -63,17 +63,19 @@ main {
 }
 
 .h1 {
-    font-size: 3.5vw;
+    font-size: 3.2vw;
     color: #8a0030;
     text-align: center;
 }
 
 label {
     font-size: 1.4vw;
-    padding: 0 0.5rem;
+    font-style: italic;
+    padding: 0 0.1rem;
 }
 
 input {
+    font-size: 1.4vw;
     border: none !important;
     border-bottom: #000a1e solid 3px !important;
     padding: 0 0.5rem !important;
@@ -82,6 +84,10 @@ input {
 input:focus {
     box-shadow: none !important;
     border-bottom: #f3bc75 solid 3px !important;
+}
+
+.form-group {
+	margin-bottom: 1.5rem;
 }
 
 .form-control {
@@ -150,6 +156,10 @@ header a {
     font-size: 1.4vw;
 }
 
+header a:last-child {
+    padding-right: 0 !important;
+}
+
 header nav {
     z-index: 15;
     position: relative;
@@ -187,15 +197,39 @@ header li {
     margin: 0 1em 0.8vh 1em;
 }
 
-header li:first-child {
+header li:first-child, .dropdown-menu .dropdown-item:first-child, header li:first-child:hover, .dropdown-menu .dropdown-item:first-child:hover {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
-header li:last-child {
-    margin-right: 0;
+header li:last-child, .dropdown-menu .dropdown-item:last-child, #navbarDropdown1, header li:last-child:hover, .dropdown-menu .dropdown-item:last-child:hover, #navbarDropdown1:hover {
+    margin-right: 0 !important;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+header li:hover, #navbarDropdown1:hover, .dropdown-item:hover {
+    color: #8a0030;
+}
+
+.dropdown-menu {
+    background-color: #f7cc99;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.dropdown-divider {
+    margin: 0;
+    border-top: 1px solid #f3bc75;
+}
+
+#navbarDropdown1, .dropdown-item {
+    box-sizing: border-box;
+    padding: 2vh 1.2rem !important;
+}
+
+#navbarDropdown1:hover, .dropdown-item:hover {
+    background-color: #f3bc75;
 }
 
 nav button {
@@ -291,7 +325,9 @@ nav button {
 
 /* ********************** DEBUT LOGIN ********************** */
 
-
+#ici {
+    color: #8a0030;
+}
 
 
 
@@ -304,6 +340,10 @@ footer {
 
 footer p, footer a, footer div {
     color: rgb(100, 100, 100);
+}
+
+footer p {
+    font-style: italic;
 }
 
 footer a {
@@ -352,6 +392,7 @@ footer a {
     }
     header li:hover {
         background-color: #f3bc75;
+        border-radius: 5px;
     }
     #burger {
         height: 30px;
@@ -415,6 +456,7 @@ footer a {
     }
     header li:hover {
         background-color: #f3bc75;
+        border-radius: 5px;
     }
     /* ********************** FIN HEADER ********************** */
     
