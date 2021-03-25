@@ -32,6 +32,9 @@ class RegistrationFormType extends AbstractType
             // ->add('address')
             // ->add('zipcode')
             // ->add('city')
+			->add('save', SubmitType::class, [
+				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
+			])
         ;
     }
 

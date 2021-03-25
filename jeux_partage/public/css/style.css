@@ -7,7 +7,7 @@
 
 /* ********************** BASE ********************** */
 
-html, body, .container, .container-fluid, div, span, applet, object, iframe,
+html, body, button, .container, .container-fluid, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, input, ins, kbd, q, s, samp,
@@ -29,6 +29,10 @@ time, mark, audio, video {
 	box-sizing: border-box;
 	color: rgb(0, 10, 30);
 	font-family: 'Patrick_Hand', cursive; letter-spacing: 0.5px;
+}
+
+select, option {
+    letter-spacing: 0.5px !important;
 }
 
 *::selection{
@@ -63,16 +67,19 @@ main {
 }
 
 .h1 {
-    font-size: 2.6rem;
+    font-size: 3rem;
     color: #8a0030;
     text-align: center;
+}
+
+.bg-msg {
+    background-color: rgb(240, 240, 240);
 }
 
 label {
     font-size: 1.2rem;
     padding: 0 0.1rem;
 }
-
 
 input, select, .custom-file-label {
     font-size: 1.2rem !important;
@@ -91,7 +98,7 @@ textarea {
     border-color: rgba(0, 10, 30, 0.9) !important;
 }
 
-textarea:focus {
+textarea:focus, .btn:focus, .custom-file-label:focus, .custom-file-input:focus {
     box-shadow: none !important;
 }
 
@@ -99,9 +106,18 @@ textarea:focus {
 	margin-bottom: 1.5rem;
 }
 
-.form-control {
+.form-control, select, option, .custom-file-label {
     border-radius: 0;
     color: rgb(100, 100, 100);
+}
+
+.custom-file-label::after {
+    content: "";
+    background-image: url(../img/icone_loupe.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    width: 15%;
 }
 
 .form-control:focus-visible {
@@ -387,6 +403,16 @@ nav button {
     color : #8a0030;
 }
 
+.md-pl-15px {
+    padding-left: 15px;
+}
+
+@media screen and (max-width: 767.98px) {
+    .md-pl-15px {
+        padding-left: 0;
+    }
+}
+
 /* ********************** CARDS CATALOGUE & DETAIL GAME ********************** */
 
 .border-dark
@@ -471,7 +497,7 @@ footer a {
     header h2 a {
         font-size: 1.2rem;
     }
-    header a, .home p, .btn-jp, label, input, select {
+    header a, .home p, .btn-jp, label, input, select, .custom-file-label {
         font-size: 1.1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
@@ -546,7 +572,7 @@ footer a {
     header h2 a {
         font-size: 1.8rem !important;
     }
-    header a, .home p, .btn-jp, label, input, select {
+    header a, .home p, .btn-jp, label, input, select, .custom-file-label {
         font-size: 1.4rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
@@ -627,7 +653,7 @@ footer a {
     header h2 a {
         font-size: 1.2rem !important;
     }
-    header a, .home p, .btn-jp, label, input, select {
+    header a, .home p, .btn-jp, label, input, select, .custom-file-label {
         font-size: 1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
