@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProfilFormType extends AbstractType
 {
@@ -31,6 +32,9 @@ class ProfilFormType extends AbstractType
             ->add('city', TextType::class, [
                 'row_attr' => ['class' => 'col-lg-5']
             ])
+			->add('save', SubmitType::class, [
+				'row_attr' => ['class' => 'col-lg-12 justify-content-center']
+			])
         ;
     }
 

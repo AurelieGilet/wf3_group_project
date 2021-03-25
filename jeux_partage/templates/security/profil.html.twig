@@ -27,8 +27,7 @@
 				{{ form_row(form.address, {'label' : "Adresse", 'attr' : {'placeholder': "adresse" }}) }}
 				{{ form_row(form.zipcode, {'label' : "Code postal (Yvelines)", 'attr' : {'placeholder': "code postal" }}) }}
 				{{ form_row(form.city, {'label' : "Ville", 'attr' : {'placeholder': "ville" }}) }}
-
-				<button type="submit" class="btn-jp mx-auto mt-4 mb-3">Modifier mon profil</button>
+				{{ form_row(form.save, {'label' : "Modifier mon profil", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
 
 			{{ form_end(form) }}
 		</div>
