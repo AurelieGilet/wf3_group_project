@@ -487,6 +487,35 @@ nav button {
 
 }
 
+/* ********************** LISTE DE VOS JEUX ********************** */
+.size-title-account_games
+{
+    font-size: 3.5rem;
+    color: #8a0030;
+    text-align: center;
+}
+
+#photo_account_games img
+{
+    height: 150px;
+    width: auto;
+
+}
+
+#photo_account_games
+{
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+
+}
+
+.size-name
+{
+    font-size: 1.6rem;
+    padding-top: 5px;
+
+}
 
 
 
@@ -741,10 +770,9 @@ footer a {
 
     .size-card
     {
-        width: 80%;
+        width: 90%;
+        padding:0;
         
-        
-
     }
     
 
