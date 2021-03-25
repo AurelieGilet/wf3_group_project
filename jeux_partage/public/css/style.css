@@ -28,7 +28,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	box-sizing: border-box;
 	color: rgb(0, 10, 30);
-	font-family: 'Patrick_Hand', cursive; letter-spacing: 1px;
+	font-family: 'Patrick_Hand', cursive; letter-spacing: 0.5px;
 }
 
 *::selection{
@@ -59,7 +59,7 @@ body {
 }
 
 main {
-    min-height: 60vh;
+    min-height: 50vh;
 }
 
 .h1 {
@@ -73,7 +73,8 @@ label {
     padding: 0 0.1rem;
 }
 
-input {
+
+input, select, .custom-file-label {
     font-size: 1.2rem !important;
     border: none !important;
     border-bottom: #000a1e solid 3px !important;
@@ -81,9 +82,17 @@ input {
     font-style: italic;
 }
 
-input:focus {
+input:focus, select:focus {
     box-shadow: none !important;
     border-bottom: #f3bc75 solid 3px !important;
+}
+
+textarea {
+    border-color: rgba(0, 10, 30, 0.9) !important;
+}
+
+textarea:focus {
+    box-shadow: none !important;
 }
 
 .form-group {
@@ -374,8 +383,8 @@ nav button {
     margin: 2em 3em;
 }
 
-#ici {
-    color: #8a0030;
+#ici:hover {
+    color : #8a0030;
 }
 
 /* ********************** BORDER CARDS CATALOGUE & DETAIL  ********************** */
@@ -383,27 +392,6 @@ nav button {
 .border-dark
 {
     border-width:2px !important;
-
-}
-
-/* ********************** BORDER AFFICHAGE PROFIL & INSCRIPTION ********************** */
-.border
-{
-    border: 3px solid black !important;
-    border-radius: 15px;
-
-}
-
-/* ********************** BACKGROUND PROFIL + REGISTRATION ********************** */
-.background_profil 
-{
-    background-image: url("../img/cartes-jouer-70797.jpg");
-    
-}
-.background_registation
-{
-    background-image: url("../img/jeux-de-societe.jpg");
-    background-size: cover;
 }
 
 /* ********************** DEBUT FOOTER ********************** */
@@ -445,7 +433,7 @@ footer a {
     header h2 a {
         font-size: 1.2rem;
     }
-    header a, .home p, .btn-jp, label, input {
+    header a, .home p, .btn-jp, label, input, select {
         font-size: 1.1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
@@ -519,7 +507,7 @@ footer a {
     header h2 a {
         font-size: 1.8rem !important;
     }
-    header a, .home p, .btn-jp, label, input {
+    header a, .home p, .btn-jp, label, input, select {
         font-size: 1.4rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
@@ -569,7 +557,7 @@ footer a {
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         margin-top: 2.5vh;
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
 		flex-wrap: wrap;
     }
     footer p, footer div {
@@ -592,7 +580,7 @@ footer a {
     header h2 a {
         font-size: 1.2rem !important;
     }
-    header a, .home p, .btn-jp, label, input {
+    header a, .home p, .btn-jp, label, input, select {
         font-size: 1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
@@ -615,13 +603,16 @@ footer a {
     .home {
         padding: 3vh 1em;
     }
+    .home h1 {
+        font-size: 1.6rem;
+    }
     .dices_icon {
         width: 15%;
     }
     footer div, footer p {
         font-size: 0.7rem;
     }
-    .p_login {
+    .p_login, .p_profil {
         font-size: 0.8rem;
         margin: 1.8em;
     }

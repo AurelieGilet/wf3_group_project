@@ -83,7 +83,7 @@ class FrontController extends AbstractController
 
 		$form = $this->createForm(GameFormType::class, $game);
 		$form->handleRequest($request);
-		dd($request);
+		// dd($request);
 
 		if($form->isSubmitted() && $form->isValid())
 		{

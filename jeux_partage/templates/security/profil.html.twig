@@ -7,40 +7,30 @@
 
 {% block body %}
    
-	<h2 class="h1 display-4 text-center">Votre profil</h2>
+	<h1 class="h1 mt-3 mb-4">Votre profil</h1>
 
-	<p class="text-center my-3">Pour pouvoir emprunter et enregistrer des jeux, votre profil doit être entièrement complété.</p>
+	<p class="text-center my-4 font-italic p_profil">Pour pouvoir emprunter et enregistrer des jeux, votre profil doit être <span style="text-decoration: underline;">entièrement complété</span></p>
 
 	{% for message in app.flashes('success') %}
         <div class="col-md-3 bg-success p-4 rounded mx-auto text-center text-white mb-3">
         {{message}}
         </div>
     {% endfor %}	
-
-	
 		
 	<section class="row justify-content-center">
-		
-			<div class="border col-md-10  background_profil">
-			{{ form_start(form, {'attr': {'class': 'col-md-6 mx-auto py-4'}}) }}
+		<div class="col-md-10">
+			{{ form_start(form, {'attr': {'class': 'col-md-12 mx-auto py-4 row justify-content-around'}}) }}
 
 				{{ form_row(form.username, {'label' : "Nom d'utilisateur", 'attr' : {'placeholder': "Nom d'utilisateur"}} ) }}
-
 				{{ form_row(form.lastname, {'label' : "Nom",'attr': {'placeholder': 'Nom'}}) }}
-
 				{{ form_row(form.firstname, {'label' : "Prénom", 'attr' : {'placeholder': "Prénom" }}) }}
-
 				{{ form_row(form.address, {'label' : "Adresse", 'attr' : {'placeholder': "adresse" }}) }}
-
-				{{ form_row(form.zipcode, {'label' : "Code postal (doit être dans les yvelines)", 'attr' : {'placeholder': "code postal" }}) }}
-
+				{{ form_row(form.zipcode, {'label' : "Code postal (Yvelines)", 'attr' : {'placeholder': "code postal" }}) }}
 				{{ form_row(form.city, {'label' : "Ville", 'attr' : {'placeholder': "ville" }}) }}
 
-				<button type="submit" class="btn-jp mb-4">Modifier mon profil</button>
+				<button type="submit" class="btn-jp mx-auto mt-4 mb-3">Modifier mon profil</button>
 
 			{{ form_end(form) }}
-		
-			</div>
-		
+		</div>
 	</section>
 {% endblock %}

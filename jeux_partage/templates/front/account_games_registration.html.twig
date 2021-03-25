@@ -6,31 +6,24 @@
 
 {% block body %}
 
-	<h1 class="display-4 text-center my-5">
-	
-	Enregistrer un jeux
-	
-	</h1>
+	<h1 class="h1 mt-3 mb-4">Enregistrer un jeux</h1>
 
-	{{ form_start(form, {'attr' : {'class': 'col-md-8 mx-auto' }}) }}
+	<section class="row justify-content-center">
+        <div class="col-md-10">
+			{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around' }}) }}
 
-		{{ form_row(form.name, {'label' : "Nom du jeu", 'attr' : {'placeholder': "Nom du jeu" }}) }}
+				{{ form_row(form.name, {'label' : "Nom du jeu", 'attr' : {'placeholder': "Nom du jeu" }}) }}
+				{{ form_row(form.category, {'label' : "Catégorie"}) }}
+				{{ form_row(form.minPlayers, {'label' : "Nombre de joueurs min"}) }}
+				{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs max"}) }}
+				{{ form_row(form.public, {'label' : "Age"}) }}
+				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "Format jpg, jpeg ou png" }}) }}
+				{{ form_row(form.description, {'label' : "Règle du jeu"}) }}
 
-		{{ form_row(form.category, {'label' : "Catégorie"}) }}
+				<button type="submit" class="btn-jp mx-auto mt-4 mb-3">Enregistrer le jeu</button>
 
-		{{ form_row(form.public, {'label' : "Age"}) }}
-
-		{{ form_row(form.minPlayers, {'label' : "Nombre de joueurs minimum"}) }}
-
-		{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs maximum"}) }}
-
-		{{ form_row(form.description, {'label' : "Règle du jeu"}) }}
-
-		{{ form_row(form.image, {'label' : "Photo du jeu (taille max: 2Mo)", 'attr' : {'placeholder': "selectionnez une image au format jpg, jpeg ou png" }}) }}
-
-		<button type="submit" class="btn btn-dark">Enregistrer le jeu</button>
-
-	{{ form_end(form) }}
-
+			{{ form_end(form) }}
+        </div>
+    </section>
 
 {% endblock %}
