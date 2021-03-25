@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block  title %}
+    Emprunts
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="h1 mt-3 mb-4">Emprunter {{ game.name }}</h1>
+
+	{% for message in app.flashes('success') %}
+        <div class="col-md-3 bg-success p-4 rounded mx-auto text-center text-white mb-3">
+        {{message}}
+        </div>
+    {% endfor %}
+
+	<div class="col-md-10 mx-auto shadow border-dark">
+		<div class="d-flex justify-content-between align-items-center">
+			<div id="photo" class="w-50 p-3 text-center">
+				<img src="{{ asset('uploads/images/' ~ game.image)}}" alt="{{game.name}}">
+			</div>
+			<div class="w-50 p-3 d-flex flex-column justify-content-beetween align-items-center">
+				<p>Catégorie : {{game.category.name}}</p>
+				<hr class="border-dark">
+				<p>Age: {{game.public}}</p>
+				<hr class="border-dark">
+				<p>Nombre de joueurs : {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
+				<hr class="border-dark">
+				<p>Ville de location : {{game.owner.city}}</p>
+			</div>
+		</div>
+		<p class="p-3">Règle du jeu : {{game.description}}</p>
+	</div>
+
+	<p class="my-3 text-center">Les jeux sont empruntables pour une durée d'1 mois consécutif maximum.</p><br>
+
+	{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around' }}) }}
+		
+		<div class="col-lg-3 text-center">L'emprunt commence le : {{ startDate|date("d/m/Y") }}</div>
+		<div class="col-lg-3 text-center">A rendre au plus tard le : {{ endDate|date("d/m/Y") }}</div>
+
+		{{ form_row(form.save, {'label' : "Emprunter", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
+
+	{{ form_end(form) }}
+
+{% endblock %}

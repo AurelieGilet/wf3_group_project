@@ -8,27 +8,25 @@
 
 {% block body %}
 
-    <h1 class="h1 mt-3 mb-4">{{ detail.name }}</h1>
+    <h1 class="h1 mt-3 mb-4">{{ game.name }}</h1>
 
 		<div class="col-md-6 mx-auto">
 			<div class="card mb-4 shadow border-dark">
-				<img src="{{ asset('uploads/images/' ~ detail.image)}}" alt="{{detail.name}}">
+				<img src="{{ asset('uploads/images/' ~ game.image)}}" alt="{{game.name}}">
 				<div class="card-body">
-					<h4 class="text-center size-game-name">{{detail.name}}</h4>
-					<p class="card-text">Règle du jeu : {{detail.description}}</p>
+					<h4 class="text-center size-game-name">{{game.name}}</h4>
+					<p class="card-text">Règle du jeu : {{game.description}}</p>
 					<hr class="border-dark">
-					<p class="card-text">Catégorie : {{detail.category.name}}</p>
+					<p class="card-text">Catégorie : {{game.category.name}}</p>
 					<hr class="border-dark">
-					<p class="card-text">Age: {{detail.public}}</p>
+					<p class="card-text">Age: {{game.public}}</p>
 					<hr class="border-dark">
-					<p class="card-text">Nombre de joueurs : {{detail.minPlayers}} {% if detail.maxPlayers != NULL %} à {{detail.maxPlayers}} {% endif %}</p>
+					<p class="card-text">Nombre de joueurs : {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
 					<hr class="border-dark">
-					<p class="card-text">Ville de location : {{detail.owner.city}}</p>
+					<p class="card-text">Ville de location : {{game.owner.city}}</p>
 					<hr class="border-dark">
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<a href="" class="btn-jp mb-4">Louer</a>
-						</div>
+					<div class="d-flex justify-content-center align-items-center">
+						<a href="{{ path('borrowing', {'id': game.id}) }}" class="btn-jp mb-4">Emprunter</a>
 					</div>
 				</div>
 			</div>
