@@ -387,11 +387,49 @@ nav button {
     color : #8a0030;
 }
 
-/* ********************** BORDER CARDS CATALOGUE & DETAIL  ********************** */
+/* ********************** CARDS CATALOGUE & DETAIL GAME ********************** */
 
 .border-dark
 {
     border-width:2px !important;
+}
+
+.card-text
+{
+    font-size: 1.2rem;
+}
+
+.size-title
+{
+    font-size: 4.3rem;  
+
+}
+
+.size-game-name
+{
+    font-size: 2.8rem;
+
+}
+
+
+/* ********************** BORDER AFFICHAGE PROFIL & INSCRIPTION ********************** */
+.border
+{
+    border: 3px solid black !important;
+    border-radius: 15px;
+
+}
+
+/* ********************** BACKGROUND PROFIL + REGISTRATION ********************** */
+.background_profil 
+{
+    background-image: url("../img/cartes-jouer-70797.jpg");
+    
+}
+.background_registation
+{
+    background-image: url("../img/jeux-de-societe.jpg");
+    background-size: cover;
 }
 
 /* ********************** DEBUT FOOTER ********************** */
@@ -486,6 +524,7 @@ footer a {
         margin: 1.5em;
     }
 
+   
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         font-size: 0.7rem !important;
@@ -554,6 +593,14 @@ footer a {
         margin: 1em;
     }
 
+     /* ********************** SIZE CATALOG TITLE  & TITLE DETAIL ********************** */
+
+     .size-title
+     {
+         font-size: 3.5rem;
+     }
+
+   
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         margin-top: 2.5vh;
@@ -616,4 +663,19 @@ footer a {
         font-size: 0.8rem;
         margin: 1.8em;
     }
+    /* ********************** SIZE CATALOG TITLE & SIZE DETAIL TITLE GAME ********************** */
+
+    .size-title
+    {
+        font-size: 2.5rem;
+    }
+
+    .size-game-name
+    {
+        font-size: 2.2rem;
+
+    }
+
+
 }
+

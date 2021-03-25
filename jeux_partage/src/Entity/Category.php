@@ -25,7 +25,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Game::class, mappedBy="yes", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Game::class, mappedBy="category", orphanRemoval=true)
      */
     private $games;
 

@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 
 class GameFormType extends AbstractType
@@ -54,21 +56,25 @@ class GameFormType extends AbstractType
 				],
 				'row_attr' => ['class' => 'col-lg-5']
 			])
-            ->add('minPlayers', TextType::class, [
-                'row_attr' => ['class' => 'col-lg-5']
-            ])
-            ->add('maxPlayers', TextType::class, [
-                'row_attr' => ['class' => 'col-lg-5']
-            ])
-            ->add('description', TextareaType::class, [
-                'row_attr' => ['class' => 'col-11']
-            ])
-            ->add('image')
+
+      ->add('minPlayers', TextType::class, [
+          'row_attr' => ['class' => 'col-lg-5']
+      ])
+      ->add('maxPlayers', TextType::class, [
+          'required' => false,
+          'row_attr' => ['class' => 'col-lg-5']
+      ])
+      ->add('description', TextareaType::class, [
+          'row_attr' => ['class' => 'col-11']
+      ])
+      ->add('image')
+
 			->add('image', FileType::class, [
 				'row_attr' => ['class' => 'col-lg-5'],
 				'label' => "Photo du jeu",
-				'mapped' => true, 
+				'mapped' => false, 
 				'required' => false, 
+				'data_class' => null,
 				'constraints' => [ 
 					new File([
 						'maxSize' => '2M',
@@ -89,6 +95,7 @@ class GameFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Game::class,
+			'validation_groups' => ['game_registration']
         ]);
     }
 }
