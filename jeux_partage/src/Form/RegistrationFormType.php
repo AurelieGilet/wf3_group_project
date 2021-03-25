@@ -15,16 +15,16 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'row_attr' => ['class' => 'col-md-5']
+                'row_attr' => ['class' => 'col-lg-5']
             ])
             ->add('email', TextType::class, [
-                'row_attr' => ['class' => 'col-md-5']
+                'row_attr' => ['class' => 'col-lg-5']
             ])
             ->add('password', PasswordType::class, [
-                'row_attr' => ['class' => 'col-md-5']
+                'row_attr' => ['class' => 'col-lg-5']
             ])
             ->add('confirm_password', PasswordType::class, [
-                'row_attr' => ['class' => 'col-md-5']
+                'row_attr' => ['class' => 'col-lg-5']
             ])
             // ->add('roles')
             // ->add('firstname')

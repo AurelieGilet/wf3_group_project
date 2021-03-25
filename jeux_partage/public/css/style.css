@@ -63,22 +63,22 @@ main {
 }
 
 .h1 {
-    font-size: 3.2vw;
+    font-size: 2.6rem;
     color: #8a0030;
     text-align: center;
 }
 
 label {
-    font-size: 1.4vw;
-    font-style: italic;
+    font-size: 1.2rem;
     padding: 0 0.1rem;
 }
 
 input {
-    font-size: 1.4vw;
+    font-size: 1.2rem !important;
     border: none !important;
     border-bottom: #000a1e solid 3px !important;
     padding: 0 0.5rem !important;
+    font-style: italic;
 }
 
 input:focus {
@@ -92,6 +92,11 @@ input:focus {
 
 .form-control {
     border-radius: 0;
+    color: rgb(100, 100, 100);
+}
+
+.form-control:focus-visible {
+	text-shadow: none;
 }
 
 a, a:hover {
@@ -102,11 +107,12 @@ a, a:hover {
 .btn-jp {
     max-width: max-content;
     padding: 0.8vh 0.6em; 
+    margin-top: 1em !important;
     border-radius: 5px;
     border: #8a0030 solid 1px;
     background-color: #f7cc99; 
     color: #8a0030;
-    font-size: 1.4vw;
+    font-size: 1.2rem;
     align-self: center;
 }
 
@@ -138,7 +144,8 @@ header {
 
 header h2 a {
     font-family: 'Henny Penny', cursive; 
-    font-size: 2vw; 
+    font-size: 1.8rem; 
+    white-space: nowrap;
     font-weight: bold; 
     text-align: center; 
     color: transparent; 
@@ -152,8 +159,45 @@ header h2 a {
     -moz-text-fill-color: transparent;
 }
 
+.shake:hover {
+    -webkit-animation-name: shake;
+    animation-name: shake;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    }
+    @-webkit-keyframes shake {
+    0%, 100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    }
+    15%, 45%, 75% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-3px, 0, 0);
+    }
+    30%, 60%, 90% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(3px, 0, 0);
+    }
+    }
+    @keyframes shake {
+    0%, 100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    }
+    15%, 45%, 75% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-3px, 0, 0);
+    }
+    30%, 60%, 90% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(3px, 0, 0);
+    }
+}
+
 header a {
-    font-size: 1.4vw;
+    font-size: 1.1rem;
 }
 
 header a:last-child {
@@ -184,17 +228,17 @@ header ul {
 #pawn_icon {
     width: 22px;
     height: 22px;
-    margin: 0 0.2em;
+    margin: 0 0.15em;
 }
 
 #account_icon, #logout_icon {
     width: 18px;
     height: 22px;
-    margin: 0 0.2em;
+    margin: 0 0.15em;
 }
 
 header li {
-    margin: 0 1em 0.8vh 1em;
+    margin: 0 0.5em 0.8vh 0.5em;
 }
 
 header li:first-child, .dropdown-menu .dropdown-item:first-child, header li:first-child:hover, .dropdown-menu .dropdown-item:first-child:hover {
@@ -203,7 +247,6 @@ header li:first-child, .dropdown-menu .dropdown-item:first-child, header li:firs
 }
 
 header li:last-child, .dropdown-menu .dropdown-item:last-child, #navbarDropdown1, header li:last-child:hover, .dropdown-menu .dropdown-item:last-child:hover, #navbarDropdown1:hover {
-    margin-right: 0 !important;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -285,7 +328,8 @@ nav button {
 
 .home h1 {
     font-family: 'Henny Penny', cursive; 
-    font-size: 4vw; 
+    font-size: 3.6rem; 
+    white-space: nowrap;
     font-weight: bold; 
     text-align: center; 
     color: transparent; 
@@ -300,7 +344,7 @@ nav button {
     }
 
 .dices_icon {
-    width: 13%;
+    width: 14%;
 }
 
 .dices_icon img {
@@ -312,7 +356,7 @@ nav button {
 }
 
 .home p {
-    font-size: 1.4vw;
+    font-size: 1.2rem;
     margin-bottom: 2vh;
 }
 
@@ -324,6 +368,11 @@ nav button {
 
 
 /* ********************** DEBUT LOGIN ********************** */
+
+.p_login {
+    font-style: italic; 
+    margin: 2em 3em;
+}
 
 #ici {
     color: #8a0030;
@@ -357,12 +406,11 @@ nav button {
     background-size: cover;
 }
 
-
 /* ********************** DEBUT FOOTER ********************** */
 
 footer {
     margin-top: 3vh;
-    font-size: 1.2vw;
+    font-size: 0.9rem;
 }
 
 footer p, footer a, footer div {
@@ -374,7 +422,7 @@ footer p {
 }
 
 footer a {
-    margin: 0 1em;
+    margin-left: 1em;
 }
 
 /* ********************** FIN FOOTER ********************** */
@@ -388,14 +436,17 @@ footer a {
         margin: 0 auto;
         padding: 2.5vh 2em; 
     }
+    .h1 {
+        font-size: 2rem !important;
+    }
     header {
         margin-bottom: 2.5vh !important;
     }
     header h2 a {
-        font-size: 2.4vw;
+        font-size: 1.2rem;
     }
-    header a {
-        font-size: 1.8vw;
+    header a, .home p, .btn-jp, label, input {
+        font-size: 1.1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
         width: 14px;
@@ -431,8 +482,8 @@ footer a {
     .home {
         padding: 3vh 2em;
     }
-    .home p, .btn-jp {
-        font-size: 1.8vw;
+    .home h1 {
+        font-size: 2.2rem;
     }
     .dices_icon {
         width: 10%;
@@ -442,9 +493,14 @@ footer a {
     }
     /* ********************** FIN HOME ********************** */
     
+    .p_login {
+        font-size: 1rem;
+        margin: 1.5em;
+    }
+
     /* ********************** DEBUT FOOTER ********************** */
     footer {
-        font-size: 1.3vw !important;
+        font-size: 0.7rem !important;
     }
 }
 
@@ -454,14 +510,17 @@ footer a {
         margin: 0 auto;
         padding: 2.5vh; 
     }
+    .h1 {
+        font-size: 2.7rem;
+    }
     header {
         margin-bottom: 2.5vh !important;
     }
     header h2 a {
-        font-size: 4vw;
+        font-size: 1.8rem !important;
     }
-    header a {
-        font-size: 3vw;
+    header a, .home p, .btn-jp, label, input {
+        font-size: 1.4rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
         margin: 0 0.5em;
@@ -492,23 +551,25 @@ footer a {
         padding: 3vh 2em;
     }
     .home h1 {
-        font-size: 6vw;
+        font-size: 2.8rem;
     }
     .dices_icon img {
         margin: 0 0.6em;
-    }
-    .home p, .btn-jp {
-        font-size: 3vw;
     }
     .home p {
         margin-bottom: 2.5vh;
     }
     /* ********************** FIN HOME ********************** */
-    
+
+    .p_login {
+        font-size: 1rem;
+        margin: 1em;
+    }
+
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         margin-top: 2.5vh;
-        font-size: 2.2vw !important;
+        font-size: 1.2rem !important;
 		flex-wrap: wrap;
     }
     footer p, footer div {
@@ -525,11 +586,14 @@ footer a {
     .container-fluid {
         width: 95%;
     }
-    header h2 a {
-        font-size: 4.5vw;
+    .h1 {
+        font-size: 1.8rem;
     }
-    header a {
-        font-size: 3.5vw;
+    header h2 a {
+        font-size: 1.2rem !important;
+    }
+    header a, .home p, .btn-jp, label, input {
+        font-size: 1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
         width: 12px;
@@ -554,10 +618,11 @@ footer a {
     .dices_icon {
         width: 15%;
     }
-    .home p, .btn-jp {
-        font-size: 3.5vw;
+    footer div, footer p {
+        font-size: 0.7rem;
     }
-    footer div {
-        font-size: 2.5vw;
+    .p_login {
+        font-size: 0.8rem;
+        margin: 1.8em;
     }
 }

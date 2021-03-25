@@ -20,7 +20,7 @@ $(document).ready(function() {
     // nav_hover
     $("header li").on("mouseenter", function() {
         $(this).siblings().css({"display" : "block"});
-        $(this).siblings().animate({"width" : "80%"});
+        $(this).siblings().animate({"width" : "84%"});
     });
     $("header li").on("mouseleave", function() {
         $(this).siblings().css({"display" : "none"});
