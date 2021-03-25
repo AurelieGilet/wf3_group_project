@@ -3,16 +3,17 @@
 namespace App\Form;
 
 use App\Entity\Game;
-use App\Repository\CategoryRepository;
+use App\Entity\Category;
 use App\Repository\GameRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class GameFormType extends AbstractType
 {
@@ -49,13 +50,15 @@ class GameFormType extends AbstractType
 
 			])
             ->add('minPlayers')
-            ->add('maxPlayers')
+            ->add('maxPlayers', IntegerType::class, [
+				'required' => false
+			])
             ->add('description')
-            ->add('image')
 			->add('image', FileType::class, [
 				'label' => "Photo du jeu",
-				'mapped' => true, 
+				'mapped' => false, 
 				'required' => false, 
+				'data_class' => null,
 				'constraints' => [ 
 					new File([
 						'maxSize' => '2M',
@@ -76,6 +79,7 @@ class GameFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Game::class,
+			'validation_groups' => ['game_registration']
         ]);
     }
 }
