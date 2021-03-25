@@ -405,10 +405,19 @@ nav button {
 
 }
 
+.size-title-detail
+{
+    font-size: 3.5rem;
+    color: #8a0030;
+    text-align: center;
+
+}
+
 .size-game-name
 {
     font-size: 2.5rem;
 	line-height: 2.5rem;
+    margin-bottom:0.4rem;
 
 }
 
@@ -435,25 +444,25 @@ nav button {
 }
 
 
-/* ********************** BORDER AFFICHAGE PROFIL & INSCRIPTION ********************** */
-.border
+#photo-detail img
 {
-    border: 3px solid black !important;
-    border-radius: 15px;
+    height: 300px;
+    width: auto;
 
 }
 
-/* ********************** BACKGROUND PROFIL + REGISTRATION ********************** */
-.background_profil 
+#photo-detail
 {
-    background-image: url("../img/cartes-jouer-70797.jpg");
-    
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+    overflow-x: hidden;
+	border: solid white 10px;
+
 }
-.background_registation
-{
-    background-image: url("../img/jeux-de-societe.jpg");
-    background-size: cover;
-}
+
+
+
 
 /* ********************** DEBUT FOOTER ********************** */
 
@@ -552,6 +561,8 @@ footer a {
     footer {
         font-size: 0.7rem !important;
     }
+
+     
 }
 
 @media screen and (max-width: 991.98px) and (orientation: portrait) {   /* < 992 PORTRAIT */
@@ -620,10 +631,10 @@ footer a {
 
      .size-title
      {
-         font-size: 3.5rem;
+        font-size: 3.5rem;
      }
 
-   
+    
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         margin-top: 2.5vh;
@@ -639,6 +650,7 @@ footer a {
     }
 
 }
+
 
 @media screen and (max-width: 575.98px) and (orientation: portrait) {   /* < 576 PORTRAIT */
     .container-fluid {
@@ -686,19 +698,29 @@ footer a {
         font-size: 0.8rem;
         margin: 1.8em;
     }
-    /* ********************** SIZE CATALOG TITLE & SIZE DETAIL TITLE GAME ********************** */
+    /* ********************** SIZE CATALOG/DETAIL TITLE & SIZE DETAIL TITLE GAME ********************** */
 
-    .size-title
+    .size-title, .size-title-detail
     {
         font-size: 2.5rem;
     }
 
     .size-game-name
     {
-        font-size: 2.2rem;
+        font-size: 2rem;
 
     }
 
+    /* ********************** SIZE CARD CATALOG ********************** */
+
+    .size-card
+    {
+        width: 80%;
+        
+        
+
+    }
+    
 
 }
 
