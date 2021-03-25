@@ -23,12 +23,7 @@ class Game
     private $name;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('adresse', 'memoire', 'cartes', 'connaissance', 'des', 'lettres', 'logique', 'strategie', 'cooperation')")
-     */
-    private $category;
-
-    /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('6+', '8+', '10+')")
+     * @ORM\Column(type="string", length=255)
      */
     private $public;
 
@@ -58,6 +53,12 @@ class Game
      */
     private $owner;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
 
 
     public function getId(): ?int
@@ -73,18 +74,6 @@ class Game
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -157,6 +146,18 @@ class Game
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
