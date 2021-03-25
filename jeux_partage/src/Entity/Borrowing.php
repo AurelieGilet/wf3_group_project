@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\BorrowingRepository;
+use App\Entity\Game;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BorrowingRepository;
 
 /**
  * @ORM\Entity(repositoryClass=BorrowingRepository::class)
