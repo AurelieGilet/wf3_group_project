@@ -7,6 +7,9 @@ $(document).ready(function() {
         $("#cross_line1").animate({"rotate" : "-45deg",
                                 "translate" : "1.5px"});
         $("#cross_line2").animate({"rotate" : "45deg"});
+        $("#cross_line1").css({"rotate" : "-45deg",
+                                "translate" : "1.5px"});
+        $("#cross_line2").css({"rotate" : "45deg"});
         $("#overlay").fadeToggle(500);
         $("header ul").fadeToggle(500);
     });
@@ -15,6 +18,9 @@ $(document).ready(function() {
             $(".cross_line").css({"background-color" : "#f7cc99"})
         else
             $(".cross_line").css({"background-color" : "#000a1e"})
+    });
+    $('#overlay').click(function(){
+        $('#burger').trigger('click');
     });
 
     // nav_hover
@@ -41,5 +47,13 @@ $(document).ready(function() {
     // $("input").focus(function() {
     //     $(this).css({"border-bottom" : "rgb(0, 10, 30) solid 3px"})
     // });
+
+    // affichage nom fichier photo jeu
+    $('.custom-file-input').on('change', function(event) {
+        var inputFile = event.currentTarget;
+        $(inputFile).parent()
+            .find('.custom-file-label')
+            .html(inputFile.files[0].name);
+    });
 
 });

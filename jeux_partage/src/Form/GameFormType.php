@@ -14,8 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 
 
@@ -57,17 +58,17 @@ class GameFormType extends AbstractType
 				'row_attr' => ['class' => 'col-lg-5']
 			])
 
-      ->add('minPlayers', TextType::class, [
-          'row_attr' => ['class' => 'col-lg-5']
-      ])
-      ->add('maxPlayers', TextType::class, [
-          'required' => false,
-          'row_attr' => ['class' => 'col-lg-5']
-      ])
-      ->add('description', TextareaType::class, [
-          'row_attr' => ['class' => 'col-11']
-      ])
-      ->add('image')
+			->add('minPlayers', TextType::class, [
+				'row_attr' => ['class' => 'col-lg-5']
+			])
+			->add('maxPlayers', TextType::class, [
+				'required' => false,
+				'row_attr' => ['class' => 'col-lg-5']
+			])
+			->add('description', TextareaType::class, [
+				'row_attr' => ['class' => 'col-lg-11']
+			])
+			->add('image')
 
 			->add('image', FileType::class, [
 				'row_attr' => ['class' => 'col-lg-5'],
@@ -82,12 +83,18 @@ class GameFormType extends AbstractType
 							'image/jpeg',
 							'image/png',
 							'image/jpg',
+							'image/JPEG',
+							'image/PNG',
+							'image/JPG',
 						],
 						'mimeTypesMessage' => "Types de fichiers acceptés : jpg, jpeg et png"
 					])
 				]
 			])
-            // ->add('owner')
+			// ->add('owner')
+			->add('save', SubmitType::class, [
+				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
+			])
         ;
     }
 
