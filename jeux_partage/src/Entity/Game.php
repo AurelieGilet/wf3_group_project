@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\GameRepository;
+use App\Entity\User;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\GameRepository;
 
 /**
  * @ORM\Entity(repositoryClass=GameRepository::class)
@@ -19,16 +22,31 @@ class Game
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir un nom de jeu",
+	 * 		groups={"game_registration"}
+	 * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci d'indiquer à partir de quel age ce jeu est accessible",
+	 * 		groups={"game_registration"}
+	 * )
      */
     private $public;
 
     /**
      * @ORM\Column(type="integer")
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci d'indiquer le nombre de joueur minimum",
+	 * 		groups={"game_registration"}
+	 * )
      */
     private $minPlayers;
 
@@ -39,11 +57,17 @@ class Game
 
     /**
      * @ORM\Column(type="text")
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de renseigner la règle du jeu",
+	 * 		groups={"game_registration"}
+	 * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * 
      */
     private $image;
 

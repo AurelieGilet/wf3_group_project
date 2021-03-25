@@ -34,7 +34,7 @@ class FrontController extends AbstractController
 	public function catalogue(GameRepository $gameRepo): Response
 	{
 		$games = $gameRepo->findAll();
-		dump($games);
+		// dump($games);
 		
 		// dump($games);
 		return $this->render('front/catalog.html.twig', [
@@ -61,7 +61,7 @@ class FrontController extends AbstractController
 	{
 		$user = $this->getUser();
 
-		dump($user);
+		// dump($user);
 	
 		$games = $gameRepo->findBy(array('owner' => $user));
 		dump($games);
@@ -73,27 +73,29 @@ class FrontController extends AbstractController
 
 	/**
 	 * @Route("/compte/jeux/nouveau", name="account_games_create")
+	 * @Route("/compte/jeux/edit/{id}", name="account_games_edit")
 	 * 
 	 */
 	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager,Game $game = null, User $user = null): Response
 	{
 		$user = $this->getUser();
 
-		$game = new Game;
+		if(!$game)
+		{
+			$game = new Game;
+		}
 
 		$form = $this->createForm(GameFormType::class, $game);
 		$form->handleRequest($request);
-		//dd($request);
 
 		if($form->isSubmitted() && $form->isValid())
 		{
-			$gameName = $game->getName();
-
 			/** @var UploadedFile $imageFile */
 			$imageFile = $form->get('image')->getData();
 
 			if($imageFile)
 			{
+				$gameName = $game->getName();
 				$safeFilename = $slugger->slug($gameName);
 				$filename = $safeFilename.'-'.uniqid().'-'.$imageFile->guessExtension();
 				try {
@@ -104,15 +106,24 @@ class FrontController extends AbstractController
 				} catch (FileException $e) {
 					
 				}
+				$game->setImage($filename);
 			}
-
-			$game->setImage($filename);
+			
 			$game->setOwner($user);
+
+			if(!$game->getId())
+			{
+				$message = "Le jeu " . $game->getName() . " a bien été ajouté à votre compte";
+			}
+			else
+			{
+				$message = "Le jeu " . $game->getName() . " a bien été modifié";
+			}
 
 			$manager->persist($game);
 			$manager->flush();
 
-			$this->addFlash('success', "Le jeu a bien été ajouté à votre compte !");
+			$this->addFlash('success', $message);
 
 			return $this->redirectToRoute('account_games');
 
