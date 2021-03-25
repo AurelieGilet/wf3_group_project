@@ -12,8 +12,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 
 class GameFormType extends AbstractType
@@ -21,10 +24,13 @@ class GameFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, [
+                'row_attr' => ['class' => 'col-lg-5']
+            ])
             ->add('category', EntityType::class, [
 				'class' => Category::class, 
-				'choice_label' => 'name'
+				'choice_label' => 'name',
+				'row_attr' => ['class' => 'col-lg-5']
 			])
 			
 			// ->add('category', ChoiceType::class, [
@@ -48,14 +54,23 @@ class GameFormType extends AbstractType
 					'10 ans et +' => '10+',
 					'12 ans et +' => '12+',
 				],
+				'row_attr' => ['class' => 'col-lg-5']
+			])
 
-			])
-            ->add('minPlayers')
-            ->add('maxPlayers', IntegerType::class, [
-				'required' => false
-			])
-            ->add('description')
+      ->add('minPlayers', TextType::class, [
+          'row_attr' => ['class' => 'col-lg-5']
+      ])
+      ->add('maxPlayers', TextType::class, [
+          'required' => false,
+          'row_attr' => ['class' => 'col-lg-5']
+      ])
+      ->add('description', TextareaType::class, [
+          'row_attr' => ['class' => 'col-11']
+      ])
+      ->add('image')
+
 			->add('image', FileType::class, [
+				'row_attr' => ['class' => 'col-lg-5'],
 				'label' => "Photo du jeu",
 				'mapped' => false, 
 				'required' => false, 

@@ -6,10 +6,10 @@
 
 {% block body %}
 
-	<h1 class="display-4 text-center my-5">Liste de vos jeux</h1>
+	<h1 class="h1 mt-3 mb-4">Liste de vos jeux</h1>
 
-	<div class="text-center my-5">
-		<a href="{{ path('account_games_create') }}" class="col-md-3 btn btn-secondary mb-2">Enregistrer un nouveau jeu</a>
+	<div class="my-5 text-center text-md-left px-sm-0" stye="padding-left: 15px;">
+		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Enregistrer un nouveau jeu</a>
 	</div>
 
 	{% for message in app.flashes('success') %}
