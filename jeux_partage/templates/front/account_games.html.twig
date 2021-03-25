@@ -8,17 +8,19 @@
 
 	<h1 class="h1 mt-3 mb-4">Liste de vos jeux</h1>
 
-	<div class="my-5 text-center text-md-left px-sm-0" stye="padding-left: 15px;">
+	<div class="my-5 text-center text-md-left md-pl-15px">
 		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Enregistrer un nouveau jeu</a>
 	</div>
 
 	{% for message in app.flashes('success') %}
-        <div class="col-md-3 bg-success p-4 rounded mx-auto text-center text-white mb-3">
-        {{message}}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+        		{{message}}
+			</span>
         </div>
     {% endfor %}
 
-	<div class="row">
+	<div class="row align-items-center">
 		{% for game in games %}
 
 			<div class="col-md-4">

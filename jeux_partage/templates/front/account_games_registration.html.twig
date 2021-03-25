@@ -20,19 +20,17 @@
 
 				{{ form_row(form.name, {'label' : "Nom du jeu", 'attr' : {'placeholder': "Nom du jeu" }}) }}
 				{{ form_row(form.category, {'label' : "Catégorie"}) }}
-				{{ form_row(form.minPlayers, {'label' : "Nombre de joueurs min"}) }}
-				{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs max"}) }}
+				{{ form_row(form.minPlayers, {'label' : "Nombre de joueurs min", 'attr' : {'placeholder': "-" }}) }}
+				{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs max", 'attr' : {'placeholder': "-" }}) }}
 				{{ form_row(form.public, {'label' : "Age"}) }}
 				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "Format jpg, jpeg ou png" }}) }}
 				{{ form_row(form.description, {'label' : "Règle du jeu"}) }}
 
-				<button type="submit" class="btn-jp mx-auto mt-4 mb-3">
 				{% if gameName %}
-				Modifier le jeu
+				{{ form_row(form.save, {'label' : "Modifier le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
 				{% else %}
-				Enregistrer le jeu
+				{{ form_row(form.save, {'label' : "Enregistrer le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
 				{% endif %}
-				</button>
 
 			{{ form_end(form) }}
         </div>

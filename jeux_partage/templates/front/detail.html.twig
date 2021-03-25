@@ -8,11 +8,14 @@
 
 {% block body %}
 
-    <h1 class="h1 mt-3 mb-4">{{ game.name }}</h1>
 
-		<div class="col-md-6 mx-auto">
+    <h1 class="h1 size-title-detail mt-3 mb-4">{{ game.name }}</h1>
+
+		<div class="col-md-10 mx-auto">
 			<div class="card mb-4 shadow border-dark">
+			<div id="photo-detail">
 				<img src="{{ asset('uploads/images/' ~ game.image)}}" alt="{{game.name}}">
+			</div>
 				<div class="card-body">
 					<h4 class="text-center size-game-name">{{game.name}}</h4>
 					<p class="card-text">Règle du jeu : {{game.description}}</p>
@@ -31,8 +34,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 {% endblock %}
 

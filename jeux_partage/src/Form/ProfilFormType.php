@@ -33,7 +33,7 @@ class ProfilFormType extends AbstractType
                 'row_attr' => ['class' => 'col-lg-5']
             ])
 			->add('save', SubmitType::class, [
-				'row_attr' => ['class' => 'col-lg-12 justify-content-center']
+				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
 			])
         ;
     }

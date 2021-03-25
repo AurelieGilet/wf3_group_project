@@ -9,14 +9,18 @@
 	<h1 class="h1 mt-3 mb-4">Connexion</h1>
 
 	{% for message in app.flashes('success') %}
-        <div class="col-md-3 bg-success p-4 rounded mx-auto text-center text-white mb-3">
-        {{message}}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+        		{{message}}
+			</span>
         </div>
     {% endfor %}
 
 	{% if error %}
-		<div class="col-md-3 bg-danger p-4 rounded mx-auto text-center text-white mb-3">
-            {{error.messageKey | trans(error.messageData, 'security') }}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+                {{error.messageKey | trans(error.messageData, 'security') }}
+			</span>
         </div>
 	{% endif %}
 
