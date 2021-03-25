@@ -4,17 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\User;
+use App\Entity\Borrowing;
 use App\Form\GameFormType;
+use App\Form\BorrowingFormType;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FrontController extends AbstractController
 {
@@ -34,23 +36,63 @@ class FrontController extends AbstractController
 	public function catalogue(GameRepository $gameRepo): Response
 	{
 		$games = $gameRepo->findAll();
-		// dump($games);
+		dump($games);
 		
-		// dump($games);
 		return $this->render('front/catalog.html.twig', [
 			'games' => $games
 		]);
 	}
   
   	/**
-	 * @Route("/catalogue/{id}", name="catalogue_detail")
+	 * @Route("/catalogue/{id}", name="detail")
 	 * 
 	 */
-	public function detail(Game $detailGame):Response
+	public function detail(Game $game):Response
 	{
 
 		return $this->render('front/detail.html.twig', [
-				'detail' => $detailGame
+				'game' => $game
+		]);
+	}
+
+	/**
+	 * @Route("/emprunts/{id}", name="borrowing")
+	 */
+	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing,GameRepository $gameRepo, Game $game, User $user = null): Response
+	{
+		dump($game);
+		$user = $this->getUser();
+		dump($user);
+
+		$startDate = new \DateTime;;
+		$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
+
+		$form = $this->createForm(BorrowingFormType::class, $borrowing);
+		$form->handleRequest($request);
+
+		if($form->isSubmitted() && $form->isValid())
+		{
+			$borrowing->setLender($game->getOwner());
+			$borrowing->setBorrower($user);
+			$borrowing->setGame($game->getId());
+			$borrowing->setStartDate($startDate);
+			$borrowing->setStartDate($endDate);
+
+			$manager->persist($borrowing);
+			$manager->flush();
+
+			$this->addFlash('success', "Votre emprunt est validé");
+		}
+
+		dump($request);
+		dump($form);
+
+
+		return $this->render('front/borrowing.html.twig', [
+			'game' => $game, 
+			'form' => $form->createView(),
+			'startDate' => $startDate,
+			'endDate' => $endDate
 		]);
 	}
 
@@ -130,9 +172,11 @@ class FrontController extends AbstractController
 		}
 
 		return $this->render('front/account_games_registration.html.twig', [
-			'form' => $form->createView()
+			'form' => $form->createView(), 
+			'gameName' => $game->getName()
 		]);
 	}
+
 
 
 

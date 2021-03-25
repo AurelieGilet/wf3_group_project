@@ -6,7 +6,13 @@
 
 {% block body %}
 
-	<h1 class="h1 mt-3 mb-4">Enregistrer un jeux</h1>
+	<h1 class="h1 mt-3 mb-4">
+	{% if gameName %}
+	Modification du jeu "{{gameName}}"
+	{% else %}
+	Enregistrer un jeux
+	{% endif %}
+	</h1>
 
 	<section class="row justify-content-center">
         <div class="col-md-10">
@@ -19,7 +25,12 @@
 				{{ form_row(form.public, {'label' : "Age"}) }}
 				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "Format jpg, jpeg ou png" }}) }}
 				{{ form_row(form.description, {'label' : "Règle du jeu"}) }}
-				{{ form_row(form.save, {'label' : "Modifier mon profil", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
+
+				{% if gameName %}
+				{{ form_row(form.save, {'label' : "Modifier le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
+				{% else %}
+				{{ form_row(form.save, {'label' : "Enregistrer le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
+				{% endif %}
 
 			{{ form_end(form) }}
         </div>
