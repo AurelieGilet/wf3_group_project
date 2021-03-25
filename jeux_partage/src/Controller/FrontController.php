@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Borrowing;
 use App\Form\GameFormType;
 use App\Form\BorrowingFormType;
+use App\Repository\BorrowingRepository;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,13 +34,24 @@ class FrontController extends AbstractController
 	 * @Route("/catalogue", name="catalogue")
 	 * 
 	 */
-	public function catalogue(GameRepository $gameRepo): Response
+	public function catalogue(GameRepository $gameRepo, BorrowingRepository $borrowingRepo): Response
 	{
 		$games = $gameRepo->findAll();
 		dump($games);
+
+		$borrowing = $borrowingRepo->findBy(['returnDate' => NULL]);
+		dump($borrowing);
+
+		$gamesId = array();
+		foreach ($borrowing as $key => $value) {
+			array_push($gamesId, $value->getGame()->getId());
+		}
+		dump($gamesId);
+
 		
 		return $this->render('front/catalog.html.twig', [
-			'games' => $games
+			'games' => $games,
+			'gamesId' => $gamesId
 		]);
 	}
   
@@ -58,11 +70,15 @@ class FrontController extends AbstractController
 	/**
 	 * @Route("/emprunts/{id}", name="borrowing")
 	 */
-	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing,GameRepository $gameRepo, Game $game, User $user = null): Response
+	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, GameRepository $gameRepo, Game $game, UserRepository $userRepo, User $user = null): Response
 	{
-		dump($game);
+		$borrowing = new Borrowing;
 		$user = $this->getUser();
 		dump($user);
+		
+		$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
+		dump($lender);
+
 
 		$startDate = new \DateTime;;
 		$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
@@ -72,11 +88,11 @@ class FrontController extends AbstractController
 
 		if($form->isSubmitted() && $form->isValid())
 		{
-			$borrowing->setLender($game->getOwner());
+			$borrowing->setLender($lender);
 			$borrowing->setBorrower($user);
-			$borrowing->setGame($game->getId());
+			$borrowing->setGame($game);
 			$borrowing->setStartDate($startDate);
-			$borrowing->setStartDate($endDate);
+			$borrowing->setEndDate($endDate);
 
 			$manager->persist($borrowing);
 			$manager->flush();
