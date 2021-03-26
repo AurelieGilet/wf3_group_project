@@ -47,6 +47,7 @@ body {
     background-size: 120% 120%; 
     background-position: center; 
     background-repeat: no-repeat;
+    
 }
 
 .container-fluid {
@@ -83,7 +84,7 @@ label {
 }
 
 input, select, .custom-file-label {
-    font-size: 1.1rem; !important;
+    font-size: 1.1rem !important;
     border: none !important;
     border-bottom: #000a1e solid 3px !important;
     padding: 0 0.5rem !important;
@@ -494,6 +495,7 @@ nav button {
     font-size: 2rem;
 	line-height: 2.5rem;
     margin-bottom:0.4rem;
+    color: #8a0030;
 }
 
 .btn-card
@@ -531,6 +533,12 @@ nav button {
     padding-top: 15px;
     overflow-x: hidden;
 	border: solid white 10px;
+}
+
+.size-statut
+{
+   font-size:1.3rem; 
+
 }
 
 /* ******** LISTE DE VOS JEUX ******** */
@@ -723,7 +731,7 @@ footer a:last-child {
 
 @media screen and (max-width: 991.98px) and (orientation: portrait) {   /* < 992 PORTRAIT */
     .container-fluid {
-        width: 90%; 
+        width: 90%;
         margin: 0 auto;
         padding: 2.5vh; 
     }
@@ -894,14 +902,17 @@ footer a:last-child {
 
     /* ********************** SIZE CARD CATALOG ********************** */
 
-    .size-card
-    {
-        width: 80%;
-    }
-
     .size-name 
     {
         font-size: 1.5rem !important;
     }
-}
+
+    .card-deck, .size-card {
+        width: 100% !important;
+    }
+}  
+    
+
+
+
 
