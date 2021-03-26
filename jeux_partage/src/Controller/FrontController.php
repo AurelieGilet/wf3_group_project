@@ -98,6 +98,8 @@ class FrontController extends AbstractController
 			$manager->flush();
 
 			$this->addFlash('success', "Votre emprunt est validé");
+
+			return $this->redirectToRoute('account_games_borrowed');
 		}
 
 		dump($request);
@@ -190,6 +192,35 @@ class FrontController extends AbstractController
 		return $this->render('front/account_games_registration.html.twig', [
 			'form' => $form->createView(), 
 			'gameName' => $game->getName()
+		]);
+	}
+
+	/**
+	 * @Route("/compte/emprunts", name="account_games_borrowed")
+	 */
+	public function gamesBorrowed(BorrowingRepository $borrowingRepo): Response
+	{
+		$user = $this->getUser();
+
+		$borrowings = $borrowingRepo->findBy(['borrower' => $user]);
+
+
+		return $this->render('front/account_games_borrowed.html.twig', [
+			'borrowings' => $borrowings
+		]);
+	}
+
+	/**
+	 * @Route("/compte/prets", name="account_games_lended")
+	 */
+	public function gamesLended(BorrowingRepository $borrowingRepo): Response
+	{
+		$user = $this->getUser();
+
+		$lendings = $borrowingRepo->findBy(['lender' => $user]);
+
+		return $this->render('front/account_games_lended.html.twig', [
+			'lendings' => $lendings
 		]);
 	}
 
