@@ -35,7 +35,12 @@
 						<p class="card-text my-1"><span>Nombre de joueurs :</span> {{borrowing.game.minPlayers}} {% if borrowing.game.maxPlayers != NULL and borrowing.game.maxPlayers != borrowing.game.minPlayers %} à {{borrowing.game.maxPlayers}} {% endif %}</p>
 						<p class="card-text my-1"><span>Début de l'emprunt :</span> {{borrowing.startDate|date('d/m/Y')}}</p>
 						<p class="card-text my-1"><span>Fin de l'emprunt :</span> {{borrowing.endDate|date('d/m/Y')}}</p>
-						<p class="card-text my-1"><span>Statut :</span> {% if borrowing.returnDate == NULL %} <span class="text-danger" style="text-decoration: none;">NON RENDU</span> {% else %} <span class="text-success" style="text-decoration: none;">RENDU</span> {% endif %} </p>
+						<p class="card-text my-1"><span>Status :</span> {% if borrowing.returnDate == NULL %} <span class="text-danger" style="text-decoration: none;">NON RENDU</span> {% else %} <span class="text-success" style="text-decoration: none;">RENDU</span> {% endif %} </p>
+						{% if borrowing.giveawayDate == NULL %}
+						<p class="card-text my-1"><span class="text-danger" style="text-decoration: none;">Jeu non remis par le propriétaire</span></p>
+						{% elseif borrowing.giveawayDate != NULL and borrowing.returnDate == NULL %}
+						<p class="card-text my-1"><span class="text-success" style="text-decoration: none;">Jeu remis par le propriétaire</span></p>
+						{% endif %} 
 
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': borrowing.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
