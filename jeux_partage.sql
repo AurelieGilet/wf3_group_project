@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 26 mars 2021 à 12:51
+-- Généré le : ven. 26 mars 2021 à 17:38
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 7.4.15
 
@@ -48,8 +48,8 @@ INSERT INTO `borrowing` (`id`, `lender_id`, `borrower_id`, `game_id`, `start_dat
 (3, 10, 7, 2, '2021-02-02 13:38:45', '2021-03-02 13:38:45', '2021-02-03 13:38:45', '2021-02-28 16:18:45'),
 (4, 4, 11, 7, '2021-03-24 11:01:29', '2021-04-26 11:01:29', '2021-03-25 11:01:29', NULL),
 (5, 4, 11, 8, '2021-03-26 11:01:53', '2021-04-26 11:01:53', NULL, NULL),
-(6, 11, 4, 11, '2021-03-26 12:34:20', '2021-04-26 12:34:20', NULL, NULL),
-(7, 11, 4, 12, '2021-03-26 12:34:44', '2021-04-26 12:34:44', NULL, NULL);
+(6, 11, 4, 11, '2021-03-26 12:34:20', '2021-04-26 12:34:20', '2021-03-26 16:32:12', NULL),
+(7, 11, 4, 12, '2021-03-26 12:34:44', '2021-04-26 12:34:44', '2021-03-26 16:48:37', '2021-03-26 17:07:38');
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,8 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20210326110352', '2021-03-26 12:05:56', 541);
+('DoctrineMigrations\\Version20210326110352', '2021-03-26 12:05:56', 541),
+('DoctrineMigrations\\Version20210326163651', '2021-03-26 17:37:21', 599);
 
 -- --------------------------------------------------------
 
@@ -109,7 +110,7 @@ CREATE TABLE `game` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `public` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `min_players` int(11) NOT NULL,
-  `max_players` int(11) DEFAULT NULL,
+  `max_players` int(11) NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -131,6 +132,20 @@ INSERT INTO `game` (`id`, `owner_id`, `category_id`, `name`, `public`, `min_play
 (10, 5, 8, 'Dobble', '6+', 2, 8, 'Le jeu comporte 55 cartes rondes, avec 8 dessins sur chacune. Chaque carte a un unique dessin commun avec n\'importe quelle autre carte du paquet. Le but du jeu est de trouver le dessin en commun entre deux cartes données, et de l\'annoncer.\r\n\r\nTous les joueurs jouent en même temps.\r\n\r\nIl existe 5 variantes du jeu avec des règles différentes.\r\n\r\nQuelque soit la variante jouée, il faut toujours :\r\n- être le plus rapide à repérer le symbole identique entre 2 cartes,\r\n- le nommer à voix haute\r\n- puis (selon la variante), prendre la carte, la poser ou la défausser.\r\n', 'Dobble-605b9ed419b9e-jpg'),
 (11, 11, 4, 'Jeu test Modifié', '12+', 2, 2, 'regle du jeu', 'Jeu-test-605c729bdbb43-jpg'),
 (12, 11, 4, 'Jeu test 2', '10+', 2, 2, 'Regle du jeu modifiée', 'Jeu-test-2-605c787af1d82-jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `message`
+--
+
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `borrowing_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -202,6 +217,14 @@ ALTER TABLE `game`
   ADD KEY `IDX_232B318C12469DE2` (`category_id`);
 
 --
+-- Index pour la table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_B6BD307F4675F064` (`borrowing_id`),
+  ADD KEY `IDX_B6BD307FF675F31B` (`author_id`);
+
+--
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
@@ -230,6 +253,12 @@ ALTER TABLE `game`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
@@ -253,6 +282,13 @@ ALTER TABLE `borrowing`
 ALTER TABLE `game`
   ADD CONSTRAINT `FK_232B318C12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   ADD CONSTRAINT `FK_232B318C7E3C61F9` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`);
+
+--
+-- Contraintes pour la table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `FK_B6BD307F4675F064` FOREIGN KEY (`borrowing_id`) REFERENCES `borrowing` (`id`),
+  ADD CONSTRAINT `FK_B6BD307FF675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

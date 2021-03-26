@@ -70,7 +70,7 @@ class FrontController extends AbstractController
 	/**
 	 * @Route("/emprunts/{id}", name="borrowing")
 	 */
-	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, GameRepository $gameRepo, Game $game, UserRepository $userRepo, User $user = null): Response
+	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, User $user = null): Response
 	{
 		$borrowing = new Borrowing;
 		$user = $this->getUser();
@@ -79,8 +79,7 @@ class FrontController extends AbstractController
 		$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
 		dump($lender);
 
-
-		$startDate = new \DateTime;;
+		$startDate = new \DateTime;
 		$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
 
 		$form = $this->createForm(BorrowingFormType::class, $borrowing);
@@ -212,15 +211,65 @@ class FrontController extends AbstractController
 
 	/**
 	 * @Route("/compte/prets", name="account_games_lended")
+	 * @Route("/compte/prets/remise/{id}", name="account_games_lended_giveaway")
+	 * @Route("/compte/prets/retour/{id}", name="account_games_lended_return")
 	 */
-	public function gamesLended(BorrowingRepository $borrowingRepo): Response
+	public function gamesLended(BorrowingRepository $borrowingRepo, Borrowing $borrowing = NULL, Request $request, EntityManagerInterface $manager): Response
 	{
 		$user = $this->getUser();
-
 		$lendings = $borrowingRepo->findBy(['lender' => $user]);
+
+		dump($borrowing);
+
+		if($borrowing)
+		{
+			if($borrowing->getGiveawayDate() == null && $borrowing->getReturnDate() == null)
+			{
+				$borrowing->setGiveawayDate(new \DateTime);
+				$manager->persist($borrowing);
+				$manager->flush();
+
+				$this->addFlash('success', "Le jeu a été remis à l'emprunteur");
+
+				return $this->redirectToRoute('account_games_lended');
+			}
+			elseif($borrowing->getReturnDate() == null && $borrowing->getGiveawayDate() != null)
+			{
+				$borrowing->setReturnDate(new \DateTime);
+				$manager->persist($borrowing);
+				$manager->flush();
+
+				$this->addFlash('success', "Le jeu a été rendu par l'emprunteur");
+				
+				return $this->redirectToRoute('account_games_lended');
+			}
+
+
+			dump($borrowing);
+			dump($manager);
+			
+		}
+
+		
+
+		
+
+
+
+		// $giveawayForm = $this->createForm(BorrowingFormType::class, $borrowing);
+		// $giveawayForm->handleRequest($request);
+
+		// dump($request);
+
+
+
+		// $ReturnForm = $this->createForm(BorrowingFormType::class, $borrowing);
+		// $ReturnForm->handleRequest($request);
 
 		return $this->render('front/account_games_lended.html.twig', [
 			'lendings' => $lendings
+			// 'giveawayForm' => $giveawayForm->createView()
+			// 'returnForm' => $ReturnForm
 		]);
 	}
 
