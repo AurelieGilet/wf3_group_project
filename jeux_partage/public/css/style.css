@@ -484,7 +484,6 @@ nav button {
     padding-top: 15px;
     overflow-x: hidden;
 	border: solid white 10px;
-
 }
 
 /* ********************** LISTE DE VOS JEUX ********************** */
@@ -514,8 +513,29 @@ nav button {
 {
     font-size: 1.6rem;
     padding-top: 5px;
+}
+
+.btn-jp-small 
+{
+    max-width: max-content;
+    border-radius:5px;
+   
+    border: #8a0030 solid 1px;
+    background-color: #f7cc99; 
+    color: #8a0030;
+    font-size: 0.9rem;
+    align-self: center;
+    
 
 }
+
+.btn-jp-small:hover 
+{
+    background-color: #f3bc75;
+    color: #8a0030;
+}
+
+
 
 
 
