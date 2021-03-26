@@ -6,7 +6,7 @@
 
 {% block body %}
 
-	<h1 class="h1 mt-3 mb-4">Emprunter {{ game.name }}</h1>
+	<h1 class="h1 mt-3 mb-3">Emprunter {{ game.name }}</h1>
 
 	{% for message in app.flashes('success') %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
@@ -22,25 +22,24 @@
 				<img src="{{ asset('uploads/images/' ~ game.image)}}" alt="{{game.name}}">
 			</div>
 			<div class="col-md-7 p-3 d-flex flex-column justify-content-beetween align-items-center">
-				<p class="card-text my-sm-3 my-2"><span>Catégorie :</span> {{game.category.name}}</p>
-				<p class="card-text my-sm-3 my-2"><span>Age :</span> {{game.public}}</p>
-				<p class="card-text my-sm-3 my-2"><span>Nombre de joueurs :</span> {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
-				<p class="card-text my-sm-3 my-2"><span>Ville de location :</span> {{game.owner.city}}</p>
+				<p class="card-text my-md-2 my-1"><span>Catégorie :</span> {{game.category.name}}</p>
+				<p class="card-text my-md-2 my-1"><span>Age :</span> {{game.public}}</p>
+				<p class="card-text my-md-2 my-1"><span>Nombre de joueurs :</span> {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
+				<p class="card-text my-md-2 my-1"><span>Ville de location :</span> {{game.owner.city}}</p>
 			</div>
 		</div>
-		<p class="p-1 pt-3 px-lg-4"><span style="text-decoration: underline;">Règle du jeu :</span> {{game.description|nl2br}}</p>
 	</div>
 
-	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Les jeux sont empruntables pour une durée de <span style="text-decoration: underline;">1 mois maximum</span></p>
+	<p class="card-text my-2 px-3 text-center font-italic">Les jeux sont empruntables pour une durée de <span style="text-decoration: underline;">1 mois maximum</span></p>
 
 	<section class="row justify-content-center">
 		<div class="col-md-10">
-			{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-3 row justify-content-around align-items-center' }}) }}
+			{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto pt-3 pb-2 row justify-content-around align-items-center' }}) }}
 				
 				<p class="card-text col-lg-4 text-center my-2">L'emprunt commence le : <span style="font-weight: bold; text-decoration: none;">{{ startDate|date("d/m/Y") }}</span></p>
 				<p class="card-text col-lg-4 text-center my-2">A rendre au plus tard le : <span style="font-weight: bold; text-decoration: none;">{{ endDate|date("d/m/Y") }}</span></p>
 
-				{{ form_row(form.save, {'label' : "Emprunter", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+				{{ form_row(form.save, {'label' : "Valider", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 
 			{{ form_end(form) }}
 		</div>

@@ -27,7 +27,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	box-sizing: border-box;
-	color: rgb(0, 10, 30);
+	color: #000a1e;
 	font-family: 'Patrick_Hand', cursive; letter-spacing: 0.5px;
 }
 
@@ -171,7 +171,7 @@ header nav a:focus {
 /* ********************** DEBUT HEADER ********************** */
 
 header {
-    margin-bottom: 4vh !important;
+    margin-bottom: 4.8vh !important;
     position: relative;
 }
 
@@ -192,7 +192,7 @@ header {
     font-family: 'Henny Penny', cursive; 
     font-weight: bold;
     font-size: 1.8rem;
-    margin-bottom: 1.2vh;
+    margin-bottom: 0.5vh;
 }
 
 header h2 a {
@@ -302,6 +302,65 @@ header li:hover, #navbarDropdown1:hover, .dropdown-item:hover {
     color: #8a0030;
 }
 
+.dropdown-toggle:hover:after {
+    -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-transform-origin: center bottom;
+  -ms-transform-origin: center bottom;
+  transform-origin: center bottom;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+  -webkit-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  -webkit-transform: translate3d(0, -8px, 0);
+  transform: translate3d(0, -8px, 0);
+  }
+  70% {
+  -webkit-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  -webkit-transform: translate3d(0, -5px, 0);
+  transform: translate3d(0, -5px, 0);
+  }
+  90% {
+  -webkit-transform: translate3d(0,-4px,0);
+  transform: translate3d(0,-4px,0);
+  }
+  }
+  
+  @keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+  -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+  -webkit-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  -webkit-transform: translate3d(0, -8px, 0);
+  transform: translate3d(0, -8px, 0);
+  }
+  70% {
+  -webkit-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  -webkit-transform: translate3d(0, -5px, 0);
+  transform: translate3d(0, -5px, 0);
+  }
+  90% { -webkit-transform: translate3d(0,-4px,0); transform: translate3d(0,-4px,0);
+  }
+}
+
 .dropdown-menu {
     background-color: #f7cc99;
     border-radius: 5px;
@@ -321,6 +380,13 @@ header li:hover, #navbarDropdown1:hover, .dropdown-item:hover {
 #navbarDropdown1:hover, .dropdown-item:hover {
     background-color: #f3bc75;
 }
+
+
+.dropdown-item:active {
+    background-color: #f3bc75 !important;
+    color: #8a0030 !important;
+}
+
 
 nav button {
     border: none;
@@ -455,6 +521,10 @@ nav button {
     .md-pl-15px {
         padding-left: 0;
     }
+    .size-card:first-child
+    {
+        padding-top: 0 !important;
+    }
 }
 
 /* ********************** CARDS CATALOGUE & DETAIL GAME ********************** */
@@ -504,41 +574,25 @@ nav button {
     font-size: 1.1rem;
 }
 
-#photo
+#photo, #photo-detail
 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 280px;
+	height: 250px;
 	overflow-x: hidden;
 	border: solid transparent 10px;
 }
 
-#photo img
+#photo img, #photo-detail img
 {
-	height: 260px;
+	height: 230px;
 	width: auto;
-}
-
-#photo-detail img
-{
-    height: 280px;
-    width: auto;
-}
-
-#photo-detail
-{
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-    overflow-x: hidden;
-	border: solid white 10px;
 }
 
 .size-statut
 {
-   font-size:1.3rem; 
-
+   font-size: 1.3rem; 
 }
 
 /* ******** LISTE DE VOS JEUX ******** */
@@ -607,6 +661,25 @@ nav button {
     padding: 0 1.4em !important;
 }
 
+.up {
+    height: 40px;
+    width: 40px;
+    background-image: url(../img/up.jpg);
+    background-position: contain;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 7%;
+    right: 2%;
+    z-index: 999;
+    opacity: 0.85;
+}
+
+.up:hover {
+    opacity: 1;
+}
+
 /* ********************** DEBUT FOOTER ********************** */
 
 footer {
@@ -645,14 +718,14 @@ footer a:last-child {
         font-size: 2rem !important;
     }
     header {
-        margin-bottom: 2.5vh !important;
+        margin-bottom: 5vh !important;
     }
     .header_shadow {
         padding-top: 2.5vh;
     }
     .header_shadow h2 {
         font-size: 1.2rem;
-        margin-bottom: 2.5vh;
+        margin-bottom: 2.2vh;
     }
     header h2 a {
         font-size: 1.4rem !important;
@@ -739,7 +812,7 @@ footer a:last-child {
         font-size: 2.7rem;
     }
     header {
-        margin-bottom: 2.5vh !important;
+        margin-bottom: 4vh !important;
     }
     .header_shadow {
         padding-top: 2.5vh;
@@ -834,12 +907,15 @@ footer a:last-child {
     .h1 {
         font-size: 2rem;
     }
+    header {
+        margin-bottom: 3vh !important;
+    }
     .header_shadow {
         padding-top: 1.5vh;
     }
     .header_shadow h2 {
         font-size: 1.4rem;
-        margin-bottom: 1.2vh;
+        margin-bottom: 0.5vh;
     }
     header h2 a {
         font-size: 1.3rem !important;
@@ -902,17 +978,17 @@ footer a:last-child {
 
     /* ********************** SIZE CARD CATALOG ********************** */
 
+    .card-deck, .size-card {
+        width: 100% !important;
+    }
+  
     .size-name 
     {
         font-size: 1.5rem !important;
     }
-
-    .card-deck, .size-card {
-        width: 100% !important;
-    }
-}  
     
-
-
-
-
+    .up {
+    height: 30px;
+    width: 30px;
+    }
+}
