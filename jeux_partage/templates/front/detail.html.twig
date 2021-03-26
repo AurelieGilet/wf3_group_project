@@ -24,7 +24,7 @@
 					<hr class="border-dark">
 					<p class="card-text"><span>Ville de location :</span> {{game.owner.city}}</p>
 					<hr class="border-dark">
-					<p class="card-text"><span>Règle du jeu :</span> {{game.description}}</p>
+					<p class="card-text"><span>Règle du jeu :</span> {{game.description|nl2br}}</p>
 					<div class="d-flex justify-content-center align-items-center">
 						<a href="{{ path('borrowing', {'id': game.id}) }}" class="btn-jp mb-3">Emprunter</a>
 					</div>
