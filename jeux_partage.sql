@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 24 mars 2021 à 22:54
+-- Généré le : ven. 26 mars 2021 à 12:51
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 7.4.15
 
@@ -34,6 +34,7 @@ CREATE TABLE `borrowing` (
   `game_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
+  `giveaway_date` datetime DEFAULT NULL,
   `return_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -41,10 +42,14 @@ CREATE TABLE `borrowing` (
 -- Déchargement des données de la table `borrowing`
 --
 
-INSERT INTO `borrowing` (`id`, `lender_id`, `borrower_id`, `game_id`, `start_date`, `end_date`, `return_date`) VALUES
-(1, 10, 2, 1, '2021-02-14 21:13:02', '2021-03-14 21:13:02', '2021-03-13 13:28:02'),
-(2, 5, 2, 10, '2021-03-16 10:45:02', '2021-04-13 10:45:02', NULL),
-(3, 10, 7, 2, '2021-02-02 13:38:45', '2021-03-02 13:38:45', '2021-02-28 16:18:45');
+INSERT INTO `borrowing` (`id`, `lender_id`, `borrower_id`, `game_id`, `start_date`, `end_date`, `giveaway_date`, `return_date`) VALUES
+(1, 10, 2, 1, '2021-02-14 21:13:02', '2021-03-14 21:13:02', '2021-02-16 21:13:02', '2021-03-13 13:28:02'),
+(2, 10, 11, 2, '2021-02-25 18:38:17', '2021-03-26 11:43:15', '2021-02-26 18:38:17', '2021-03-26 11:43:15'),
+(3, 10, 7, 2, '2021-02-02 13:38:45', '2021-03-02 13:38:45', '2021-02-03 13:38:45', '2021-02-28 16:18:45'),
+(4, 4, 11, 7, '2021-03-24 11:01:29', '2021-04-26 11:01:29', '2021-03-25 11:01:29', NULL),
+(5, 4, 11, 8, '2021-03-26 11:01:53', '2021-04-26 11:01:53', NULL, NULL),
+(6, 11, 4, 11, '2021-03-26 12:34:20', '2021-04-26 12:34:20', NULL, NULL),
+(7, 11, 4, 12, '2021-03-26 12:34:44', '2021-04-26 12:34:44', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,7 +94,7 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20210324213431', '2021-03-24 22:35:29', 1156);
+('DoctrineMigrations\\Version20210326110352', '2021-03-26 12:05:56', 541);
 
 -- --------------------------------------------------------
 
@@ -123,7 +128,9 @@ INSERT INTO `game` (`id`, `owner_id`, `category_id`, `name`, `public`, `min_play
 (7, 4, 7, 'Cluedo', '8+', 3, 6, 'Au Cluedo, la patience et la déduction seront vos meilleurs alliés. En effet, il vous faudra explorer le manoir de fond en comble pour trouver les indices vous permettant de déterminer l’arme du crime, le lieu du meurtre et enfin l’assassin du Docteur Lenoir.', 'Cluedo-605b9ebce9f5f-jpg'),
 (8, 4, 5, 'Association 10 dés', '10+', 2, 8, 'Que ce soit en mode compétitif (en équipes) ou coopératif (dès 2 joueurs), tout commence par un lancer de dés. Aussitôt, tous les joueurs mettent leurs neurones en action pour trouver une association d’idées grâce aux différents mots inscrits sur les dés. Une association c’est un mot, un lieu, un personnage, un titre... Tout est possible, il n’y a aucune limite aux idées ! Ainsi, Marine attrapera les mots « Film » et « Bateau », car elle pense à « Titanic ». Dans le mode compétitif, le chrono est lancé : Louis, son partenaire, dispose de 30 secondes pour deviner à quoi elle pense. S’il ne trouve pas, l’équipe adverse peut aussi tenter sa chance et deviner le mot de Marine.', 'Association-10-des-605b9e8fabaad-jpg'),
 (9, 3, 6, 'Le Petit Bac', '8+', 2, 0, 'Tente de totaliser le maximum de points en trouvant le plus grand nombre de mots dont les premières lettres correspondent aux lettres indiquées par les dés que tu lances, ceci dans des catégories précises : Groupe de musique, Acteurs célèbres, Sport, Animaux sauvages, Objets froid, Objets de cuisine...\r\nPlus de 50 catégories pour encore plus d\'amusement.\r\nUne combinaison astucieuse de cartes et de dés qui fait toute l\'originalité de ce jeu.', 'Le-Petit-Bac-605ba025cd021-jpg'),
-(10, 5, 8, 'Dobble', '6+', 2, 8, 'Le jeu comporte 55 cartes rondes, avec 8 dessins sur chacune. Chaque carte a un unique dessin commun avec n\'importe quelle autre carte du paquet. Le but du jeu est de trouver le dessin en commun entre deux cartes données, et de l\'annoncer.\r\n\r\nTous les joueurs jouent en même temps.\r\n\r\nIl existe 5 variantes du jeu avec des règles différentes.\r\n\r\nQuelque soit la variante jouée, il faut toujours :\r\n- être le plus rapide à repérer le symbole identique entre 2 cartes,\r\n- le nommer à voix haute\r\n- puis (selon la variante), prendre la carte, la poser ou la défausser.\r\n', 'Dobble-605b9ed419b9e-jpg');
+(10, 5, 8, 'Dobble', '6+', 2, 8, 'Le jeu comporte 55 cartes rondes, avec 8 dessins sur chacune. Chaque carte a un unique dessin commun avec n\'importe quelle autre carte du paquet. Le but du jeu est de trouver le dessin en commun entre deux cartes données, et de l\'annoncer.\r\n\r\nTous les joueurs jouent en même temps.\r\n\r\nIl existe 5 variantes du jeu avec des règles différentes.\r\n\r\nQuelque soit la variante jouée, il faut toujours :\r\n- être le plus rapide à repérer le symbole identique entre 2 cartes,\r\n- le nommer à voix haute\r\n- puis (selon la variante), prendre la carte, la poser ou la défausser.\r\n', 'Dobble-605b9ed419b9e-jpg'),
+(11, 11, 4, 'Jeu test Modifié', '12+', 2, 2, 'regle du jeu', 'Jeu-test-605c729bdbb43-jpg'),
+(12, 11, 4, 'Jeu test 2', '10+', 2, 2, 'Regle du jeu modifiée', 'Jeu-test-2-605c787af1d82-jpg');
 
 -- --------------------------------------------------------
 
@@ -208,7 +215,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `borrowing`
 --
 ALTER TABLE `borrowing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `category`
@@ -220,7 +227,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT pour la table `game`
 --
 ALTER TABLE `game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `user`

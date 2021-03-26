@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block  title %}
+    Mes Emprunts
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="h1 size-title-account_games mt-3 mb-4">Liste des jeux empruntés</h1>
+
+	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Cliquez sur "<span style="text-decoration: underline;">Messagerie</span>" pour contacter le possesseur du jeu et convenir d'un rendez-vous pour l'echange.</p>
+	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Tant que le jeu ne vous a pas été remis, vous pouvez annuler votre emprunt en cliquant sur "<span style="text-decoration: underline;">l'icone poubelle</span>" de l'emprunt que vous souhaitez annuler.</p>
+
+	{% for message in app.flashes('success') %}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+        		{{message}}
+			</span>
+        </div>
+    {% endfor %}
+
+	<div class="row align-items-center">
+		{% for borrowing in borrowings %}
+
+			<div class="col-md-6 col-lg-4">
+				<div class="mb-4 shadow-sm col_rwd">
+					<div id="photo_account_games">
+						<img src="{{ asset('uploads/images/' ~ borrowing.game.image) }}" alt="{{borrowing.game.name}}">
+					</div>	
+					<div class="card-body card_account_games">
+						<h4 class="text-center size-name">{{borrowing.game.name}}</h4>
+						
+						<p class="card-text"><span>Catégorie :</span> {{borrowing.game.category.name}}</p>
+						<p class="card-text"><span>Age :</span> {{borrowing.game.public}}</p>
+						<p class="card-text"><span>Nombre de joueurs :</span> {{borrowing.game.minPlayers}} {% if borrowing.game.maxPlayers != NULL %} à {{borrowing.game.maxPlayers and borrowing.game.maxPlayers != borrowing.game.minPlayers}} {% endif %}</p>
+						<p class="card-text"><span>Début de l'emprunt :</span> {{borrowing.startDate|date('d/m/Y')}}</p>
+						<p class="card-text"><span>Fin de l'emprunt :</span> {{borrowing.endDate|date('d/m/Y')}}</p>
+						<p class="card-text"><span>Status :</span> {% if borrowing.returnDate == NULL %} <span class="text-danger">NON RENDU</span> {% else %} <span class="text-success">RENDU</span> {% endif %} </p>
+						<div class="btn-group d-flex justify-content-center">
+							<a href="{{ path('detail', {'id': borrowing.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
+							<a href="" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
+							<a href="" class="btn btn-sm btn-outline-secondary btn-resize {% if borrowing.giveawayDate != NULL %} disabled{% endif %}" id="delete"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+
+
+
+{% endblock %}

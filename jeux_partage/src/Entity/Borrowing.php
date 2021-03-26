@@ -47,10 +47,16 @@ class Borrowing
      */
     private $endDate;
 
+	 /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $giveawayDate;
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $returnDate;
+
 
     public function getId(): ?int
     {
@@ -117,6 +123,18 @@ class Borrowing
         return $this;
     }
 
+	public function getGiveawayDate(): ?\DateTimeInterface
+    {
+        return $this->giveawayDate;
+    }
+
+    public function setGiveawayDate(?\DateTimeInterface $giveawayDate): self
+    {
+        $this->giveawayDate = $giveawayDate;
+
+        return $this;
+    }
+
     public function getReturnDate(): ?\DateTimeInterface
     {
         return $this->returnDate;
@@ -128,4 +146,5 @@ class Borrowing
 
         return $this;
     }
+
 }
