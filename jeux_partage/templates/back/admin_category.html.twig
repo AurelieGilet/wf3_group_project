@@ -10,18 +10,14 @@
         BACKOFFICE | Gestion des catégories
     </h1>
 
-    {#     danger   msg                                          #}
-    {#     success  msg                                          #}
+
     {% for label, messages in app.flashes(['danger', 'success']) %}
 
-        {#     1 msg /tr bcl in all msg  #}
         {% for oneMessage in messages %}
             
-            {#                   bg-danger                #}
-            {#                   bg-success                #}
+
             <div class="col-md-3 bg-{{ label }} p-4 rounded mx-auto text-center text-white mb-3">
                 {{ oneMessage }} 
-            {# message est une variable de reception qui contient 1 message utilisateur par tour de boucle #}
             </div>
             
         {% endfor %}
@@ -56,10 +52,9 @@
                 <td>{{ oneCategory.description }}</td>
                 <td>{{ oneCategory.articles|length }}</td>
 
-                {# lien modification #}
+
                 <td><a href="{{ path('admin_edit_category', {'id': oneCategory.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i></a></td>
 
-                {# lien suppression #}
                 <td><a href="{{ path('admin_remove_category', {'id': oneCategory.id}) }}" class="btn btn-danger" onclick="return(confirm('Voulez-vous vraiment supprimer cet catégorie ?'))"><i class="fas fa-trash-alt"></i></a></td>
             </tr>
 
