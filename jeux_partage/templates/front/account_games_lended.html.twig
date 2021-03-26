@@ -6,12 +6,12 @@
 
 {% block body %}
 
-	<h1 class="h1 size-title-account_games mt-3 mb-4">Liste des jeux prêtés</h1>
+	<h1 class="h1 mt-3 mb-4">Liste des jeux prêtés</h1>
 
-	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Cliquez sur "<span style="text-decoration: underline;">Messagerie</span>" pour contacter l'emprunteur du jeu et convenir d'un rendez-vous pour l'echange.</p>
-	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Tant que le jeu n'a pas été remis à l'emprunteur, vous pouvez annuler sa demande en cliquant sur "<span style="text-decoration: underline;">l'icone poubelle</span>" du prêt que vous souhaitez annuler.</p>
-	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span style="text-decoration: underline;">Jeu remis</span>"</p>
-	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span style="text-decoration: underline;">Jeu rendu</span>"</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Contacter l'emprunteur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a">messagerie</a>.</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Tant que le jeu n'a pas été récupéré, vous pouvez annuler l'emprunt via le lien de suppression associé à celui-ci.</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span class="font-weight-bold" style="text-decoration: none;">Jeu remis</span>".</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span class="font-weight-bold" style="text-decoration: none;">Jeu rendu</span>".</p>
 
 	{% for message in app.flashes('success') %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
@@ -25,19 +25,20 @@
 		{% for lending in lendings %}
 
 			<div class="col-md-6 col-lg-4">
-				<div class="mb-4 shadow-sm col_rwd">
+				<div class="my-4 shadow-sm col_rwd">
 					<div id="photo_account_games">
 						<img src="{{ asset('uploads/images/' ~ lending.game.image) }}" alt="{{lending.game.name}}">
-					</div>	
+					</div>
 					<div class="card-body card_account_games">
 						<h4 class="text-center size-name">{{lending.game.name}}</h4>
-						
-						<p class="card-text"><span>Catégorie :</span> {{lending.game.category.name}}</p>
-						<p class="card-text"><span>Age :</span> {{lending.game.public}}</p>
-						<p class="card-text"><span>Nombre de joueurs :</span> {{lending.game.minPlayers}} {% if lending.game.maxPlayers != NULL and lending.game.maxPlayers != lending.game.minPlayers %} à {{lending.game.maxPlayers}} {% endif %}</p>
-						<p class="card-text"><span>Début de l'emprunt :</span> {{lending.startDate|date('d/m/Y')}}</p>
-						<p class="card-text"><span>Fin de l'emprunt :</span> {{lending.endDate|date('d/m/Y')}}</p>
-						<p class="card-text"><span>Status :</span> {% if lending.returnDate == NULL %} <span class="text-danger">NON RENDU</span> {% else %} <span class="text-success">RENDU</span> {% endif %} </p>
+
+						<p class="card-text my-1"><span>Catégorie :</span> {{lending.game.category.name}}</p>
+						<p class="card-text my-1"><span>Age :</span> {{lending.game.public}}</p>
+						<p class="card-text my-1"><span>Nombre de joueurs :</span> {{lending.game.minPlayers}} {% if lending.game.maxPlayers != NULL and lending.game.maxPlayers != lending.game.minPlayers %} à {{lending.game.maxPlayers}} {% endif %}</p>
+						<p class="card-text my-1"><span>Début de l'emprunt :</span> {{lending.startDate|date('d/m/Y')}}</p>
+						<p class="card-text my-1"><span>Fin de l'emprunt :</span> {{lending.endDate|date('d/m/Y')}}</p>
+						<p class="card-text my-1"><span>Statut :</span> {% if lending.returnDate == NULL %} <span class="text-danger" style="text-decoration: none;">NON RENDU</span> {% else %} <span class="text-success" style="text-decoration: none;">RENDU</span> {% endif %} </p>
+
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': lending.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
@@ -50,7 +51,6 @@
 					</div>
 				</div>
 			</div>
-
 		{% endfor %}
 	</div>
 

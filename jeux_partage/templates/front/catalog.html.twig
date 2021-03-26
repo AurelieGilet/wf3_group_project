@@ -28,7 +28,7 @@
 						<hr>
 						<p class="card-text"><span>Ville de location :</span> {{game.owner.city}}</p>
 						<hr>
-						<p class="card-text"><span>Statut :</span> {% if game.id in gamesId %} <span class="text-danger font-weight-bold size-statut" style="text-decoration: none;">Indisponible</span> {% else %} <span class="text-success font-weight-bold size-statut" style="text-decoration: none;">Disponible</span> {% endif %} </p>
+						<p class="card-text"><span>Statut :</span> {% if game.id in gamesId %} <span class="text-danger font-weight-bold" style="text-decoration: none;">Indisponible</span> {% else %} <span class="text-success font-weight-bold" style="text-decoration: none;">Disponible</span> {% endif %} </p>
 					</div>
 					<div class="card-footer d-flex justify-content-around align-items-center">
 						<a href="{{ path('detail', {'id': game.id}) }}" class="btn-jp btn-card size-button">Voir</a>
