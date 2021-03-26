@@ -33,12 +33,12 @@ $(document).ready(function() {
         $(this).siblings().animate({"width" : "0"});
     });
 
-    // #ici
-    $("#ici").on("mouseover", function() {
+    // .underline_a (soulignement liens a)
+    $(".underline_a").on("mouseover", function() {
         $(this).css({"text-decoration-line" : "underline"});
         $(this).css({"text-decoration-color" : "#f3bc75"});
     });
-    $("#ici").on("mouseout", function() {
+    $(".underline_a").on("mouseout", function() {
         $(this).css({"text-decoration-line" : "none"});
         $(this).css({"text-decoration-color" : "transparent"});
     });

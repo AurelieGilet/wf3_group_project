@@ -6,7 +6,7 @@
 
 {% block body %}
 
-	<h1 class="h1 size-title-account_games mt-3 mb-4">Liste de vos jeux</h1>
+	<h1 class="h1 mt-3 mb-4">Liste de vos jeux</h1>
 
 	<div class="my-5 text-center">
 		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Ajouter un nouveau jeu</a>
@@ -31,11 +31,11 @@
 					<div class="card-body card_account_games">
 						<h4 class="text-center size-name">{{game.name}}</h4>
 						
-						<p class="card-text"><span>Catégorie :</span> {{game.category.name}}</p>
-						<p class="card-text"><span>Age :</span> {{game.public}}</p>
-						<p class="card-text"><span>Nombre de joueurs :</span> {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
+						<p class="card-text my-1"><span>Catégorie :</span> {{game.category.name}}</p>
+						<p class="card-text my-1"><span>Age :</span> {{game.public}}</p>
+						<p class="card-text my-1"><span>Nombre de joueurs :</span> {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
 						
-						<div class="btn-group">
+						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="{{ path('account_games_edit', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Modifier</a>
 							<a href="" class="btn btn-sm btn-outline-secondary btn-resize" id="delete"></a>
@@ -46,7 +46,5 @@
 
 		{% endfor %}
 	</div>
-
-
 
 {% endblock %}
