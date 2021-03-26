@@ -54,12 +54,13 @@ body {
     width: 85%; 
     margin: 0 auto;
     background-color: white; 
-    padding: 5vh 4em; 
+    padding: 4vh 4em; 
     border-radius: 10px; 
     box-shadow: rgba(0, 0, 0, 0.6) 0.1em 0.1em 1em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 main {
@@ -77,12 +78,12 @@ main {
 }
 
 label {
-    font-size: 1.2rem;
+    font-size: 1.1rem;;
     padding: 0 0.1rem;
 }
 
 input, select, .custom-file-label {
-    font-size: 1.2rem !important;
+    font-size: 1.1rem; !important;
     border: none !important;
     border-bottom: #000a1e solid 3px !important;
     padding: 0 0.5rem !important;
@@ -116,8 +117,10 @@ textarea:focus, .btn:focus, .custom-file-label:focus, .custom-file-input:focus {
     background-image: url(../img/icone_loupe.png);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 60%;
+    background-size: 60% 90%;
     width: 15%;
+    min-width: 40px;
+    max-width: 80px;
 }
 
 .form-control:focus-visible {
@@ -129,6 +132,10 @@ a, a:hover {
     color: inherit;
 }
 
+header nav a:focus {
+    background-color: transparent !important;
+}
+
 .btn-jp {
     max-width: max-content;
     padding: 0.8vh 0.6em; 
@@ -137,7 +144,7 @@ a, a:hover {
     border: #8a0030 solid 1px;
     background-color: #f7cc99; 
     color: #8a0030;
-    font-size: 1.2rem;
+    font-size: 1.1rem;;
     align-self: center;
 }
 
@@ -163,8 +170,28 @@ a, a:hover {
 /* ********************** DEBUT HEADER ********************** */
 
 header {
-    margin-bottom: 3.7vh !important;
+    margin-bottom: 4vh !important;
     position: relative;
+}
+
+.header_shadow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding-top: 5vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 -1px 4px 0 rgba(26,26,26,.08),0 4px 8px 0 rgba(26,26,26,.12);
+}
+
+.header_shadow h2 {
+    color: transparent;
+    font-family: 'Henny Penny', cursive; 
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin-bottom: 1.2vh;
 }
 
 header h2 a {
@@ -250,13 +277,7 @@ header ul {
     width: max-content;
 }
 
-#pawn_icon {
-    width: 22px;
-    height: 22px;
-    margin: 0 0.15em;
-}
-
-#account_icon, #logout_icon {
+#pawn_icon, #account_icon, #logout_icon {
     width: 18px;
     height: 22px;
     margin: 0 0.15em;
@@ -403,10 +424,32 @@ nav button {
     color : #8a0030;
 }
 
+.dice_pawns {
+    position: absolute;
+    right: 17%;
+    bottom: 17%;
+    width: 10%;
+}
+
+.dice_pawns img {
+    width: 100%;
+    min-width: 70px;
+    max-width: 150px;
+    height: auto;
+    min-height: 50px;
+    max-height: 100px;
+}
+
+@media screen and (max-width: 300px) {
+    .dice_pawns {
+        display: none;
+    }
+}
+
+/* padding bouton insérer nouveau jeu */
 .md-pl-15px {
     padding-left: 15px;
 }
-
 @media screen and (max-width: 767.98px) {
     .md-pl-15px {
         padding-left: 0;
@@ -420,15 +463,23 @@ nav button {
     border-width:2px !important;
 }
 
+.card 
+{
+    margin: 0 5px !important;
+}
+
 .card-text
 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.card-text span {
+    text-decoration: underline;
 }
 
 .size-title
 {
-    font-size: 4.3rem;  
-
+    font-size: 4.3rem;
 }
 
 .size-title-detail
@@ -436,45 +487,41 @@ nav button {
     font-size: 3.5rem;
     color: #8a0030;
     text-align: center;
-
 }
 
 .size-game-name
 {
-    font-size: 2.5rem;
+    font-size: 2rem;
 	line-height: 2.5rem;
     margin-bottom:0.4rem;
-
 }
 
 .btn-card
 {
 	margin-top: 0 !important;
+    font-size: 1.1rem;
 }
 
 #photo
 {
-	
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 300px;
+	height: 280px;
 	overflow-x: hidden;
-	border: solid white 10px;
+	border: solid transparent 10px;
 }
 
 #photo img
 {
-	height: 280px;
+	height: 260px;
 	width: auto;
 }
 
-
 #photo-detail img
 {
-    height: 300px;
+    height: 280px;
     width: auto;
-
 }
 
 #photo-detail
@@ -484,11 +531,72 @@ nav button {
     padding-top: 15px;
     overflow-x: hidden;
 	border: solid white 10px;
-
 }
 
+/* ******** LISTE DE VOS JEUX ******** */
 
+.col_rwd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media screen and (max-width: 767.98px) and (orientation: landscape) {
+    .col_rwd {
+        flex-direction: row;
+        padding: 0 1em;
+    }
+    .card_account_games {
+        padding-left: 12%;
+    }
+    #photo_account_games {
+        min-width: 190px;
+    }
+}
 
+#photo_account_games
+{
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+#photo_account_games img
+{
+    height: 160px;
+    width: auto;
+}
+
+.size-name
+{
+    font-size: 1.6rem;
+    margin-bottom: 0.4em;
+}
+
+.btn-resize {
+    max-width: max-content;
+    padding: 0.8vh 0.6em; 
+    margin-top: 1em !important;
+    border-radius: 5px;
+    border: #8a0030 solid 1px;
+    background-color: #f7cc99; 
+    color: #8a0030;
+    font-size: .95rem;
+}
+
+.btn-resize:hover {
+    background-color: #f3bc75;
+    color: #8a0030;
+    border-color: #8a0030 !important;
+}
+
+#delete {
+    display: inline-block;
+    background-image: url(../img/delete.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    padding: 0 1.4em !important;
+}
 
 /* ********************** DEBUT FOOTER ********************** */
 
@@ -506,7 +614,11 @@ footer p {
 }
 
 footer a {
-    margin-left: 1em;
+    margin: 0 1em;
+}
+
+footer a:last-child {
+    margin-right: 0;
 }
 
 /* ********************** FIN FOOTER ********************** */
@@ -526,15 +638,22 @@ footer a {
     header {
         margin-bottom: 2.5vh !important;
     }
-    header h2 a {
-        font-size: 1.2rem;
+    .header_shadow {
+        padding-top: 2.5vh;
     }
-    header a, .home p, .btn-jp, label, input, select, .custom-file-label {
+    .header_shadow h2 {
+        font-size: 1.2rem;
+        margin-bottom: 2.5vh;
+    }
+    header h2 a {
+        font-size: 1.4rem !important;
+    }
+    header a, .home p, .btn-jp, label, input, select, .custom-file-label, .card-text {
         font-size: 1.1rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
         width: 14px;
-        height: 15px;
+        height: 17px;
         margin: 0 0.5em;
     }
     header ul {
@@ -581,14 +700,24 @@ footer a {
         font-size: 1rem;
         margin: 1.5em;
     }
-
+    #photo_account_games img
+    {
+        height: 140px;
+        width: auto;
+    }
    
     /* ********************** DEBUT FOOTER ********************** */
     footer {
-        font-size: 0.7rem !important;
+        font-size: 0.9rem !important;
+        flex-wrap: wrap;
     }
-
-     
+    footer p, footer div {
+        width: 100%;
+        text-align: center;
+    }
+    footer p {
+        margin-bottom: 0.5vh;
+    }
 }
 
 @media screen and (max-width: 991.98px) and (orientation: portrait) {   /* < 992 PORTRAIT */
@@ -603,11 +732,18 @@ footer a {
     header {
         margin-bottom: 2.5vh !important;
     }
-    header h2 a {
+    .header_shadow {
+        padding-top: 2.5vh;
+    }
+    .header_shadow h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5vh;
+    }
+    header h2 a, .size-name {
         font-size: 1.8rem !important;
     }
-    header a, .home p, .btn-jp, label, input, select, .custom-file-label {
-        font-size: 1.4rem !important;
+    header a, .home p, .btn-jp, label, input, select, .custom-file-label, .card-text {
+        font-size: 1.3rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
         margin: 0 0.5em;
@@ -652,6 +788,9 @@ footer a {
         font-size: 1rem;
         margin: 1em;
     }
+    .dice_pawns {
+        width: 14%;
+    }
 
      /* ********************** SIZE CATALOG TITLE  & TITLE DETAIL ********************** */
 
@@ -659,7 +798,9 @@ footer a {
      {
         font-size: 3.5rem;
      }
-
+     .btn-resize {
+         font-size: 1rem;
+     }
     
     /* ********************** DEBUT FOOTER ********************** */
     footer {
@@ -674,26 +815,32 @@ footer a {
     footer p {
         margin-bottom: 0.5vh;
     }
-
 }
-
 
 @media screen and (max-width: 575.98px) and (orientation: portrait) {   /* < 576 PORTRAIT */
     .container-fluid {
         width: 95%;
+        padding: 1.5vh;
     }
     .h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
+    }
+    .header_shadow {
+        padding-top: 1.5vh;
+    }
+    .header_shadow h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2vh;
     }
     header h2 a {
-        font-size: 1.2rem !important;
+        font-size: 1.3rem !important;
     }
-    header a, .home p, .btn-jp, label, input, select, .custom-file-label {
-        font-size: 1rem !important;
+    header a, .home p, .btn-jp, label, input, select, .custom-file-label, .card-text, .btn-resize {
+        font-size: 1.05rem !important;
     }
     #pawn_icon, #account_icon, #logout_icon {
-        width: 12px;
-        height: 13px;
+        width: 14px;
+        height: 17px;
     }
     header li {
         padding: 1.5vh 1rem;
@@ -718,12 +865,20 @@ footer a {
         width: 15%;
     }
     footer div, footer p {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
-    .p_login, .p_profil {
+    .p_login {
+        font-size: 0.8rem;
+        margin: 1.2em;
+    }
+    .p_profil {
         font-size: 0.8rem;
         margin: 1.8em;
     }
+    .dice_pawns {
+        width: 10%;
+    }
+
     /* ********************** SIZE CATALOG/DETAIL TITLE & SIZE DETAIL TITLE GAME ********************** */
 
     .size-title, .size-title-detail
@@ -733,8 +888,7 @@ footer a {
 
     .size-game-name
     {
-        font-size: 2rem;
-
+        font-size: 1.8rem;
     }
 
     /* ********************** SIZE CARD CATALOG ********************** */
@@ -742,11 +896,12 @@ footer a {
     .size-card
     {
         width: 80%;
-        
-        
-
     }
-    
+
+    .size-name 
+    {
+        font-size: 1.5rem !important;
+    }
 
 }
 
