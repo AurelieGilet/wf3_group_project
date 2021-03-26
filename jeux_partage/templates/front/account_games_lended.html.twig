@@ -31,7 +31,7 @@
 					</div>
 					<div class="card-body card_account_games">
 						<h4 class="text-center size-name">{{lending.game.name}}</h4>
-						
+
 						<p class="card-text my-1"><span>Catégorie :</span> {{lending.game.category.name}}</p>
 						<p class="card-text my-1"><span>Age :</span> {{lending.game.public}}</p>
 						<p class="card-text my-1"><span>Nombre de joueurs :</span> {{lending.game.minPlayers}} {% if lending.game.maxPlayers != NULL and lending.game.maxPlayers != lending.game.minPlayers %} à {{lending.game.maxPlayers}} {% endif %}</p>
@@ -42,7 +42,7 @@
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': lending.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
-							<a href="" class="btn btn-sm btn-outline-secondary btn-resize {% if lending.giveawayDate != NULL %} disabled{% endif %}" id="delete"></a>
+							<a href="" class="btn btn-sm btn-outline-secondary btn-resize {% if lending.giveawayDate != NULL %} disabled {% endif %}" id="delete"></a>
 						</div>
 						<div class="btn-group d-flex justify-content-center">
 							<a href="" class="btn btn-sm btn-outline-secondary btn-resize">Jeu remis</a>
