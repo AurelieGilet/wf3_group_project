@@ -4,14 +4,14 @@
 
 {% block body %}
 
-	<h1 class="h1 mt-3 mb-5">Catalogue des Jeux</h1>
+	<h1 class="h1 mt-3 mb-4">Catalogue des Jeux</h1>
 
 	<div class="row align-item-center">
 		<div class="card-deck">
 
 		{% for game in games %}
 
-			<div class="size-card col-md-6 col-xl-4 pt-3 pb-3">
+			<div class="size-card col-md-6 col-xl-4 py-3 px-1">
 				<div class="card mb-4 h-100 shadow border-dark">
 					<div id="photo">
 						<img class="card-img-top" src="{{ asset('uploads/images/' ~ game.image) }}" alt="{{game.name}}">
@@ -28,7 +28,7 @@
 						<hr class="border-dark">
 						<p class="card-text"><span>Ville de location :</span> {{game.owner.city}}</p>
 						<hr class="border-dark">
-						<p class="card-text"><span>Statut :</span> {% if game.id in gamesId %} <span class="text-danger">Indisponible</span> {% else %} <span class="text-success">Disponible</span> {% endif %} </p>
+						<p class="card-text"><span>Statut :</span> {% if game.id in gamesId %} <span class="text-danger" style="text-decoration: none; font-weight: bold">Indisponible</span> {% else %} <span class="text-success" style="text-decoration: none; font-weight: bold">Disponible</span> {% endif %} </p>
 					</div>
 					<div class="card-footer d-flex justify-content-around align-items-center">
 						<a href="{{ path('detail', {'id': game.id}) }}" class="btn-jp btn-card size-button">Voir</a>
