@@ -9,7 +9,7 @@
 	<h1 class="h1 size-title-account_games mt-3 mb-4">Liste de vos jeux</h1>
 
 	<div class="my-5 text-center text-md-left md-pl-15px">
-		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Enregistrer un nouveau jeu</a>
+		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Ajouter un nouveau jeu</a>
 	</div>
 
 	{% for message in app.flashes('success') %}
@@ -23,28 +23,23 @@
 	<div class="row align-items-center">
 		{% for game in games %}
 
-			<div class="col-md-4">
-				<div class="mb-4 shadow-sm">
-				<div id="photo_account_games">
-					<img src="{{ asset('uploads/images/' ~ game.image) }}" alt="{{game.name}}">
-				</div>	
-					<div class="card-body">
+			<div class="col-md-6 col-lg-4">
+				<div class="mb-4 shadow-sm col_rwd">
+					<div id="photo_account_games">
+						<img src="{{ asset('uploads/images/' ~ game.image) }}" alt="{{game.name}}">
+					</div>	
+					<div class="card-body card_account_games">
 						<h4 class="text-center size-name">{{game.name}}</h4>
-						{# <p class="card-text">Règle du jeu : {{game.description|striptags|slice(0,150)}} ...</p>
-						<hr> #}
-						<p class="card-text">Catégorie : {{game.category.name}}</p>
 						
-						<p class="card-text">Age: {{game.public}}</p>
+						<p class="card-text"><span>Catégorie :</span> {{game.category.name}}</p>
+						<p class="card-text"><span>Age :</span> {{game.public}}</p>
+						<p class="card-text"><span>Nombre de joueurs :</span> {{game.minPlayers}} {% if game.maxPlayers != NULL %} à {{game.maxPlayers}} {% endif %}</p>
 						
-						<p class="card-text">Nombre de joueurs : {{game.minPlayers}} {% if game.maxPlayers != NULL %} à {{game.maxPlayers}} {% endif %}</p>
-						
-						{# <div class="d-flex justify-content-between align-items-center"> #}
-							<div class="btn-group">
-							<a href="{{ path('detail', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary">Voir le détail</a>
-							<a href="{{ path('account_games_edit', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
-							<a href="" class="btn btn-sm btn-outline-secondary">Supprimer</a>
-							</div>
-						{# </div> #}
+						<div class="btn-group">
+							<a href="{{ path('detail', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
+							<a href="{{ path('account_games_edit', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Modifier</a>
+							<a href="" class="btn btn-sm btn-outline-secondary btn-resize" id="delete"></a>
+						</div>
 					</div>
 				</div>
 			</div>

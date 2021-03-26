@@ -4,34 +4,34 @@
 
 {% block body %}
 
-	<h1 class="h1 size-title mt-3 mb-5">Catalogue des Jeux</h1>
+	<h1 class="h1 mt-3 mb-5">Catalogue des Jeux</h1>
 
 	<div class="row align-item-center">
 		<div class="card-deck">
 
 		{% for game in games %}
 
-			<div class="size-card col-12 col-md-6 col-lg-6 col-xl-4 pt-3 pb-3">
+			<div class="size-card col-md-6 col-xl-4 pt-3 pb-3">
 				<div class="card mb-4 h-100 shadow border-dark">
-				<div id="photo">
-					<img class="card-img-top" src="{{ asset('uploads/images/' ~ game.image) }}" alt="{{game.name}}">
-				</div>
+					<div id="photo">
+						<img class="card-img-top" src="{{ asset('uploads/images/' ~ game.image) }}" alt="{{game.name}}">
+					</div>
 					<div class="card-body">
 						<h4 class="text-center size-game-name">{{game.name}}</h4>
 						
 						<hr class="border-dark">
-						<p class="card-text">Catégorie : {{game.category.name}}</p>
+						<p class="card-text"><span>Catégorie :</span> {{game.category.name}}</p>
 						<hr class="border-dark">
-						<p class="card-text">Age: {{game.public}}</p>
+						<p class="card-text"><span>Age :</span> {{game.public}}</p>
 						<hr class="border-dark">
-						<p class="card-text">Nombre de joueurs : {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
+						<p class="card-text"><span>Nombre de joueurs :</span> {{game.minPlayers}} {% if game.maxPlayers != NULL and game.maxPlayers != game.minPlayers %} à {{game.maxPlayers}} {% endif %}</p>
 						<hr class="border-dark">
-						<p class="card-text">Ville de location : {{game.owner.city}}</p>
+						<p class="card-text"><span>Ville de location :</span> {{game.owner.city}}</p>
 						<hr class="border-dark">
-						<p class="card-text">Status : {% if game.id in gamesId %} <span class="text-danger">Indisponible</span> {% else %} <span class="text-success">Disponible</span> {% endif %} </p>
+						<p class="card-text"><span>Statut :</span> {% if game.id in gamesId %} <span class="text-danger">Indisponible</span> {% else %} <span class="text-success">Disponible</span> {% endif %} </p>
 					</div>
 					<div class="card-footer d-flex justify-content-around align-items-center">
-						<a href="{{ path('detail', {'id': game.id}) }}" class="btn-jp btn-card size-button">Voir le détail</a>
+						<a href="{{ path('detail', {'id': game.id}) }}" class="btn-jp btn-card size-button">Voir</a>
 						{% if game.id in gamesId %} 
 						<a href="" class="btn-jp btn-card ml-2">Réserver</a>
 						{% else %}

@@ -24,12 +24,12 @@
 				{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs max", 'attr' : {'placeholder': "-" }}) }}
 				{{ form_row(form.public, {'label' : "Age"}) }}
 				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "Format jpg, jpeg ou png" }}) }}
-				{{ form_row(form.description, {'label' : "Règle du jeu"}) }}
+				{{ form_row(form.description, {'label' : "Règle du jeu", 'attr' : {'rows': "4" }}) }}
 
 				{% if gameName %}
-				{{ form_row(form.save, {'label' : "Modifier le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
+				{{ form_row(form.save, {'label' : "Modifier le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 				{% else %}
-				{{ form_row(form.save, {'label' : "Enregistrer le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4 mb-3'}}) }}
+				{{ form_row(form.save, {'label' : "Enregistrer le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 				{% endif %}
 
 			{{ form_end(form) }}
