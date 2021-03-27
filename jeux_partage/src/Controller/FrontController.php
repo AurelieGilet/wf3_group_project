@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Entity\Borrowing;
+use App\Entity\Category;
 use App\Form\GameFormType;
 use App\Form\BorrowingFormType;
 use App\Repository\BorrowingRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +23,16 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class FrontController extends AbstractController
 {
+	// Method to get all categories from DB and send them to template
+	public function categories(CategoryRepository $categoryRepo): Response
+	{
+		$categories = $categoryRepo->findAll();
+
+		return $this->render('front/_category.html.twig', [
+			'categories' => $categories
+		]);
+	}
+
     /**
      * @Route("/", name="home")
      */
@@ -29,55 +41,65 @@ class FrontController extends AbstractController
         return $this->render('front/home.html.twig');
     }
 
-
 	/**
+	 * Method to show games list on catalog page
+	 * Method to show games listed by category
 	 * @Route("/catalogue", name="catalogue")
-	 * 
+	 * @Route("/catalogue/{id}", name="catalogue_category")
 	 */
-	public function catalogue(GameRepository $gameRepo, BorrowingRepository $borrowingRepo): Response
+	public function catalogue(GameRepository $gameRepo, BorrowingRepository $borrowingRepo, CategoryRepository $categoryRepo, Category $category = null): Response
 	{
-		$games = $gameRepo->findAll();
-		dump($games);
-
-		$borrowing = $borrowingRepo->findBy(['returnDate' => NULL]);
-		dump($borrowing);
-
-		$gamesId = array();
-		foreach ($borrowing as $key => $value) {
-			array_push($gamesId, $value->getGame()->getId());
+		$categoryName = "";
+		if($category != null)
+		{
+			$games = $gameRepo->findBy(['category' => $category->getId()]);
+			$categoryName = $category->getName();
 		}
-		dump($gamesId);
+		else
+		{
+			$games = $gameRepo->findAll();
+		}
 
-		
+		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+
+		// Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
+		$borrowedGames = [];
+		foreach ($borrowings as $borrowing) {
+			$borrowedGames[$borrowing->getGame()->getId()] = $borrowing;
+		}
+
 		return $this->render('front/catalog.html.twig', [
 			'games' => $games,
-			'gamesId' => $gamesId
+			'borrowedGames' => $borrowedGames,
+			'categoryName' => $categoryName
 		]);
 	}
   
   	/**
-	 * @Route("/catalogue/{id}", name="detail")
-	 * 
+	 * Method to show the details of a game
+	 * @Route("/catalogue/detail/{id}", name="detail")
 	 */
-	public function detail(Game $game):Response
+	public function detail(Game $game, BorrowingRepository $borrowingRepo):Response
 	{
+		$borrowing = $borrowingRepo->findOneBy(['game' => $game, 'returnDate' => NULL]);
 
 		return $this->render('front/detail.html.twig', [
-				'game' => $game
+				'game' => $game,
+				'borrowing' => $borrowing
 		]);
 	}
 
 	/**
+	 * Method to borrow a game
 	 * @Route("/emprunts/{id}", name="borrowing")
 	 */
 	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, User $user = null): Response
 	{
+		// TO DO: security control to prevent borrowing if game is already borrowed
 		$borrowing = new Borrowing;
 		$user = $this->getUser();
-		dump($user);
 		
 		$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
-		dump($lender);
 
 		$startDate = new \DateTime;
 		$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
@@ -101,10 +123,6 @@ class FrontController extends AbstractController
 			return $this->redirectToRoute('account_games_borrowed');
 		}
 
-		dump($request);
-		dump($form);
-
-
 		return $this->render('front/borrowing.html.twig', [
 			'game' => $game, 
 			'form' => $form->createView(),
@@ -114,16 +132,14 @@ class FrontController extends AbstractController
 	}
 
 	/**
+	 * Method to show on user account their games 
 	 * @Route("/compte/jeux", name="account_games")
 	 */
 	public function showGames(GameRepository $gameRepo, User $user = null): Response
 	{
 		$user = $this->getUser();
-
-		// dump($user);
 	
 		$games = $gameRepo->findBy(array('owner' => $user));
-		dump($games);
 		
 		return $this->render('front/account_games.html.twig', [
 			'games' => $games
@@ -131,12 +147,13 @@ class FrontController extends AbstractController
 	}
 
 	/**
+	 * Method on user account to add a new game or edit an existing one
 	 * @Route("/compte/jeux/nouveau", name="account_games_create")
 	 * @Route("/compte/jeux/edit/{id}", name="account_games_edit")
-	 * 
 	 */
 	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager,Game $game = null, User $user = null): Response
 	{
+		// TO DO: security control to prevent editing or deleting of a lended game
 		$user = $this->getUser();
 
 		if(!$game)
@@ -185,7 +202,6 @@ class FrontController extends AbstractController
 			$this->addFlash('success', $message);
 
 			return $this->redirectToRoute('account_games');
-
 		}
 
 		return $this->render('front/account_games_registration.html.twig', [
@@ -195,14 +211,15 @@ class FrontController extends AbstractController
 	}
 
 	/**
+	 * Method to show on user account their borrowed games 
 	 * @Route("/compte/emprunts", name="account_games_borrowed")
 	 */
 	public function gamesBorrowed(BorrowingRepository $borrowingRepo): Response
 	{
+		// TO DO: delete option with security control to prevent deleting if game already given by the owner
 		$user = $this->getUser();
 
 		$borrowings = $borrowingRepo->findBy(['borrower' => $user]);
-
 
 		return $this->render('front/account_games_borrowed.html.twig', [
 			'borrowings' => $borrowings
@@ -210,6 +227,9 @@ class FrontController extends AbstractController
 	}
 
 	/**
+	 * Method to show lended games on user accout
+	 * Method to indicate the game has been given to the borrower
+	 * Method to indicate the game has been returned by the borrower
 	 * @Route("/compte/prets", name="account_games_lended")
 	 * @Route("/compte/prets/remise/{id}", name="account_games_lended_giveaway")
 	 * @Route("/compte/prets/retour/{id}", name="account_games_lended_return")
@@ -218,8 +238,6 @@ class FrontController extends AbstractController
 	{
 		$user = $this->getUser();
 		$lendings = $borrowingRepo->findBy(['lender' => $user]);
-
-		dump($borrowing);
 
 		if($borrowing)
 		{
@@ -243,40 +261,12 @@ class FrontController extends AbstractController
 				
 				return $this->redirectToRoute('account_games_lended');
 			}
-
-
-			dump($borrowing);
-			dump($manager);
-			
 		}
-
-		
-
-		
-
-
-
-		// $giveawayForm = $this->createForm(BorrowingFormType::class, $borrowing);
-		// $giveawayForm->handleRequest($request);
-
-		// dump($request);
-
-
-
-		// $ReturnForm = $this->createForm(BorrowingFormType::class, $borrowing);
-		// $ReturnForm->handleRequest($request);
 
 		return $this->render('front/account_games_lended.html.twig', [
 			'lendings' => $lendings
-			// 'giveawayForm' => $giveawayForm->createView()
-			// 'returnForm' => $ReturnForm
 		]);
 	}
-
-
-
-
-
 
 
 }
