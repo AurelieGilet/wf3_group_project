@@ -69,7 +69,7 @@ main {
 }
 
 .h1 {
-    font-size: 3rem;
+    font-size: 2.6rem;
     color: #8a0030;
     text-align: center;
 }
@@ -381,12 +381,11 @@ header li:hover, #navbarDropdown1:hover, .dropdown-item:hover {
     background-color: #f3bc75;
 }
 
-
-.dropdown-item:active {
+.dropdown-item:active, .btn-outline-secondary:active {
     background-color: #f3bc75 !important;
     color: #8a0030 !important;
+    border-color: #8a0030 !important;
 }
-
 
 nav button {
     border: none;
@@ -582,11 +581,12 @@ nav button {
 	height: 250px;
 	overflow-x: hidden;
 	border: solid transparent 10px;
+    border-top-width: 15px;
 }
 
 #photo img, #photo-detail img
 {
-	height: 230px;
+	height: 225px;
 	width: auto;
 }
 
@@ -658,6 +658,20 @@ nav button {
     padding: 0 1.4em !important;
 }
 
+.backoffice {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.backoffice .card-body {
+    padding-left: 10% !important;
+}
+
+.backoffice p, .backoffice ul {
+    width: max-content;
+    margin: 0 auto;
+}
+
 .up {
     height: 40px;
     width: 40px;
@@ -712,7 +726,7 @@ footer a:last-child {
         padding: 2.5vh 2em; 
     }
     .h1 {
-        font-size: 2rem !important;
+        font-size: 2.1rem !important;
     }
     header {
         margin-bottom: 5vh !important;
@@ -783,6 +797,9 @@ footer a:last-child {
     {
         height: 140px;
         width: auto;
+    }
+    .backoffice {
+        width: 100%;
     }
    
     /* ********************** DEBUT FOOTER ********************** */
@@ -880,6 +897,9 @@ footer a:last-child {
      .btn-resize {
          font-size: 1rem;
      }
+     .backoffice {
+         width: 100%;
+     }
     
     /* ********************** DEBUT FOOTER ********************** */
     footer {
@@ -902,7 +922,7 @@ footer a:last-child {
         padding: 1.5vh;
     }
     .h1 {
-        font-size: 2rem;
+        font-size: 2.1rem;
     }
     header {
         margin-bottom: 3vh !important;

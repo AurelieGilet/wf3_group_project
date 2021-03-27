@@ -18,7 +18,7 @@
 
 	{% if error %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+			<span class="bg-msg text-danger font-italic rounded text-center mx-auto py-2 px-4">
                 {{error.messageKey | trans(error.messageData, 'security') }}
 			</span>
         </div>
@@ -38,7 +38,7 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         </div>
 
-		<p class="p_login">Pas encore de compte ? <a href="{{ path('security_registration') }}" class="font-weight-bold" class="underline_a">Inscrivez-vous ici</a></p>
+		<p class="p_login">Pas encore de compte ? <a href="{{ path('security_registration') }}" class="font-weight-bold underline_a">Inscrivez-vous ici</a></p>
             
         <div class="row justify-content-around">
             <div class="col-12 mx-auto row justify-content-around">
