@@ -9,11 +9,11 @@
 	<h1 class="h1 mt-3 mb-4">Liste de vos jeux</h1>
 
 	<div class="my-5 text-center">
-		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Ajouter un nouveau jeu</a>
+		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Ajouter un jeu</a>
 	</div>
 
 	{% for message in app.flashes('success') %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto my-3">
 			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
         		{{message}}
 			</span>
@@ -26,7 +26,7 @@
 			<div class="col-md-6 col-lg-4">
 				<div class="mb-4 shadow-sm col_rwd">
 					<div id="photo_account_games">
-						<img src="{{ asset('uploads/images/' ~ game.image) }}" alt="{{game.name}}">
+						<img src="{{ asset('uploads/images/' ~ game.image) }}" alt="jeu {{game.name}}">
 					</div>	
 					<div class="card-body card_account_games">
 						<h4 class="text-center size-name">{{game.name}}</h4>
@@ -38,7 +38,7 @@
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="{{ path('account_games_edit', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Modifier</a>
-							<a href="" class="btn btn-sm btn-outline-secondary btn-resize" id="delete"></a>
+							<a href="" class="delete btn btn-sm btn-outline-secondary btn-resize" id="delete"></a>
 						</div>
 					</div>
 				</div>
