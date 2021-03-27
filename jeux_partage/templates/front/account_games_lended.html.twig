@@ -46,9 +46,9 @@
 						<p class="card-text my-1"><span>Fin de l'emprunt :</span> {{lending.endDate|date('d/m/Y')}}</p>
 						<p class="card-text my-1"><span>Status :</span> {% if lending.returnDate == NULL %} <span class="text-danger" style="text-decoration: none;">NON RENDU</span> {% else %} <span class="text-success" style="text-decoration: none;">RENDU</span> {% endif %} </p>
 						{% if lending.giveawayDate != NULL and lending.returnDate == NULL %}
-						<p class="card-text my-1"><span class="text-success" style="text-decoration: none;">Jeu remis à l'emprunteur</span></p>
+						<p class="card-text my-1"><span class="text-success font-italic" style="text-decoration: none;">Jeu remis à l'emprunteur</span></p>
 						{% elseif lending.returnDate != NULL %}
-						<p class="card-text my-1"><span class="text-success" style="text-decoration: none;">Jeu rendu par l'emprunteur</span></p>
+						<p class="card-text my-1"><span class="text-success font-italic" style="text-decoration: none;">Jeu rendu par l'emprunteur</span></p>
 						{% endif %} 
 
 						<div class="btn-group d-flex justify-content-center">

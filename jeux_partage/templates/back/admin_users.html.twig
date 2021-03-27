@@ -1,54 +1,46 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    BACKOFFICE | Gestion membres
+    BackOffice | Gestion des Membres
 {% endblock %}
 
 {% block body %}
-    
-    <h1 class="display-4 text-center my-5">BACKOFFICE | Gestion membres</h1>
+    <h1 class="h1 mt-3 mb-4">Gestion des Membres</h1>
 
-    {% for message in app.flashes('success') %}
-        
-        <div class="col-md-3 bg-success p-4 rounded mx-auto text-center text-white mb-3">
-            {{ message }}
+    {% for message in app.flashes("success") %}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+        		{{message}}
+			</span>
         </div>
-
     {% endfor %}
 
-    <table class="table table-bordered text-center">
-        <tr>
-            {% for Colonne in colonnes %}
-
-                {% if Colonne != 'password' %}
-
-                    <th>{{ Colonne|upper }}</th>
-
+    <table class="table table-bordered table-striped text-center">
+        <tr class="align-middle">
+            {% for colonne in colonnes %}
+                {% if colonne == "username" %}
+                    <th class="align-middle font-weight-bold">UTILISATEUR</th>
+                {% elseif colonne == "email" %}
+                    <th class="align-middle font-weight-bold">EMAIL</th>
+                {% elseif colonne == "roles" %}
+                    <th class="align-middle font-weight-bold">ROLE</th>
                 {% endif %}
-
             {% endfor %}
         </tr>
 
-        {% for oneUser in usersBdd %}
+        {% for user in users %}
+            <tr class="align-middle">
+                <td class="align-middle">{{user.username}}</td>
+                <td class="align-middle">{{user.email}}</td>
+            {% if user.roles[0] == "ROLE_ADMIN" %}
+                <td class="align-middle font-weight-bold" style="color: #8a0030;">Administrateur</td>
+            {% else %}
+                <td class="align-middle">Utilisateur</td>
+            {% endif %}
 
-            <tr>
-                <td>{{ oneUser.id }}</td>
-                <td>{{ oneUser.email }}</td>
-                <td>{{ oneUser.username }}</td>
-
-                {% if oneUser.roles[0] == 'ROLE_ADMIN' %}
-                    <td class="bg-secondary text-white">Administrateur</td>
-                {% else %}
-                    <td>Utilisateur</td>
-                {% endif %}
-
-                <td><a href="{{ path('admin_edit_user', {'id': oneUser.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i></a></td>
-
-                <td><a href="{{ path('admin_remove_user', {'id': oneUser.id}) }}" class="btn btn-danger" onclick="return(confirm('Voulez-vous vraiment supprimer cet utilisateur ?'))"><i class="fas fa-trash-alt"></i></a></td>   
-                
+                <td class="align-middle"><a href="{{path("admin_edit_user", {"id": user.id})}}" class="btn-jp">Modifier</a></td>
+                <td class="align-middle"><a href="{{path("admin_delete_user", {"id": user.id})}}" class="btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer ce membre ?'))">Supprimer</a></td>
             </tr>
-            
         {% endfor %}
     </table>
-
 {% endblock %}
