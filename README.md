@@ -11,7 +11,6 @@ C'est un site de mise en relation de personnes qui souhaitent partager leurs jeu
 4 développeuses web junior:
 
 * [Aurélie Gilet](https://github.com/AurelieGilet)
-* [Céline Saint-Martin](https://github.com/CelineSaintMartin)
 * [Céline Trivier](https://github.com/titiceline)
 * [Véronique Khammisouk](https://github.com/KhammisoukVeronique)
 
