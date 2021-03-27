@@ -56,15 +56,10 @@
                                         Jeux par Catégories
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ path("catalogue", {'category': 'cartes'}) }}">Cartes</a>
-                                        <a class="dropdown-item" href="">Stratégie</a>
-                                        <a class="dropdown-item" href="">Connaissance</a>
-                                        <a class="dropdown-item" href="">Adresse</a>
-                                        <a class="dropdown-item" href="">Coopération</a> 
-                                        <a class="dropdown-item" href="">Logique</a>
-                                        <a class="dropdown-item" href="">Lettre</a>
-                                        <a class="dropdown-item" href="">Dés</a>
-                                        <a class="dropdown-item" href="">Mémoire</a>
+									{# This is use to embed a controller without having to specify a route in the method #}
+									{{ render(controller(
+										'App\\Controller\\FrontController::categories'
+									))}}
                                     </div>
                                 </div>
                             </li>

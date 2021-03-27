@@ -1,0 +1,6 @@
+
+{# This is a template fragment called in base.html.twig #}
+
+{% for category in categories %}
+	<a class="dropdown-item" href="{{ path("catalogue_category", {'id': category.id}) }}">{{category.name|upper}}</a>
+{% endfor %}
