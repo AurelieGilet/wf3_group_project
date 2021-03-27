@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="h1 mt-3 mb-4">Gestion des Membres</h1>
+    <h1 class="h1 my-4">Gestion des Membres</h1>
 
     {% for message in app.flashes("success") %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
 			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
         		{{message}}
 			</span>
@@ -17,15 +17,17 @@
 
     <table class="table table-bordered table-striped text-center">
         <tr class="align-middle">
-            {% for colonne in colonnes %}
-                {% if colonne == "username" %}
+            {% for column in columns %}
+                {% if column == "username" %}
                     <th class="align-middle font-weight-bold">UTILISATEUR</th>
-                {% elseif colonne == "email" %}
+                {% elseif column == "email" %}
                     <th class="align-middle font-weight-bold">EMAIL</th>
-                {% elseif colonne == "roles" %}
+                {% elseif column == "roles" %}
                     <th class="align-middle font-weight-bold">ROLE</th>
                 {% endif %}
             {% endfor %}
+                    <th class="align-middle font-weight-bold">MODIFIER</th>
+                    <th class="align-middle font-weight-bold">SUPPRIMER</th>
         </tr>
 
         {% for user in users %}
@@ -38,8 +40,8 @@
                 <td class="align-middle">Utilisateur</td>
             {% endif %}
 
-                <td class="align-middle"><a href="{{path("admin_edit_user", {"id": user.id})}}" class="btn-jp">Modifier</a></td>
-                <td class="align-middle"><a href="{{path("admin_delete_user", {"id": user.id})}}" class="btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer ce membre ?'))">Supprimer</a></td>
+                <td class="align-middle"><a href="{{ path("admin_edit_user", {"id": user.id}) }}" class="edit-backoffice btn-jp"></a></td>
+                <td class="align-middle"><a href="{{ path("admin_delete_user", {"id": user.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer ce membre ?'))"></a></td>
             </tr>
         {% endfor %}
     </table>

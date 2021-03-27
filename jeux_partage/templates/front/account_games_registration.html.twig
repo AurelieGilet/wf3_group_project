@@ -27,9 +27,9 @@
 				{{ form_row(form.description, {'label' : "Règle du jeu", 'attr' : {'rows': "4" }}) }}
 
 				{% if gameName %}
-				{{ form_row(form.save, {'label' : "Modifier le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+				{{ form_row(form.save, {'label' : "Modifier", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 				{% else %}
-				{{ form_row(form.save, {'label' : "Enregistrer le jeu", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+				{{ form_row(form.save, {'label' : "Enregistrer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 				{% endif %}
 
 			{{ form_end(form) }}

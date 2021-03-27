@@ -42,7 +42,7 @@ select, option {
 
 body {
     min-height: 100vh;
-    padding: 5vh 0;
+    padding: 4vh 0;
     background-image: url("../img/background.jpg"); 
     background-size: 120% 120%; 
     background-position: center; 
@@ -51,11 +51,11 @@ body {
 }
 
 .container-fluid {
-    min-height: 90vh;
+    min-height: 92vh;
     width: 85%; 
     margin: 0 auto;
     background-color: white; 
-    padding: 4vh 4em; 
+    padding: 3vh 4em; 
     border-radius: 10px; 
     box-shadow: rgba(0, 0, 0, 0.6) 0.1em 0.1em 1em;
     display: flex;
@@ -181,7 +181,7 @@ header {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    padding-top: 5vh;
+    padding-top: 4vh;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     box-shadow: 0 -1px 4px 0 rgba(26,26,26,.08),0 4px 8px 0 rgba(26,26,26,.12);
@@ -578,7 +578,7 @@ nav button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 250px;
+	height: 225px;
 	overflow-x: hidden;
 	border: solid transparent 10px;
     border-top-width: 15px;
@@ -586,7 +586,7 @@ nav button {
 
 #photo img, #photo-detail img
 {
-	height: 225px;
+	height: 200px;
 	width: auto;
 }
 
@@ -656,6 +656,22 @@ nav button {
     background-repeat: no-repeat;
     background-size: 45%;
     padding: 0 1.4em !important;
+}
+
+.delete-backoffice {
+    background-image: url(../img/delete.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    padding: 0.8vh 1.4em;
+}
+
+.edit-backoffice {
+    background-image: url(../img/edit.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 36%;
+    padding: 0.8vh 1.4em;
 }
 
 .backoffice {
@@ -820,7 +836,7 @@ footer a:last-child {
     .container-fluid {
         width: 90%;
         margin: 0 auto;
-        padding: 2.5vh; 
+        padding: 2vh; 
     }
     .h1 {
         font-size: 2.7rem;
@@ -829,7 +845,7 @@ footer a:last-child {
         margin-bottom: 4vh !important;
     }
     .header_shadow {
-        padding-top: 2.5vh;
+        padding-top: 2vh;
     }
     .header_shadow h2 {
         font-size: 1.8rem;

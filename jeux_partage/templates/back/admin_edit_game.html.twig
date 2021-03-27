@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    BackOffice | Modification Jeu
+{% endblock %}
+
+{% block body %}
+    <h1 class="h1 mt-3 mb-4">Modification du jeu <span>{{game.name}}</span></h1>
+    
+	<section class="row justify-content-center">
+        <div class="col-md-10 d-flex flex-column align-items-center">
+            <div class="col-md-5 d-flex justify-content-center">
+                <img src="{{ asset('uploads/images/' ~ game.image)}}" alt="jeu {{game.name}}" height="100px" width="auto">
+            </div>
+			{{ form_start(formGame, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around' }}) }}
+
+				{{ form_row(formGame.name, {'label' : "Nom du jeu"}) }}
+				{{ form_row(formGame.category, {'label' : "Catégorie"}) }}
+				{{ form_row(formGame.minPlayers, {'label' : "Nombre de joueurs min"}) }}
+				{{ form_row(formGame.maxPlayers, {'label' : "Nombre de joueurs max"}) }}
+				{{ form_row(formGame.public, {'label' : "Age"}) }}
+				{{ form_row(formGame.image, {'label' : "Photo du jeu (2 Mo max)"}) }}
+				{{ form_row(formGame.description, {'label' : "Règle du jeu", 'attr' : {'rows': "4" }}) }}
+
+				{{ form_row(formGame.save, {'label' : "Modifier", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+
+			{{ form_end(formGame) }}
+        </div>
+    </section>
+{% endblock %}

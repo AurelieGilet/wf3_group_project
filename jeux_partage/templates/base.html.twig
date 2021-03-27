@@ -47,7 +47,7 @@
                             <li class="d-flex justify-content-start align-items-center">
                                 <img src="{{ asset('img/pawn-icon.png') }}" alt="icone pion" id="pawn_icon">
                                 <a class="nav-link dropdown-toggle px-2 py-0" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Catalogue
+                                    Jeux
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ path("catalogue") }}">Tout le Catalogue</a>
@@ -95,8 +95,8 @@
                                     <a class="dropdown-item" href="{{ path("admin") }}">BackOffice</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ path("admin_users") }}">Gestion des Membres</a>
-                                    <a class="dropdown-item" href="">Gestion des Jeux</a>
-                                    <a class="dropdown-item" href="">Gestion des Catégories</a>
+                                    <a class="dropdown-item" href="{{ path("admin_games") }}">Gestion des Jeux</a>
+                                    <a class="dropdown-item" href="{{ path("admin_categories") }}">Gestion des Catégories</a>
                                     <a class="dropdown-item" href="">Gestion des Emprunts</a>
                                 </div>
                             {% else %}
