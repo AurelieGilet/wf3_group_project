@@ -8,13 +8,13 @@
 
 	<h1 class="h1 mt-3 mb-4">Liste des jeux prêtés</h1>
 
-	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Contacter l'emprunteur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a">messagerie</a>.</p>
-	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Tant que le jeu n'a pas été récupéré, vous pouvez annuler l'emprunt via le lien de suppression associé à celui-ci.</p>
-	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span class="font-weight-bold" style="text-decoration: none;">Jeu remis</span>".</p>
-	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span class="font-weight-bold" style="text-decoration: none;">Jeu rendu</span>".</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">- Contacter l'emprunteur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a">messagerie</a>.</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">- Tant que le jeu n'a pas été récupéré, vous pouvez annuler l'emprunt via le lien de suppression associé à celui-ci.</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">- Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span class="font-weight-bold" style="text-decoration: none;">Jeu remis</span>".</p>
+	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">- Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span class="font-weight-bold" style="text-decoration: none;">Jeu rendu</span>".</p>
 
 	{% for message in app.flashes('success') %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto my-3">
 			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
         		{{message}}
 			</span>
