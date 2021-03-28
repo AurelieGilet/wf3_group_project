@@ -126,10 +126,15 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="integer", nullable=true)
 	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir votre code postal",
+	 * 		groups={"profil"}
+	 * )
+	 *  
 	 * @Assert\Regex(
-     *     pattern="/^78[0-9]{3}/",
-     *     match=false,
-     *     message="Votre code postal doit commencer par 78"
+     *     pattern="/^78[0-9]{3}$/",
+     *     message="Votre code postal doit commencer par 78 et comporter 5 chiffres",
+	 * 	   groups={"profil"}
 	 * )
      */
     private $zipcode;
@@ -137,8 +142,17 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
 	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir votre ville de résidence",
+	 * 		groups={"profil"}
+	 * )
      */
     private $city;
+
+	/**
+     * @ORM\Column(type="boolean")
+     */
+    private $isRegistered;
 
 	/**
      * @ORM\OneToMany(targetEntity=Game::class, mappedBy="owner", orphanRemoval=true)
@@ -187,9 +201,9 @@ class User implements UserInterface
     }
 
 	public function eraseCredentials()
-    {
-
-    }
+             {
+         
+             }
 
     public function getSalt()
     {
@@ -269,6 +283,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getIsRegistered(): ?bool
+    {
+        return $this->isRegistered;
+    }
+
+    public function setIsRegistered(bool $isRegistered): self
+    {
+        $this->isRegistered = $isRegistered;
+
+        return $this;
+    }
+
 	/**
      * @return Collection|Game[]
      */
@@ -298,4 +324,5 @@ class User implements UserInterface
 
         return $this;
     }
+
 }

@@ -11,12 +11,14 @@
 	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Contactez le possesseur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a">messagerie</a>.</p>
 	<p class="card-text mt-4 mb-3 px-3 text-center font-italic">Tant que le jeu n'a pas été récupéré, vous pouvez annuler l'emprunt via le lien de suppression associé à celui-ci.</p>
 
-	{% for message in app.flashes('success') %}
+	{% for label, messages in app.flashes(['danger', 'success']) %}
+		{% for message in messages %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+			<span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
         		{{message}}
 			</span>
         </div>
+		{% endfor %}
     {% endfor %}
 
 	<div class="row align-items-center">
@@ -45,7 +47,7 @@
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': borrowing.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
-							<a href="" class="btn btn-sm btn-outline-secondary btn-resize {% if borrowing.giveawayDate != NULL %} disabled {% endif %}" id="delete"></a>
+							<a href="{{ path('account_games_borrowing_cancel', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize {% if borrowing.giveawayDate != NULL %} disabled {% endif %}" onclick="return(confirm('Voulez-vous vraiment annuler cet emprunt ?'))" id="delete"></a>
 						</div>
 					</div>
 				</div>

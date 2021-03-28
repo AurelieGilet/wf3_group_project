@@ -13,19 +13,14 @@
 	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span class="font-weight-bold" style="text-decoration: none;">Jeu remis</span>".</p>
 	<p class="card-text my-md-2 my-1 px-3 text-center font-italic">Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span class="font-weight-bold" style="text-decoration: none;">Jeu rendu</span>".</p>
 
-	{% for message in app.flashes('success') %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto my-3">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
-        		{{message}}
-			</span>
-        </div>
-    {% endfor %}
-	{% for message in app.flashes('danger') %}
+	{% for label, messages in app.flashes(['danger', 'success']) %}
+		{% for message in messages %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
-			<span class="bg-msg text-danger font-italic rounded text-center mx-auto py-2 px-4">
+			<span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
         		{{message}}
 			</span>
         </div>
+		{% endfor %}
     {% endfor %}
 
 	<div class="row align-items-center">
@@ -54,7 +49,7 @@
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': lending.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
-							<a href="" class="btn btn-sm btn-outline-secondary btn-resize {% if lending.giveawayDate != NULL %} disabled {% endif %}" id="delete"></a>
+							<a href="{{ path('account_games_lended_cancel', {'id': lending.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize {% if lending.giveawayDate != NULL %} disabled {% endif %}" onclick="return(confirm('Voulez-vous vraiment annuler ce prêt ?'))"  id="delete"></a>
 						</div>
 						<div class="btn-group d-flex justify-content-center">
 							<a href=" {{ path('account_games_lended_giveaway', {'id': lending.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize {% if lending.giveawayDate != NULL %} disabled{% endif %}">Jeu remis</a>
