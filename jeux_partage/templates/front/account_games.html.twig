@@ -12,12 +12,14 @@
 		<a href="{{ path('account_games_create') }}" class="btn-jp mt-4 mb-3" >Ajouter un jeu</a>
 	</div>
 
-	{% for message in app.flashes('success') %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto my-3">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+	{% for label, messages in app.flashes(['danger', 'success']) %}
+		{% for message in messages %}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+			<span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
         		{{message}}
 			</span>
         </div>
+		{% endfor %}
     {% endfor %}
 
 	<div class="row align-items-center">
@@ -38,7 +40,7 @@
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="{{ path('account_games_edit', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Modifier</a>
-							<a href="" class="delete btn btn-sm btn-outline-secondary btn-resize" id="delete"></a>
+							<a href="" class="delete btn btn-sm btn-outline-secondary btn-resize" onclick="return(confirm('Voulez-vous vraiment supprimer ce jeu ?'))"  id="delete"></a>
 						</div>
 					</div>
 				</div>

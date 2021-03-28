@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 26 mars 2021 à 17:38
+-- Généré le : sam. 27 mars 2021 à 22:33
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 7.4.15
 
@@ -70,12 +70,12 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (1, 'adresse'),
 (2, 'cartes'),
 (3, 'connaissance'),
-(4, 'cooperation'),
-(5, 'des'),
+(4, 'coopération'),
+(5, 'dés'),
 (6, 'lettres'),
 (7, 'logique'),
-(8, 'memoire'),
-(9, 'strategie');
+(8, 'mémoire'),
+(9, 'stratégie');
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,8 @@ CREATE TABLE `doctrine_migration_versions` (
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20210326110352', '2021-03-26 12:05:56', 541),
-('DoctrineMigrations\\Version20210326163651', '2021-03-26 17:37:21', 599);
+('DoctrineMigrations\\Version20210326163651', '2021-03-26 17:37:21', 599),
+('DoctrineMigrations\\Version20210327212950', '2021-03-27 22:30:10', 242);
 
 -- --------------------------------------------------------
 
@@ -163,25 +164,26 @@ CREATE TABLE `user` (
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `zipcode` int(11) DEFAULT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_registered` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `roles`, `firstname`, `lastname`, `address`, `zipcode`, `city`) VALUES
-(1, 'Admin', 'admin@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_ADMIN\"]', NULL, NULL, NULL, NULL, NULL),
-(2, 'Rififi', 'f.chatel@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Franck', 'Chatel', '20 Rue Saint-Roch', 78200, 'Mantes-la-Jolie'),
-(3, 'Gallinette', 'gaelle.mercier@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Gaelle', 'Mercier', '2 Rue de l\'Abbé Duval', 78130, 'Les Mureaux'),
-(4, 'Floflo', 'flo.pruvost@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Florian', 'Pruvost', '32 Rue François Truffaut', 78370, 'Plaisir'),
-(5, 'Tilie', 'tilie78@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Mathilde', 'Drouet', '2 Rue Thierry le Luron', 78180, 'Montigny-le-Bretonneux'),
-(6, 'Enzo', 'enzonimo@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Enzo', 'Bisson', '5 Avenue Toulouse Lautrec', 78390, 'Bois-d\'Arcy'),
-(7, 'Aymé', 'aymeric.neveu@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Aymeric', 'Neveu', '15 Rue Borgnis Desbordes', 78000, 'Versailles'),
-(8, 'Nissa', 'nissa@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Anissa ', 'LeCorre', '17 Rue Clément Ader', 78140, 'Vélizy-Villacoublay'),
-(9, 'Karim', 'karim.maes@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Karim', 'Maes', '14-34 Rue Costes et Bellonte', 78220, 'Viroflay'),
-(10, 'Didine', 'didine78@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Amandine', 'Toutain', '23 Rue Wauthier', 78100, 'Saint-Germain-en-Laye'),
-(11, 'Test', 'test@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'test', 'test', '10 rue machin', 74654, 'paris');
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `roles`, `firstname`, `lastname`, `address`, `zipcode`, `city`, `is_registered`) VALUES
+(1, 'Admin', 'admin@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_ADMIN\"]', NULL, NULL, NULL, NULL, NULL, 0),
+(2, 'Rififi', 'f.chatel@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Franck', 'Chatel', '20 Rue Saint-Roch', 78200, 'Mantes-la-Jolie', 1),
+(3, 'Gallinette', 'gaelle.mercier@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Gaelle', 'Mercier', '2 Rue de l\'Abbé Duval', 78130, 'Les Mureaux', 1),
+(4, 'Floflo', 'flo.pruvost@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Florian', 'Pruvost', '32 Rue François Truffaut', 78370, 'Plaisir', 1),
+(5, 'Tilie', 'tilie78@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Mathilde', 'Drouet', '2 Rue Thierry le Luron', 78180, 'Montigny-le-Bretonneux', 1),
+(6, 'Enzo', 'enzonimo@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Enzo', 'Bisson', '5 Avenue Toulouse Lautrec', 78390, 'Bois-d\'Arcy', 1),
+(7, 'Aymé', 'aymeric.neveu@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Aymeric', 'Neveu', '15 Rue Borgnis Desbordes', 78000, 'Versailles', 1),
+(8, 'Nissa', 'nissa@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Anissa ', 'LeCorre', '17 Rue Clément Ader', 78140, 'Vélizy-Villacoublay', 1),
+(9, 'Karim', 'karim.maes@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Karim', 'Maes', '14-34 Rue Costes et Bellonte', 78220, 'Viroflay', 1),
+(10, 'Didine', 'didine78@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'Amandine', 'Toutain', '23 Rue Wauthier', 78100, 'Saint-Germain-en-Laye', 1),
+(11, 'Test', 'test@mail.com', '$2y$13$vvDi0RYzKavBSBzN4Ij5ZOy98OBSH14pFAbGRXN95wHH3gjpiNoAC', '[\"ROLE_USER\"]', 'test', 'test', '10 rue machin', 74654, 'paris', 1);
 
 --
 -- Index pour les tables déchargées

@@ -18,27 +18,26 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
+	 * Method to register users
      * @Route("/inscription", name="security_registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User;
-        $form = $this->createForm(RegistrationFormType::class, $user, [ 'validation_groups' => ['registration'] 
-	]);
+        $form = $this->createForm(RegistrationFormType::class, $user, [
+			'validation_groups' => ['registration']
+		]);
 
         $form->handleRequest($request);
 
-        // dump($request);
-
         if($form->isSubmitted() && $form->isValid())
         {
-            $hash = $encoder->encodePassword($user, $user->getPassword() );
-
-            $user->setPassword($hash);
-			
+            $hash = $encoder->encodePassword($user, $user->getPassword());
 			$roles = ["ROLE_USER"];
 
+			$user->setPassword($hash);
 			$user->setRoles($roles);
+			$user->setIsRegistered(false);
 
             $manager->persist($user);
             $manager->flush();
@@ -46,16 +45,15 @@ class SecurityController extends AbstractController
 			$this->addFlash('success', "Votre compte a bien été créé");
 
 			return $this->redirectToRoute('security_login');
-
         }
 
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
 	/**
+	 * Method to authenticate users
 	 * @Route("/connexion", name="security_login")
 	 */
 	public function login(AuthenticationUtils $authenticationUtils): Response
@@ -69,10 +67,10 @@ class SecurityController extends AbstractController
 			'error' => $error,
 			'lastUsername' => $lastUsername
 		]);
-		
 	}
 
 	/**
+	 * Method to log out users
 	 * @Route("/deconnexion", name="security_logout")
 	 */
 	public function logout()
@@ -81,6 +79,7 @@ class SecurityController extends AbstractController
 	}
 
 	/**
+	 * Method to complete registration in user account
 	 * @Route("/compte/profil", name="security_profil")
 	 */
 	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user = null): Response
@@ -94,6 +93,9 @@ class SecurityController extends AbstractController
 
 		if($form->isSubmitted() && $form->isValid())
 		{
+
+			$user->setIsRegistered(true);
+
 			$manager->persist($user);
 			$manager->flush();
 
