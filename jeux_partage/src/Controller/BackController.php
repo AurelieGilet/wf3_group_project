@@ -42,7 +42,7 @@ class BackController extends AbstractController
     {
         $columns = $manager->getClassMetadata(User::class)->getFieldNames();
 
-        $users = $repoUsers->findAll();
+        $users = $repoUsers->findBy(['isArchived' => false]);
 
         $borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
 		dump($borrowings);
@@ -72,7 +72,9 @@ class BackController extends AbstractController
 			}
 			else
 			{
-				$manager->remove($user);
+				$user->setIsArchived(true);
+				$user->setEmail('deleted@mail.com');
+				$manager->persist($user);
                 $manager->flush();
     
 				$this->addFlash("success", "Le membre $userName a bien été supprimé");
