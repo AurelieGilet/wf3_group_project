@@ -4,12 +4,13 @@ $(document).ready(function() {
     $("#burger").on("click", function() {
         $(".cross_line").fadeToggle(100);
         $(".cross_off").fadeToggle(100);
-        $("#cross_line1").animate({"rotate" : "-45deg",
-                                "translate" : "1.5px"});
-        $("#cross_line2").animate({"rotate" : "45deg"});
-        $("#cross_line1").css({"rotate" : "-45deg",
-                                "translate" : "1.5px"});
-        $("#cross_line2").css({"rotate" : "45deg"});
+        $("#cross_line1").toggleClass("rotate1");
+        $("#cross_line2").toggleClass("rotate2");
+        // $("#cross_line1").transition({"rotate" : "-45deg"});
+        // $("#cross_line2").transition({"rotate" : "45deg"});
+        // $("#cross_line1").css({"rotate" : "-45deg",
+        //                         "translate" : "1.5px"});
+        // $("#cross_line2").css({"rotate" : "45deg"});
         $("#overlay").fadeToggle(500);
         $("header ul").fadeToggle(500);
     });
@@ -42,11 +43,6 @@ $(document).ready(function() {
         $(this).css({"text-decoration-line" : "none"});
         $(this).css({"text-decoration-color" : "transparent"});
     });
-
-    // // formulaires
-    // $("input").focus(function() {
-    //     $(this).css({"border-bottom" : "rgb(0, 10, 30) solid 3px"})
-    // });
 
     // affichage nom fichier photo jeu
     $('.custom-file-input').on('change', function(event) {
