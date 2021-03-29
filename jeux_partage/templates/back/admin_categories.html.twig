@@ -15,45 +15,45 @@
 		<a href="" class="btn-jp mt-4 mb-3" >Ajouter une catégorie</a>
 	</div>
 
-    {% for messages in app.flashes("success", "danger") %}
+    {% for label, messages in app.flashes("success", "danger") %}
         {% for message in messages %}
             <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
-                <span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+                <span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
                     {{message}}
                 </span>
             </div>
         {% endfor %}
     {% endfor %}
 
-    <table class="table table-bordered table-striped text-center">
-
-        <tr>
-            {% for column in columns %}
-
-                {% if column == 'name' %}
-                    <th class="align-middle font-weight-bold"> CATEGORIE </th>
-                {% else %}
-                    <th class="align-middle font-weight-bold"> {{ column|upper}}</th>
-                {% endif %}        
-            
-            {% endfor %}
-                <th class="align-middle font-weight-bold">NOMBRE DE JEUX </th>
-                <th class="align-middle font-weight-bold">MODIFIER</th>
-                <th class="align-middle font-weight-bold">SUPPRIMER</th>
-
-        </tr>
-
-        {% for category in categories %}
+    <div class="overflow_table">
+        <table class="table table-bordered table-striped text-center">
             <tr>
-                <td class="align-middle">{{ category.id }}</td>
-                <td class="align-middle">{{ category.name }}</td>
-                <td class="align-middle">{{ category.games|length }}</td>
+                {% for column in columns %}
 
-                <td class="align-middle"> <a href="{{ path('admin_edit_catgory', {'id': category.id}) }}" class="edit-backoffice btn-jp"></a></td>
-                <td class="align-middle"> <a href="{{ path('admin_delete_category', {'id': category.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer cette catégorie ?'))"></a></td>
+                    {% if column == 'name' %}
+                        <th class="align-middle font-weight-bold"> CATEGORIE </th>
+                    {% else %}
+                        <th class="align-middle font-weight-bold"> {{ column|upper}}</th>
+                    {% endif %}        
+                
+                {% endfor %}
+                    <th class="align-middle font-weight-bold">NOMBRE DE JEUX </th>
+                    <th class="align-middle font-weight-bold">MODIFIER</th>
+                    <th class="align-middle font-weight-bold">SUPPRIMER</th>
+
             </tr>
-        {% endfor %}
-    </table>
 
+            {% for category in categories %}
+                <tr>
+                    <td class="align-middle">{{ category.id }}</td>
+                    <td class="align-middle">{{ category.name }}</td>
+                    <td class="align-middle">{{ category.games|length }}</td>
+
+                    <td class="align-middle"> <a href="{{ path('admin_edit_catgory', {'id': category.id}) }}" class="edit-backoffice btn-jp"></a></td>
+                    <td class="align-middle"> <a href="{{ path('admin_delete_category', {'id': category.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer cette catégorie ?'))"></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

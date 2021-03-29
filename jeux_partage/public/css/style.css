@@ -420,6 +420,90 @@ nav button {
     display: none;
 }
 
+.rotate1 {
+    -webkit-animation-name: rotateOne;
+    animation-name: rotateOne;
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.rotate2 {
+    -webkit-animation-name: rotateTwo;
+    animation-name: rotateTwo;
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes rotateOne {
+0% {
+transform: rotate(0deg);
+-o-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-webkit-transform: rotate(0deg);
+}
+100% {
+transform: rotate(-45deg);
+-o-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+-webkit-transform: rotate(-45deg);
+}
+}
+@keyframes rotateOne {
+0% {
+transform: rotate(0deg);
+-o-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-webkit-transform: rotate(0deg);
+}
+100% {
+transform: rotate(-45deg);
+-o-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+-webkit-transform: rotate(-45deg);
+}
+} 
+
+@-webkit-keyframes rotateTwo {
+0% {
+transform: rotate(0deg);
+-o-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-webkit-transform: rotate(0deg);
+}
+100% {
+transform: rotate(45deg);
+-o-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-webkit-transform: rotate(45deg);
+}
+}
+@keyframes rotateTwo {
+0% {
+transform: rotate(0deg);
+-o-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-webkit-transform: rotate(0deg);
+}
+100% {
+transform: rotate(45deg);
+-o-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-webkit-transform: rotate(45deg);
+}
+} 
+
 /* ********************** FIN HEADER ********************** */
 
 
@@ -590,7 +674,7 @@ nav button {
 	width: auto;
 }
 
-/* ******** LISTE DE VOS JEUX ******** */
+/* ******** LISTE DES JEUX UTILISATEUR ******** */
 
 .col_rwd {
     display: flex;
@@ -599,10 +683,18 @@ nav button {
     align-items: center;
     flex-wrap: wrap;
 }
+.card-footer_rwd {
+    width: 100%;
+}
 @media screen and (max-width: 767.98px) and (orientation: landscape) {
     .col_rwd {
         flex-direction: row;
         padding: 0 1em;
+    }
+    .card-footer_rwd {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
     .card_account_games {
         padding-left: 12%;
@@ -686,6 +778,10 @@ nav button {
 .backoffice p, .backoffice ul {
     width: max-content;
     margin: 0 auto;
+}
+
+.overflow_table {
+    overflow-x: auto;
 }
 
 .up {

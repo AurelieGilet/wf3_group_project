@@ -8,12 +8,14 @@
 
 	<h1 class="h1 mt-3 mb-4">Connexion</h1>
 
-	{% for message in app.flashes('success') %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
-        		{{message}}
-			</span>
-        </div>
+    {% for label, messages in app.flashes(["danger", "success"]) %}
+        {% for message in messages %}
+            <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+                <span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
+                    {{message}}
+                </span>
+            </div>
+        {% endfor %}
     {% endfor %}
 
 	{% if error %}

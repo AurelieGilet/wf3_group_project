@@ -3,9 +3,9 @@
 {% block title %}BackOffice JEUX PARTAGE{% endblock %}
 
 {% block body %}
-    <h1 class="h1 mt-3 mb-4">BackOffice de 
+    <h1 class="h1 mt-3 mb-4">BackOffice 
         {% if app.user %}
-            <span>{{app.user.username}}</span>
+            de <span>{{app.user.username}}</span>
         {% endif %}
     </h1>
 
@@ -73,7 +73,6 @@
 						<p class="card-text my-1">
                             Dans cet espace vous pourrez :
                             <ul>
-                                <li>Modifier les emprunts des jeux</li>
                                 <li>Supprimer un emprunt</li>
                             </ul>
                         </p>

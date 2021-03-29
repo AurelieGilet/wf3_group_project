@@ -11,13 +11,15 @@
 
 	<p class="text-center my-4 font-italic p_profil">Pour pouvoir emprunter et enregistrer des jeux, votre profil doit être <span style="text-decoration: underline;">entièrement complété</span></p>
 
-	{% for message in app.flashes('success') %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
-        		{{message}}
-			</span>
-        </div>
-    {% endfor %}	
+	{% for label, messages in app.flashes(["danger", "success"]) %}
+		{% for message in messages %}
+			<div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+				<span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
+					{{message}}
+				</span>
+			</div>
+		{% endfor %}
+	{% endfor %}
 		
 	<section class="row justify-content-center">
 		<div class="col-md-10">

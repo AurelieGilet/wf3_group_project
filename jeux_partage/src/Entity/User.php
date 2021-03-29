@@ -13,11 +13,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  * 		fields={"email"},
- * 		message="Un compte existe déjà avec cette adresse email !"
+ * 		message="Un compte existe déjà avec cet email"
  * )
  * @UniqueEntity(
  * 		fields={"username"},
- * 		message="Ce nom d'utilisateur existe déjà !"
+ * 		message="Ce nom d'utilisateur existe déjà"
  * )
  * 
  */
@@ -43,12 +43,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir une adresse email !",
+	 * 		message="Merci de saisir une adresse email",
 	 * 		groups={"registration"}
 	 * )
 	 * 
 	 * @Assert\Email(
-	 * 		message="Merci de saisir une adresse email valide !",
+	 * 		message="Merci de saisir un email valide",
 	 * 		groups={"registration"}
 	 * )
      */
