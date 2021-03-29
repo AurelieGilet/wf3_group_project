@@ -17,11 +17,12 @@
 {% endfor %}
 
     <table class="table table-bordered table-striped text-center">
-        <tr>
+        <tr class="align-middle">
+               
             {% for column in columns %}
                 {% if column == "lender" %}
                         <th class="align-middle font-weight-bold">Prêteur</th>
-                    {% elseif column == "borrower"%}
+                    {% elseif column == "borrower" %}
                         <th class="align-middle font-weight-bold">Emprunteur</th>
                     {% elseif column == "game"%}
                         <th class="align-middle font-weight-bold">Jeux</th>
@@ -33,14 +34,20 @@
                         <th class="align-middle font-weight-bold"> Date de remise </th>
                     {% elseif column == "returnDate"%} 
                         <th class="align-middle font-weight-bold">Date de retour</th>
+                    {% else %}
+                        <th class="align-middle font-weight-bold"> {{column|upper }}</th>
                 {% endif %}
             {% endfor %}
-            
+                        
                 <th class="align-middle font-weight-bold">SUPPRIMER</th>
         </tr>
 
         {% for borrowing in borrowings %}
             <tr class="align-middle">
+                <td class="align-middle">{{ borrowing.id }}</td>
+                <td class="align-middle">{{ borrowing.lender.id }}</td> 
+                <td class="align-middle">{{ borrowing.borrower.id }}</td> 
+                <td class="align-middle">{{ borrowing.game.id }}</td>
                 <td class="align-middle">{{ borrowing.startDate|date("d/m/Y") }}</td>
                 <td class="align-middle">{{ borrowing.endDate|date("d/m/Y") }}</td>
                 <td class="align-middle">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>

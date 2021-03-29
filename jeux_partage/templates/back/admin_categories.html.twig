@@ -9,23 +9,15 @@
 
      <h1 class="h1 my-4">Gestion des Catégories</h1>
 
-     {% for message in app.flashes("success") %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
-        		{{message}}
-			</span>
-        </div>
-    {% endfor %}
-
 
     <div class="my-5 text-center">
 		<a href="{{ path('admin_new_category') }}" class="btn-jp mt-4 mb-3" >Ajouter une catégorie</a>
 	</div>
 
-    {% for messages in app.flashes("success", "danger") %}
+    {% for label, messages in app.flashes(["success", "danger"]) %}
         {% for message in messages %}
             <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
-                <span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+                <span class="bg-msg text-{{ label }} font-italic rounded text-center mx-auto py-2 px-4">
                     {{message}}
                 </span>
             </div>
