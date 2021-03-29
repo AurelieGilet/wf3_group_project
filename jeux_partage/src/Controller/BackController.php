@@ -98,7 +98,7 @@ class BackController extends AbstractController
     {
         $columns = $manager->getClassMetadata(Game::class)->getFieldNames();
 
-        $games = $repoGames->findAll();
+        $games = $repoGames->findBy(['isArchived' => false]);
 
 		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
 		dump($borrowings);
@@ -118,7 +118,8 @@ class BackController extends AbstractController
 			}
 			else
 			{
-				$manager->remove($game);
+				$game->setIsArchived(true);
+				$manager->persist($game);
                 $manager->flush();
     
 				$this->addFlash("success", "Le jeu $gameName a bien été supprimé");

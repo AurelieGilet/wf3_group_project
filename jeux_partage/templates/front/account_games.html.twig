@@ -40,7 +40,7 @@
 						<div class="btn-group d-flex justify-content-center">
 							<a href="{{ path('detail', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
 							<a href="{{ path('account_games_edit', {'id': game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Modifier</a>
-							<a href="" class="delete btn btn-sm btn-outline-secondary btn-resize" onclick="return(confirm('Voulez-vous vraiment supprimer ce jeu ?'))"  id="delete"></a>
+							<a href="{{ path('account_games_delete', {'id': game.id}) }}" class="delete btn btn-sm btn-outline-secondary btn-resize" onclick="return(confirm('Voulez-vous vraiment supprimer ce jeu ?'))"  id="delete"></a>
 						</div>
 					</div>
 				</div>

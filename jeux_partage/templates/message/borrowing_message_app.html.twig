@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1 class="h1 mt-3 mb-4">Conversation emprunt du jeu ...</h1>
+
+<section class="row justify-content-center">
+	<div class="table" style= "border: 1px solid black; width: 100%; height: 250px; overflow: auto; padding: 5px;">
+		{% for message in messages %}
+			<div class="p-2 m-2">
+				<p><strong>{{message.author|title}}: </strong>{{message.content|nl2br}}</p>
+				<p>Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</p>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="col-md-10">
+		{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around' }}) }}
+
+			{{ form_row(form.content, {'label' : "Message", 'attr' : {'rows': "4" }}) }}
+			{{ form_row(form.save, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+
+		{{ form_end(form) }}
+	</div>
+</section>
+
+{% endblock %}
