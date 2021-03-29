@@ -57,7 +57,7 @@ class FrontController extends AbstractController
 		}
 		else
 		{
-			$games = $gameRepo->findAll();
+			$games = $gameRepo->findBy(array('isArchived' => false));
 		}
 
 		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
@@ -98,8 +98,6 @@ class FrontController extends AbstractController
 		// TO DO: security control controller side to prevent borrowing if game is already borrowed
 		$borrowing = new Borrowing;
 		$user = $this->getUser();
-
-		dump($user);
 		
 		$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
 
@@ -154,7 +152,7 @@ class FrontController extends AbstractController
 		foreach ($borrowings as $key => $value) {
 			array_push($borrowedGamesId, $value->getGame()->getId());
 		}
-		dump($game);
+
 		if($game != null) 
 		{
 			$gameId = $game->getId();
@@ -255,7 +253,6 @@ class FrontController extends AbstractController
 	{
 		$user = $this->getUser();
 
-		dump($borrowing);
 		$borrowings = $borrowingRepo->findBy(['borrower' => $user]);
 
 		if($borrowing != null && $borrowing->getGiveawayDate() == null)
@@ -287,8 +284,6 @@ class FrontController extends AbstractController
 	{
 		$user = $this->getUser();
 		$lendings = $borrowingRepo->findBy(['lender' => $user]);
-
-		dump($borrowing);
 
 		if($borrowing != null && $borrowing->getGiveawayDate() == null)
 		{
