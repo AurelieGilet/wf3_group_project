@@ -95,7 +95,7 @@ class FrontController extends AbstractController
 	 */
 	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, User $user = null): Response
 	{
-		// TO DO: security control to prevent borrowing if game is already borrowed
+		// TO DO: security control controller side to prevent borrowing if game is already borrowed
 		$borrowing = new Borrowing;
 		$user = $this->getUser();
 
