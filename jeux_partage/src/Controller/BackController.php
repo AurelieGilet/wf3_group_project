@@ -293,6 +293,7 @@ class BackController extends AbstractController
         $columnNames[] = $column->getName();
       }
 
+         
         if($borrowing)
         {
             $manager->remove($borrowing);
@@ -302,6 +303,14 @@ class BackController extends AbstractController
 
             return $this->redirectToRoute('admin_borrowing');
         }
+        // else
+        // {
+        //     $this->addFlash('danger', "Impossible de supprimer le prêt $categoryName : des jeux lui sont associés");
+
+        //     return $this->redirectToRoute('admin_categories');
+        // }
+
+        
 
         $borrowing = $repoBorrowing->findAll();
 
