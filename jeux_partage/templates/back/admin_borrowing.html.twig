@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+        BackOffice | Gestion des Emprunts
+{% endblock %}
+
+
+{% block body %}
+        <h1 class="h1 my-4">Gestion des Emprunts</h1>
+
+  {% for message in app.flashes("success") %}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
+			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+        		{{message}}
+			</span>
+        </div>
+{% endfor %}
+
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            {% for column in columns %}
+                {% if column == "lender" %}
+                        <th class="align-middle font-weight-bold">Prêteur</th>
+                    {% elseif column == "borrower"%}
+                        <th class="align-middle font-weight-bold">Emprunteur</th>
+                    {% elseif column == "game"%}
+                        <th class="align-middle font-weight-bold">Jeux</th>
+                    {% elseif column == "startDate" %}
+                        <th class="align-middle font-weight-bold">Début date du prêt</th>
+                    {% elseif column == "endDate"%}
+                        <th class="align-middle font-weight-bold">Date de fin du prêt </th>
+                    {% elseif column == "giveawayDate" %}
+                        <th class="align-middle font-weight-bold"> Date de remise </th>
+                    {% elseif column == "returnDate"%} 
+                        <th class="align-middle font-weight-bold">Date de retour</th>
+                {% endif %}
+            {% endfor %}
+            
+                <th class="align-middle font-weight-bold">SUPPRIMER</th>
+        </tr>
+
+        {% for borrowing in borrowings %}
+            <tr class="align-middle">
+                <td class="align-middle">{{ borrowing.startDate|date("d/m/Y") }}</td>
+                <td class="align-middle">{{ borrowing.endDate|date("d/m/Y") }}</td>
+                <td class="align-middle">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>
+                <td class="align-middle">{{ borrowing.returnDate|date("d/m/Y") }}</td>
+
+                <td class="align-middle"><a href="{{ path("admin_delete_borrowing", {'id' : borrowing.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer cet emprunt ?'))"></a></td>
+            </tr>
+        {% endfor %} 
+
+    </table>
+{% endblock %}
