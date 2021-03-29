@@ -148,7 +148,7 @@ class BackController extends AbstractController
 			}
 			else
 			{
-                $game->setIsArchived(true);
+				$game->setIsArchived(true);
 				$manager->persist($game);
                 $manager->flush();
     
@@ -266,13 +266,10 @@ class BackController extends AbstractController
         if($formCategory->isSubmitted() && $formCategory->isValid())
         {
             if(!$category->getId())
-                $message = "La catégorie " . $category->getName() . " a bien été enregistré ";
-            // else
-            //     $message = "La catégorie " . $category->getName() . " a bien été modifié ";
-
-            $manager->persist($category);
-            $manager->flush();
-
+			{
+				$message = "La catégorie " . $category->getName() . " a bien été enregistrée ";
+			}
+                
             $this->addFlash('success', $message);
 
             return $this->redirectToRoute('admin_categories');
@@ -324,12 +321,12 @@ class BackController extends AbstractController
         $columnNames = [];
         foreach($columns as $column)
         {
-        $columnNames[] = $column->getName();
+        	$columnNames[] = $column->getName();
         }
 
-    $borrowings = $repoBorrowing->findAll();
+		$borrowings = $repoBorrowing->findAll();
 
-    return $this->render('back/admin_borrowings.html.twig', [
+		return $this->render('back/admin_borrowings.html.twig', [
             'columns' => $columnNames,
             'borrowings' => $borrowings
         ]);
