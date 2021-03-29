@@ -5,12 +5,16 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Entity\Category;
+use App\Entity\Borrowing;
 use App\Form\GameFormType;
 use App\Form\CategoryFormType;
+use Doctrine\ORM\EntityManager;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
 use App\Form\AdminRegistrationFormType;
+use App\Form\BorrowingFormType;
+use App\Repository\BorrowingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -204,7 +208,8 @@ class BackController extends AbstractController
     }
 
     /**
-     * @Route("/admin/categorie/{id}/modification", name="admin_edit_catgory")
+     * @Route("/admin/category/new", name="admin_new_category")
+     * 
      */
     public function adminFormCategory(Request $request, EntityManagerInterface $manager, Category $category = null): Response
     {
@@ -217,8 +222,84 @@ class BackController extends AbstractController
 
         $formCategory->handleRequest($request);
 
-        return $this->render('back/admin_form_category.html.twig');
+        if($formCategory->isSubmitted() && $formCategory->isValid())
+        {
+            if(!$category->getId())
+                $message = "La catégorie " . $category->getName() . " a bien été enregistré ";
+            // else
+            //     $message = "La catégorie " . $category->getName() . " a bien été modifié ";
+
+            $manager->persist($category);
+            $manager->flush();
+
+            $this->addFlash('success', $message);
+
+            return $this->redirectToRoute('admin_categories');
+        }
+
+        return $this->render('back/admin_form_category.html.twig', [
+                'formCategory' => $formCategory->createView()
+
+        ]);
+
     }
-    // @Véro : j'ai modif ce que tu avais commencé en mettant coordonnant nos mises en page / forme des templates et les chemins que tu avais mis (il vaut mieux mettre admin dans les routes (url) plutôt que back). Du coup repars sur le modèle de ce qui est déjà fait
-    // N'oublie pas qu'il y a aussi une fonctionnalité d'ajout de catégorie à faire ;)
+
+    /**
+     * @Route("/admin/categorie/{id}/modification", name="admin_edit_category")
+     * 
+     */
+    public function adminEditCategory(Request $request, EntityManagerInterface $manager, Category $category): Response
+    {
+        $formCategory = $this->createForm(CategoryFormType::class, $category);
+        
+        $formCategory->handleRequest($request);
+
+        if($formCategory->isSubmitted() && $formCategory->isValid())
+        {
+            $manager->persist($category);
+            $manager->flush();
+
+            $this->addFlash("success", "La catégorie " . $category->getName() . " a bien été modifié");
+
+            return $this->redirectToRoute("admin_categories");
+        }
+
+        return $this->render("back/admin_edit_category.html.twig", [
+            "formCategory" => $formCategory->createView(),
+           
+        ]);
+    }
+
+
+                    // ************* GESTION EMPRUNTS *****************
+
+    /**
+     * 
+     * @Route("/admin/borrowing", name="admin_borrowing")
+     * @Route("/admin/borrowing/{id}/suppression", name="admin_delete_borrowing")
+     */
+    public function adminBorrowing(EntityManagerInterface $manager, BorrowingRepository $repoBorrowing, Borrowing $borrowing = null):Response
+    {
+        $columns = $manager->getClassMetaData(Borrowing::class)->getFieldNames();
+
+        if($borrowing)
+        {
+            $manager->remove($borrowing);
+            $manager->flush();
+
+            $this->addFlash('success', "L'emprunt a bien été supprimé");
+
+            return $this->redirectToRoute('admin_borrowing');
+        }
+
+        $borrowing = $repoBorrowing->findAll();
+
+        return $this->render('back/admin_borrowing.html.twig', [
+                'columns' => $columns,
+                'borrowings' => $borrowing
+        ]);
+        
+    }
+
+    
 }
