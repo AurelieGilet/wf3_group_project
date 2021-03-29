@@ -33,21 +33,6 @@ class GameFormType extends AbstractType
 				'choice_label' => 'name',
 				'row_attr' => ['class' => 'col-lg-5']
 			])
-			
-			// ->add('category', ChoiceType::class, [
-			// 	'choices' => [
-			// 		'Adresse' => 'adresse',
-			// 		'Cartes' => 'cartes',
-			// 		'Connaissance' => 'connaissance',
-			// 		'Coopération' => 'cooperation',
-			// 		'Dés' => 'des',
-			// 		'Lettres' => 'lettres',
-			// 		'Logique' => 'logique',
-			// 		'Statégie' => 'strategie',
-			// 	],
-
-			// ])
-
 			->add('public', ChoiceType::class, [
 				'choices' => [
 					'6 ans et +' => '6+',
@@ -57,7 +42,6 @@ class GameFormType extends AbstractType
 				],
 				'row_attr' => ['class' => 'col-lg-5']
 			])
-
 			->add('minPlayers', TextType::class, [
 				'row_attr' => ['class' => 'col-lg-5']
 			])
@@ -68,8 +52,6 @@ class GameFormType extends AbstractType
 			->add('description', TextareaType::class, [
 				'row_attr' => ['class' => 'col-lg-11']
 			])
-			->add('image')
-
 			->add('image', FileType::class, [
 				'row_attr' => ['class' => 'col-lg-5'],
 				'label' => "Photo du jeu",
@@ -91,7 +73,6 @@ class GameFormType extends AbstractType
 					])
 				]
 			])
-			// ->add('owner')
 			->add('save', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
 			])

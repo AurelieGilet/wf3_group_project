@@ -159,6 +159,14 @@ class User implements UserInterface
      */
     private $games;
 
+    /**
+     * @ORM\Column(
+	 * 		type="boolean",
+	 * 		options={"default":0}
+	 * )
+     */
+    private $isArchived = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -201,9 +209,9 @@ class User implements UserInterface
     }
 
 	public function eraseCredentials()
-             {
-         
-             }
+                      {
+                  
+                      }
 
     public function getSalt()
     {
@@ -321,6 +329,18 @@ class User implements UserInterface
                 $game->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsArchived(): ?bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): self
+    {
+        $this->isArchived = $isArchived;
 
         return $this;
     }
