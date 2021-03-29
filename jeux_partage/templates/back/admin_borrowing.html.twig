@@ -15,48 +15,51 @@
 			</span>
         </div>
 {% endfor %}
-
+<div class= "overflow_table">
     <table class="table table-bordered table-striped text-center">
         <tr class="align-middle">
                
             {% for column in columns %}
                 {% if column == "lender_id" %}
-                        <th class="align-middle font-weight-bold">Prêteur</th>
+                        <th class="align-middle font-weight-bold th-size">Prêteur</th>
                     {% elseif column == "borrower_id" %}
-                        <th class="align-middle font-weight-bold">Emprunteur</th>
+                        <th class="align-middle font-weight-bold th-size">Emprunteur</th>
                     {% elseif column == "game_id" %}
-                        <th class="align-middle font-weight-bold">Jeux</th>
+                        <th class="align-middle font-weight-bold th-size">Jeux</th>
                     {% elseif column == "start_date" %}
-                        <th class="align-middle font-weight-bold">Début date du prêt</th>
+                        <th class="align-middle font-weight-bold th-size">Début date du prêt</th>
                     {% elseif column == "end_date"%}
-                        <th class="align-middle font-weight-bold">Date de fin du prêt </th>
+                        <th class="align-middle font-weight-bold th-size">Date de fin du prêt </th>
                     {% elseif column == "giveaway_date" %}
-                        <th class="align-middle font-weight-bold">Date de remise</th>
+                        <th class="align-middle font-weight-bold th-size">Date de remise</th>
                     {% elseif column == "return_date"%} 
-                        <th class="align-middle font-weight-bold">Date de retour</th>
+                        <th class="align-middle font-weight-bold th-size">Date de retour</th>
                     {% else %}
-                        <th class="align-middle font-weight-bold"> {{column|upper }}</th>
+                        <th class="align-middle font-weight-bold th-size"> {{column|upper }}</th>
                 {% endif %}
             {% endfor %}
                         
-                <th class="align-middle font-weight-bold">SUPPRIMER</th>
+                <th class="align-middle font-weight-bold th-size">SUPPRIMER</th>
         </tr>
 
         {% for borrowing in borrowings %}
             <tr class="align-middle">
 
-                <td class="align-middle">{{ borrowing.id }}</td>
-                <td class="align-middle">{{ borrowing.lender.id }}</td> 
-                <td class="align-middle">{{ borrowing.borrower.id }}</td> 
-                <td class="align-middle">{{ borrowing.game.id }}</td>
-                <td class="align-middle">{{ borrowing.startDate|date("d/m/Y") }}</td>
-                <td class="align-middle">{{ borrowing.endDate|date("d/m/Y") }}</td>
-                <td class="align-middle">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>
-                <td class="align-middle">{{ borrowing.returnDate|date("d/m/Y") }}</td>
-
-                <td class="align-middle"><a href="{{ path("admin_delete_borrowing", {'id' : borrowing.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer cet emprunt ?'))"></a></td>
+                <td class="align-middle td-size">{{ borrowing.id }}</td>
+                <td class="align-middle td-size">{{ borrowing.lender.id }}</td> 
+                <td class="align-middle td-size">{{ borrowing.borrower.id }}</td> 
+                <td class="align-middle td-size">{{ borrowing.game.id }}</td>
+                <td class="align-middle td-size">{{ borrowing.startDate|date("d/m/Y") }}</td>
+                <td class="align-middle td-size">{{ borrowing.endDate|date("d/m/Y") }}</td>
+                <td class="align-middle td-size">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>
+                <td class="align-middle td-size">{{ borrowing.returnDate|date("d/m/Y") }}</td>
+           
+                <td class="align-middle"><a href="{{ path("admin_delete_borrowing", {'id' : borrowing.id}) }}" class="delete-backoffice btn-jp size-button-emprunt-hover" onclick="return(confirm('Voulez-vous vraiment supprimer cet emprunt ?'))"></a></td>
             </tr>
+
+            
         {% endfor %} 
 
     </table>
+</di>    
 {% endblock %}

@@ -7,7 +7,7 @@
 
 {% block body %}
 
-     <h1 class="h1 my-4">Gestion des Catégories</h1>
+    <h1 class="h1 my-4">Gestion des Catégories</h1>
 
     <div class="my-5 text-center">
 		<a href="{{ path('admin_new_category') }}" class="btn-jp mt-4 mb-3" >Ajouter une catégorie</a>
@@ -22,6 +22,7 @@
             </div>
         {% endfor %}
     {% endfor %}
+
 
     <div class="overflow_table">
         <table class="table table-bordered table-striped text-center">
@@ -38,6 +39,7 @@
                     <th class="align-middle font-weight-bold">NOMBRE DE JEUX </th>
                     <th class="align-middle font-weight-bold">MODIFIER</th>
                     <th class="align-middle font-weight-bold">SUPPRIMER</th>
+
             </tr>
 
             {% for category in categories %}

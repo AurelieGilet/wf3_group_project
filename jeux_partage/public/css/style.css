@@ -145,7 +145,7 @@ header nav a:focus {
     border: #8a0030 solid 1px;
     background-color: #f7cc99; 
     color: #8a0030;
-    font-size: 1.1rem;;
+    font-size: 1.1rem;
     align-self: center;
 }
 
@@ -899,6 +899,42 @@ footer a:last-child {
     .dices_icon img {
         margin: 0 0.6em;
     }
+
+/* ********************** SIZE TABLE Back-Office EMPRUNT & CATEGORY ********************** */
+    
+      /* .th-size
+      {
+          font-size:0.8rem;
+      }
+    
+      .td-size
+      {
+        font-size: 0.8rem;
+      } 
+    
+      .table td, table th
+      {
+        padding: 0.4rem 0 0.6rem 0!important;
+
+      } 
+      
+      .size-button-emprunt-hover
+      {
+        font-size: 0.6rem!important;
+        background-size: 60%;
+        border: none;
+        background-image: url(../img/delete.png);
+      } 
+
+
+      .size-button-category-hover
+      {
+        font-size: 0.6rem!important;
+        background-size: 60%;
+        border: none;
+      } */
+
+    
     /* ********************** FIN HOME ********************** */
     
     .p_login {
@@ -1012,7 +1048,40 @@ footer a:last-child {
      .backoffice {
          width: 100%;
      }
+
+    /* ********************** SIZE TABLE Back-Office EMPRUNT & CATEGORY ********************** */
     
+    /* .th-size
+    {
+        font-size:0.8rem;
+    }
+  
+    .td-size
+    {
+        font-size: 0.8rem;
+    } 
+  
+    .table td, table th
+    {
+        padding: 0.4rem 0 0.4rem 0!important;
+        
+    } 
+    
+    .size-button-emprunt-hover
+    {
+        font-size: 0.6rem!important;
+        background-size: 60%;
+        border: none;
+        
+    } 
+
+    .size-button-category-hover
+    {
+        font-size: 0.6rem!important;
+        background-size: 60%;
+        border: none;
+    }  */
+   
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         margin-top: 2.5vh;
@@ -1121,6 +1190,44 @@ footer a:last-child {
     width: 30px;
     }
 
-    
+    /* ********************** SIZE TABLE Back-Office EMPRUNT & CATEGORY ********************** */
 
+  /* .th-size
+  {
+    font-size:0.4rem;
+  }
+
+  .td-size
+  {
+    font-size: 0.4rem;
+
+  } 
+
+  .table td, table th
+  {
+    padding: 0.4rem 0 0.4rem 0!important;
+    
+  }  
+
+  .size-button
+  {
+    font-size: 0.4rem!important;
+    background-size: 46%;
+  } 
+
+  .size-button-emprunt-hover
+  {
+    font-size: 0.3rem!important;
+    background-size: 80%;
+
+  }
+
+  .size-button-category-hover
+  {
+    font-size: 0.3rem!important;
+    background-size: 80%;
+
+  } */
+
+  
 }
