@@ -94,26 +94,35 @@ class BackController extends AbstractController
      * @Route("/admin/jeux", name="admin_games")
      * @Route("/admin/jeu/{id}/suppression", name="admin_delete_game")
      */
-    public function adminGames(GameRepository $repoGames, EntityManagerInterface $manager, Game $game = null): Response
+    public function adminGames(GameRepository $repoGames,BorrowingRepository $borrowingRepo, EntityManagerInterface $manager, Game $game = null): Response
     {
         $columns = $manager->getClassMetadata(Game::class)->getFieldNames();
 
         $games = $repoGames->findAll();
 
-        if($game)
+		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+		dump($borrowings);
+
+		$borrowedGamesId= array();
+		foreach ($borrowings as $key => $value) {
+			array_push($borrowedGamesId, $value->getGame()->getId());
+		}
+		
+        if($game != null)
         {
-            $gameName = $game->getName();
-            if($game->getBorrowings()->isEmpty())
-            {
-                $manager->remove($game);
+			$gameName = $game->getName();
+			$gameId = $game->getId();
+			if(in_array($gameId, $borrowedGamesId))
+			{
+				$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
+			}
+			else
+			{
+				$manager->remove($game);
                 $manager->flush();
     
-                $this->addFlash("success", "Le jeu $gameName a bien été supprimé");
-            }
-            else
-            {
-                $this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
-            }
+				$this->addFlash("success", "Le jeu $gameName a bien été supprimé");
+			}
 
             return $this->redirectToRoute("admin_games");
         }

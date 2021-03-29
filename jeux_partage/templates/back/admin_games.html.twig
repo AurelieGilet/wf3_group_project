@@ -7,12 +7,14 @@
 {% block body %}
     <h1 class="h1 my-4">Gestion des Jeux</h1>
 
-    {% for message in app.flashes("success") %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
-        		{{message}}
-			</span>
-        </div>
+    {% for label, messages in app.flashes(["success", "danger"]) %}
+        {% for message in messages %}
+            <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
+                <span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
+                    {{message}}
+                </span>
+            </div>
+        {% endfor %}
     {% endfor %}
 
     <table class="table table-bordered table-striped text-center">
