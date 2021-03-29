@@ -141,12 +141,40 @@ class FrontController extends AbstractController
 	/**
 	 * Method to show on user account their games 
 	 * @Route("/compte/jeux", name="account_games")
+	 * @Route("/compte/jeux/supprimer/{id}", name="account_games_delete")
 	 */
-	public function showGames(GameRepository $gameRepo, User $user = null): Response
+	public function showGames(EntityManagerInterface $manager, GameRepository $gameRepo, BorrowingRepository $borrowingRepo, Game $game = null, User $user = null): Response
 	{
 		$user = $this->getUser();
 	
-		$games = $gameRepo->findBy(array('owner' => $user));
+		$games = $gameRepo->findBy(array('owner' => $user, 'isArchived' => false));
+
+		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+		$borrowedGamesId= array();
+		foreach ($borrowings as $key => $value) {
+			array_push($borrowedGamesId, $value->getGame()->getId());
+		}
+		dump($game);
+		if($game != null) 
+		{
+			$gameId = $game->getId();
+			$gameName = $game->getName();
+			if(in_array($gameId, $borrowedGamesId))
+			{
+				$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
+				return $this->redirectToRoute('account_games');
+			}
+			else
+			{
+				$game->setIsArchived(true);
+				$manager->persist($game);
+				$manager->flush();
+
+				$this->addFlash('success', "Votre jeux $gameName a bien été supprimé");
+				return $this->redirectToRoute('account_games');
+			}
+			
+		}
 		
 		return $this->render('front/account_games.html.twig', [
 			'games' => $games

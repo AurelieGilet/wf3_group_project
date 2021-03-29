@@ -38,20 +38,54 @@ class BackController extends AbstractController
      * @Route("/admin/utilisateurs", name="admin_users")
      * @Route("/admin/utilisateur/{id}/suppression", name="admin_delete_user")
      */
-    public function adminUsers(UserRepository $repoUsers, EntityManagerInterface $manager, User $user = null): Response
+    public function adminUsers(UserRepository $repoUsers, BorrowingRepository $borrowingRepo, EntityManagerInterface $manager, User $user = null): Response
     {
         $columns = $manager->getClassMetadata(User::class)->getFieldNames();
 
         $users = $repoUsers->findAll();
 
-        if($user)
+        $borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+		dump($borrowings);
+        // Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
+		$borrowedGamesLenderId= array();
+		foreach ($borrowings as $key => $value) {
+			array_push($borrowedGamesLenderId, $value->getLender()->getId());
+		}
+		$borrowedGamesBorrowerId= array();
+		foreach ($borrowings as $key => $value) {
+			array_push($borrowedGamesBorrowerId, $value->getBorrower()->getId());
+		}
+        dump($borrowedGamesLenderId);
+        dump($borrowedGamesBorrowerId);
+		
+        if($user != null)
         {
-            $userName = $user->getUsername();
+			$userName = $user->getUsername();
+			$userId = $user->getId();
+			if(in_array($userId, $borrowedGamesLenderId))
+			{
+				$this->addFlash("danger", "Impossible de supprimer le membre $userName : il a un prêt en cours");
+			}
+            elseif(in_array($userId, $borrowedGamesBorrowerId))
+			{
+				$this->addFlash("danger", "Impossible de supprimer le membre $userName : il a un emprunt en cours");
+			}
+			else
+			{
+				$manager->remove($user);
+                $manager->flush();
+    
+				$this->addFlash("success", "Le membre $userName a bien été supprimé");
+			}
 
-            $manager->remove($user);
-            $manager->flush();
+        // if($user)
+        // {
+        //     $userName = $user->getUsername();
 
-            $this->addFlash("success", "Le membre " . $userName . " a bien été supprimé");
+        //     $manager->remove($user);
+        //     $manager->flush();
+
+        //     $this->addFlash("success", "Le membre " . $userName . " a bien été supprimé");
 
             return $this->redirectToRoute("admin_users");
         }
@@ -94,26 +128,38 @@ class BackController extends AbstractController
      * @Route("/admin/jeux", name="admin_games")
      * @Route("/admin/jeu/{id}/suppression", name="admin_delete_game")
      */
-    public function adminGames(GameRepository $repoGames, EntityManagerInterface $manager, Game $game = null): Response
+
+    public function adminGames(GameRepository $repoGames, BorrowingRepository $borrowingRepo, EntityManagerInterface $manager, Game $game = null): Response
     {
         $columns = $manager->getClassMetadata(Game::class)->getFieldNames();
 
-        $games = $repoGames->findAll();
+        $games = $repoGames->findBy(['isArchived' => false]);
 
-        if($game)
+		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+		dump($borrowings);
+    // Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
+
+		$borrowedGamesId= array();
+		foreach ($borrowings as $key => $value) {
+			array_push($borrowedGamesId, $value->getGame()->getId());
+		}
+		
+        if($game != null)
         {
-            $gameName = $game->getName();
-            if($game->getBorrowings()->isEmpty())
-            {
-                $manager->remove($game);
+			$gameName = $game->getName();
+			$gameId = $game->getId();
+			if(in_array($gameId, $borrowedGamesId))
+			{
+				$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
+			}
+			else
+			{
+				$game->setIsArchived(true);
+				$manager->persist($game);
                 $manager->flush();
     
-                $this->addFlash("success", "Le jeu $gameName a bien été supprimé");
-            }
-            else
-            {
-                $this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
-            }
+				$this->addFlash("success", "Le jeu $gameName a bien été supprimé");
+			}
 
             return $this->redirectToRoute("admin_games");
         }
@@ -321,6 +367,4 @@ class BackController extends AbstractController
         ]);
         
     }
-
-    
 }

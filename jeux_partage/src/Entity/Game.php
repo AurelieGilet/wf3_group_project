@@ -83,6 +83,14 @@ class Game
      */
     private $category;
 
+    /**
+     * @ORM\Column(
+	 * 		type="boolean",
+	 * 		options={"default":0}
+	 * )
+     */
+    private $isArchived = 0;
+
 
 
     public function getId(): ?int
@@ -182,6 +190,18 @@ class Game
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIsArchived(): ?bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): self
+    {
+        $this->isArchived = $isArchived;
 
         return $this;
     }

@@ -13,11 +13,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  * 		fields={"email"},
- * 		message="Un compte existe déjà avec cette adresse email !"
+ * 		message="Un compte existe déjà avec cet email"
  * )
  * @UniqueEntity(
  * 		fields={"username"},
- * 		message="Ce nom d'utilisateur existe déjà !"
+ * 		message="Ce nom d'utilisateur existe déjà"
  * )
  * 
  */
@@ -43,12 +43,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir une adresse email !",
+	 * 		message="Merci de saisir une adresse email",
 	 * 		groups={"registration"}
 	 * )
 	 * 
 	 * @Assert\Email(
-	 * 		message="Merci de saisir une adresse email valide !",
+	 * 		message="Merci de saisir un email valide",
 	 * 		groups={"registration"}
 	 * )
      */
@@ -159,6 +159,14 @@ class User implements UserInterface
      */
     private $games;
 
+    /**
+     * @ORM\Column(
+	 * 		type="boolean",
+	 * 		options={"default":0}
+	 * )
+     */
+    private $isArchived = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -201,9 +209,9 @@ class User implements UserInterface
     }
 
 	public function eraseCredentials()
-             {
-         
-             }
+                      {
+                  
+                      }
 
     public function getSalt()
     {
@@ -321,6 +329,18 @@ class User implements UserInterface
                 $game->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsArchived(): ?bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): self
+    {
+        $this->isArchived = $isArchived;
 
         return $this;
     }
