@@ -7,7 +7,7 @@
 {% block body %}
     <h1 class="h1 my-4">Gestion des Jeux</h1>
 
-    {% for label, messages in app.flashes(["danger", "success"]) %}
+    {% for label, messages in app.flashes(["success", "danger"]) %}
         {% for message in messages %}
             <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
                 <span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">

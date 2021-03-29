@@ -8,7 +8,7 @@ C'est un site de mise en relation de personnes qui souhaitent partager leurs jeu
 
 ## Qui l'a fait ?
 
-4 développeuses web junior:
+3 développeuses web junior:
 
 * [Aurélie Gilet](https://github.com/AurelieGilet)
 * [Céline Trivier](https://github.com/titiceline)
@@ -31,4 +31,4 @@ _Configuration connexion BDD dans le fichier .env :_
 
 _Création de la BDD et importation des tables :_
 * $ php bin/console doctrine:database:create
-* $ php bin/console doctrine:migrations:migrate
+* Dans phpMyAdmin, importer la BDD avec le fichier "jeux_partage.sql"

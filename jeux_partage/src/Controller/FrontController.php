@@ -95,9 +95,11 @@ class FrontController extends AbstractController
 	 */
 	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, User $user = null): Response
 	{
-		// TO DO: security control to prevent borrowing if game is already borrowed
+		// TO DO: security control controller side to prevent borrowing if game is already borrowed
 		$borrowing = new Borrowing;
 		$user = $this->getUser();
+
+		dump($user);
 		
 		$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
 
@@ -107,7 +109,7 @@ class FrontController extends AbstractController
 		$form = $this->createForm(BorrowingFormType::class, $borrowing);
 		$form->handleRequest($request);
 
-		if($form->isSubmitted() && $form->isValid())
+		if($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() == true)
 		{
 			$borrowing->setLender($lender);
 			$borrowing->setBorrower($user);
@@ -121,6 +123,11 @@ class FrontController extends AbstractController
 			$this->addFlash('success', "Votre emprunt est validé");
 
 			return $this->redirectToRoute('account_games_borrowed');
+		}
+		elseif($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() != true)
+		{
+			$this->addFlash('danger', "Vous devez compléter votre profil avant de pouvoir emprunter un jeu");
+			return $this->redirectToRoute('security_profil');
 		}
 
 		return $this->render('front/borrowing.html.twig', [
@@ -212,14 +219,30 @@ class FrontController extends AbstractController
 
 	/**
 	 * Method to show on user account their borrowed games 
+	 * Method to cancel game borrowing
 	 * @Route("/compte/emprunts", name="account_games_borrowed")
+	 * @Route("/compte/emprunts/annulation/{id}", name="account_games_borrowing_cancel")
 	 */
-	public function gamesBorrowed(BorrowingRepository $borrowingRepo): Response
+	public function gamesBorrowed(EntityManagerInterface $manager, BorrowingRepository $borrowingRepo, Borrowing $borrowing = null): Response
 	{
-		// TO DO: delete option with security control to prevent deleting if game already given by the owner
 		$user = $this->getUser();
 
+		dump($borrowing);
 		$borrowings = $borrowingRepo->findBy(['borrower' => $user]);
+
+		if($borrowing != null && $borrowing->getGiveawayDate() == null)
+		{
+			$manager->remove($borrowing);
+			$manager->flush();
+
+			$this->addFlash('success', "Votre emprunt a bien été annulé");
+			return $this->redirectToRoute('account_games_borrowed');
+		}
+		elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
+		{
+			$this->addFlash('danger', "Votre emprunt ne peut être annulé");
+			return $this->redirectToRoute('account_games_borrowed');
+		}
 
 		return $this->render('front/account_games_borrowed.html.twig', [
 			'borrowings' => $borrowings
@@ -228,18 +251,46 @@ class FrontController extends AbstractController
 
 	/**
 	 * Method to show lended games on user accout
-	 * Method to indicate the game has been given to the borrower
-	 * Method to indicate the game has been returned by the borrower
+	 * Method to cancel game lending
 	 * @Route("/compte/prets", name="account_games_lended")
-	 * @Route("/compte/prets/remise/{id}", name="account_games_lended_giveaway")
-	 * @Route("/compte/prets/retour/{id}", name="account_games_lended_return")
+	 * @Route("/compte/prets/annulation/{id}", name="account_games_lended_cancel")
 	 */
 	public function gamesLended(BorrowingRepository $borrowingRepo, Borrowing $borrowing = NULL, Request $request, EntityManagerInterface $manager): Response
 	{
 		$user = $this->getUser();
 		$lendings = $borrowingRepo->findBy(['lender' => $user]);
 
-		if($borrowing)
+		dump($borrowing);
+
+		if($borrowing != null && $borrowing->getGiveawayDate() == null)
+		{
+			$manager->remove($borrowing);
+			$manager->flush();
+
+			$this->addFlash('success', "Votre prêt a bien été annulé");
+			return $this->redirectToRoute('account_games_lended');
+		}
+		elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
+		{
+			$this->addFlash('danger', "Votre prêt ne peut être annulé");
+			return $this->redirectToRoute('account_games_lended');
+		}
+
+		return $this->render('front/account_games_lended.html.twig', [
+			'lendings' => $lendings
+		]);
+	}
+
+	/**
+	 * Method to indicate the game has been given to the borrower
+	 * Method to indicate the game has been returned by the borrower
+	 * @Route("/compte/prets/remise/{id}", name="account_games_lended_giveaway")
+	 * @Route("/compte/prets/retour/{id}", name="account_games_lended_return")
+	 */
+	public function lendingValidation(Borrowing $borrowing = NULL, Request $request, EntityManagerInterface $manager): Response
+	{
+
+		if($borrowing != null)
 		{
 			if($borrowing->getGiveawayDate() == null && $borrowing->getReturnDate() == null)
 			{
@@ -263,9 +314,7 @@ class FrontController extends AbstractController
 			}
 		}
 
-		return $this->render('front/account_games_lended.html.twig', [
-			'lendings' => $lendings
-		]);
+		return $this->render('front/account_games_lended.html.twig');
 	}
 
 

@@ -1,20 +1,21 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-        BackOffice | NOUVELLE CATEGORIE
+        BackOffice | Modification de la catégorie
 {% endblock %}
 
 
 {% block body %}
-        <h1 class="h1 my-4">Ajouter une catégorie</h1>
+        <h1 class="h1 my-4">Modifier la catégorie</h1>
 
         {{ form_start(formCategory, {'attr' : {'class' : 'col-md-4 mx-auto'} })}}
 
-                {{ form_row(formCategory.name, {'label' : "Nom de la catégorie"}) }}
+                {{ form_row(formCategory.name, { 'label' : "Modifier la catégorie"}) }}
 
                 <div class= "col-lg-10 d-flex justify-content-center mx-auto">
-                <button type="submit" class="btn-jp align-items-center"> Enregister la catégorie</button>
+                <button type="submit" class="btn-jp mx-auto mt-4"> Enregister la modification</button>
                 </div>
+
         {{ form_end(formCategory)}}
 
 
