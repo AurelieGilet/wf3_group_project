@@ -1002,16 +1002,16 @@ footer a:last-child {
 
      /* ********************** SIZE CATALOG TITLE  & TITLE DETAIL ********************** */
 
-     .size-title
-     {
+    .size-title
+    {
         font-size: 3.5rem;
-     }
-     .btn-resize {
-         font-size: 1rem;
-     }
-     .backoffice {
-         width: 100%;
-     }
+    }
+    .btn-resize {
+        font-size: 1rem;
+    }
+    .backoffice {
+        width: 100%;
+    }
     
     /* ********************** DEBUT FOOTER ********************** */
     footer {
@@ -1120,7 +1120,4 @@ footer a:last-child {
     height: 30px;
     width: 30px;
     }
-
-    
-
 }

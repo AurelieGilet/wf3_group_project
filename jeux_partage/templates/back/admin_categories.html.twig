@@ -7,7 +7,7 @@
 
 {% block body %}
 
-     <h1 class="h1 my-4">Gestion des Catégories</h1>
+     <h1 class="h1 mt-3 mb-4">Gestion des Catégories</h1>
 
     <div class="my-5 text-center">
 		<a href="{{ path('admin_new_category') }}" class="btn-jp mt-4 mb-3" >Ajouter une catégorie</a>
@@ -46,7 +46,7 @@
                     <td class="align-middle">{{ category.name }}</td>
                     <td class="align-middle">{{ category.games|length }}</td>
 
-                    <td class="align-middle"> <a href="{{ path('admin_edit_catgory', {'id': category.id}) }}" class="edit-backoffice btn-jp"></a></td>
+                    <td class="align-middle"> <a href="{{ path('admin_edit_category', {'id': category.id}) }}" class="edit-backoffice btn-jp"></a></td>
                     <td class="align-middle"> <a href="{{ path('admin_delete_category', {'id': category.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer cette catégorie ?'))"></a></td>
                 </tr>
             {% endfor %}

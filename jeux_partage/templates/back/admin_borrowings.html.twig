@@ -6,7 +6,7 @@
 
 
 {% block body %}
-        <h1 class="h1 my-4">Gestion des Emprunts</h1>
+        <h1 class="h1 mt-3 mb-4">Gestion des Emprunts</h1>
 
   {% for message in app.flashes("success") %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
@@ -38,13 +38,10 @@
                         <th class="align-middle font-weight-bold"> {{column|upper }}</th>
                 {% endif %}
             {% endfor %}
-                        
-                <th class="align-middle font-weight-bold">SUPPRIMER</th>
         </tr>
 
         {% for borrowing in borrowings %}
             <tr class="align-middle">
-
                 <td class="align-middle">{{ borrowing.id }}</td>
                 <td class="align-middle">{{ borrowing.lender.id }}</td> 
                 <td class="align-middle">{{ borrowing.borrower.id }}</td> 
@@ -53,8 +50,6 @@
                 <td class="align-middle">{{ borrowing.endDate|date("d/m/Y") }}</td>
                 <td class="align-middle">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>
                 <td class="align-middle">{{ borrowing.returnDate|date("d/m/Y") }}</td>
-
-                <td class="align-middle"><a href="{{ path("admin_delete_borrowing", {'id' : borrowing.id}) }}" class="delete-backoffice btn-jp" onclick="return(confirm('Voulez-vous vraiment supprimer cet emprunt ?'))"></a></td>
             </tr>
         {% endfor %} 
 

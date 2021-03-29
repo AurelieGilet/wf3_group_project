@@ -42,10 +42,11 @@ class BackController extends AbstractController
     {
         $columns = $manager->getClassMetadata(User::class)->getFieldNames();
 
-        $users = $repoUsers->findAll();
+        $users = $repoUsers->findBy(array("isArchived" => false));
 
         $borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
-		dump($borrowings);
+		// dump($borrowings);
+
         // Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
 		$borrowedGamesLenderId= array();
 		foreach ($borrowings as $key => $value) {
@@ -55,8 +56,8 @@ class BackController extends AbstractController
 		foreach ($borrowings as $key => $value) {
 			array_push($borrowedGamesBorrowerId, $value->getBorrower()->getId());
 		}
-        dump($borrowedGamesLenderId);
-        dump($borrowedGamesBorrowerId);
+        // dump($borrowedGamesLenderId);
+        // dump($borrowedGamesBorrowerId);
 		
         if($user != null)
         {
@@ -72,20 +73,13 @@ class BackController extends AbstractController
 			}
 			else
 			{
-				$manager->remove($user);
+                $user->setIsArchived(true);
+                $user->setEmail("deleted@mail.com");
+				$manager->persist($user);
                 $manager->flush();
     
 				$this->addFlash("success", "Le membre $userName a bien été supprimé");
 			}
-
-        // if($user)
-        // {
-        //     $userName = $user->getUsername();
-
-        //     $manager->remove($user);
-        //     $manager->flush();
-
-        //     $this->addFlash("success", "Le membre " . $userName . " a bien été supprimé");
 
             return $this->redirectToRoute("admin_users");
         }
@@ -133,10 +127,10 @@ class BackController extends AbstractController
     {
         $columns = $manager->getClassMetadata(Game::class)->getFieldNames();
 
-        $games = $repoGames->findAll();
+        $games = $repoGames->findBy(array("isArchived" => false));
 
 		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
-		dump($borrowings);
+		// dump($borrowings);
     // Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
 
 		$borrowedGamesId= array();
@@ -154,7 +148,8 @@ class BackController extends AbstractController
 			}
 			else
 			{
-				$manager->remove($game);
+                $game->setIsArchived(true);
+				$manager->persist($game);
                 $manager->flush();
     
 				$this->addFlash("success", "Le jeu $gameName a bien été supprimé");
@@ -244,20 +239,18 @@ class BackController extends AbstractController
                         
         }
 
-            $categories = $repoCategory->findAll();
+        $categories = $repoCategory->findAll();
 
-            //dump($category);
+        //dump($category);
 
-            return $this->render('back/admin_categories.html.twig',[
-                'columns'=> $columns,
-                'categories' => $categories
-
+        return $this->render('back/admin_categories.html.twig',[
+            'columns'=> $columns,
+            'categories' => $categories
         ]);
     }
 
     /**
-     * @Route("/admin/category/new", name="admin_new_category")
-     * 
+     * @Route("/admin/categorie/new", name="admin_new_category")
      */
     public function adminFormCategory(Request $request, EntityManagerInterface $manager, Category $category = null): Response
     {
@@ -287,9 +280,7 @@ class BackController extends AbstractController
 
         return $this->render('back/admin_form_category.html.twig', [
                 'formCategory' => $formCategory->createView()
-
         ]);
-
     }
 
     /**
@@ -314,7 +305,7 @@ class BackController extends AbstractController
 
         return $this->render("back/admin_edit_category.html.twig", [
             "formCategory" => $formCategory->createView(),
-           
+            "category" => $category
         ]);
     }
 
@@ -322,39 +313,25 @@ class BackController extends AbstractController
                     // ************* GESTION EMPRUNTS *****************
 
     /**
-     * 
-     * @Route("/admin/borrowing", name="admin_borrowing")
-     * @Route("/admin/borrowing/{id}/suppression", name="admin_delete_borrowing")
+     * @Route("/admin/emprunts", name="admin_borrowings")
      */
     public function adminBorrowing(EntityManagerInterface $manager, BorrowingRepository $repoBorrowing, Borrowing $borrowing = null):Response
     {
-		
-      $schemaManager = $manager->getConnection()->getSchemaManager();
-      // array of Doctrine\DBAL\Schema\Column
-      $columns = $schemaManager->listTableColumns('borrowing');
+        $schemaManager = $manager->getConnection()->getSchemaManager();
+        // array of Doctrine\DBAL\Schema\Column
+        $columns = $schemaManager->listTableColumns('borrowing');
 
-      $columnNames = [];
-      foreach($columns as $column){
-        $columnNames[] = $column->getName();
-      }
-
-        if($borrowing)
+        $columnNames = [];
+        foreach($columns as $column)
         {
-            $manager->remove($borrowing);
-            $manager->flush();
-
-            $this->addFlash('success', "L'emprunt a bien été supprimé");
-
-            return $this->redirectToRoute('admin_borrowing');
+        $columnNames[] = $column->getName();
         }
 
-        $borrowing = $repoBorrowing->findAll();
+    $borrowings = $repoBorrowing->findAll();
 
-        return $this->render('back/admin_borrowing.html.twig', [
-                'columns' => $columnNames,
-                'borrowings' => $borrowing
-               
+    return $this->render('back/admin_borrowings.html.twig', [
+            'columns' => $columnNames,
+            'borrowings' => $borrowings
         ]);
-        
     }
 }
