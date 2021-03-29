@@ -187,15 +187,16 @@ class BackController extends AbstractController
                 $manager->flush();
 
                 $this->addFlash('success', "La catégorie $categoryName a bien été supprimée");
+
                 return $this->redirectToRoute('admin_categories');
             }
             else
             {
                 $this->addFlash('danger', "Impossible de supprimer la catégorie $categoryName : des jeux lui sont associés");
+
                 return $this->redirectToRoute('admin_categories');
             }
-            
-            
+                        
         }
 
             $categories = $repoCategory->findAll();
@@ -282,8 +283,15 @@ class BackController extends AbstractController
      */
     public function adminBorrowing(EntityManagerInterface $manager, BorrowingRepository $repoBorrowing, Borrowing $borrowing = null):Response
     {
-        $columns = $manager->getClassMetaData(Borrowing::class)->getFieldNames();
-        //dump($columns);
+		
+      $schemaManager = $manager->getConnection()->getSchemaManager();
+      // array of Doctrine\DBAL\Schema\Column
+      $columns = $schemaManager->listTableColumns('borrowing');
+
+      $columnNames = [];
+      foreach($columns as $column){
+        $columnNames[] = $column->getName();
+      }
 
         if($borrowing)
         {
@@ -296,11 +304,9 @@ class BackController extends AbstractController
         }
 
         $borrowing = $repoBorrowing->findAll();
-        
-        //dump($borrowing);
 
         return $this->render('back/admin_borrowing.html.twig', [
-                'columns' => $columns,
+                'columns' => $columnNames,
                 'borrowings' => $borrowing
                
         ]);

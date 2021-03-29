@@ -20,19 +20,19 @@
         <tr class="align-middle">
                
             {% for column in columns %}
-                {% if column == "lender" %}
+                {% if column == "lender_id" %}
                         <th class="align-middle font-weight-bold">Prêteur</th>
-                    {% elseif column == "borrower" %}
+                    {% elseif column == "borrower_id" %}
                         <th class="align-middle font-weight-bold">Emprunteur</th>
-                    {% elseif column == "game"%}
+                    {% elseif column == "game_id" %}
                         <th class="align-middle font-weight-bold">Jeux</th>
-                    {% elseif column == "startDate" %}
+                    {% elseif column == "start_date" %}
                         <th class="align-middle font-weight-bold">Début date du prêt</th>
-                    {% elseif column == "endDate"%}
+                    {% elseif column == "end_date"%}
                         <th class="align-middle font-weight-bold">Date de fin du prêt </th>
-                    {% elseif column == "giveawayDate" %}
-                        <th class="align-middle font-weight-bold"> Date de remise </th>
-                    {% elseif column == "returnDate"%} 
+                    {% elseif column == "giveaway_date" %}
+                        <th class="align-middle font-weight-bold">Date de remise</th>
+                    {% elseif column == "return_date"%} 
                         <th class="align-middle font-weight-bold">Date de retour</th>
                     {% else %}
                         <th class="align-middle font-weight-bold"> {{column|upper }}</th>
@@ -44,6 +44,7 @@
 
         {% for borrowing in borrowings %}
             <tr class="align-middle">
+
                 <td class="align-middle">{{ borrowing.id }}</td>
                 <td class="align-middle">{{ borrowing.lender.id }}</td> 
                 <td class="align-middle">{{ borrowing.borrower.id }}</td> 
