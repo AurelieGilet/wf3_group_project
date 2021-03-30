@@ -16,8 +16,8 @@ class MessengerAppFormType extends AbstractType
         $builder
             ->add('content', TextareaType::class, [
 				'row_attr' => ['class' => 'col-lg-11']
-			])
-			->add('save', SubmitType::class, [
+            ])
+            ->add('save', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
 			])
         ;

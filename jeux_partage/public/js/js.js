@@ -6,11 +6,6 @@ $(document).ready(function() {
         $(".cross_off").fadeToggle(100);
         $("#cross_line1").toggleClass("rotate1");
         $("#cross_line2").toggleClass("rotate2");
-        // $("#cross_line1").transition({"rotate" : "-45deg"});
-        // $("#cross_line2").transition({"rotate" : "45deg"});
-        // $("#cross_line1").css({"rotate" : "-45deg",
-        //                         "translate" : "1.5px"});
-        // $("#cross_line2").css({"rotate" : "45deg"});
         $("#overlay").fadeToggle(500);
         $("header ul").fadeToggle(500);
     });
@@ -42,6 +37,20 @@ $(document).ready(function() {
     $(".underline_a").on("mouseout", function() {
         $(this).css({"text-decoration-line" : "none"});
         $(this).css({"text-decoration-color" : "transparent"});
+    });
+
+    // illustrations background main
+    $("#circle1, #circle2, #circle4, #circle5").on("mouseover", function() {
+        $(this).css({"opacity" : "0.8"});
+    });
+    $("#circle1, #circle2, #circle4, #circle5").on("mouseout", function() {
+        $(this).css({"opacity" : "0.1"});
+    });
+    $("#circle3").on("mouseover", function() {
+        $(this).css({"opacity" : "1"});
+    });
+    $("#circle3").on("mouseout", function() {
+        $(this).css({"opacity" : "0.5"});
     });
 
     // affichage nom fichier photo jeu

@@ -24,38 +24,41 @@ class SecurityController extends AbstractController
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker): Response
     {
-		if($authChecker->isGranted('ROLE_USER'))
-		{
-			return $this->redirectToRoute('security_login');
-		}
-
+      if ($this->getUser())
+      {
+        return $this->redirectToRoute('catalogue');
+      }
+      else
+      {
         $user = new User;
         $form = $this->createForm(RegistrationFormType::class, $user, [
-			'validation_groups' => ['registration']
-		]);
+          'validation_groups' => ['registration']
+        ]);
+
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-			$roles = ["ROLE_USER"];
+          $hash = $encoder->encodePassword($user, $user->getPassword());
+          $roles = ["ROLE_USER"];
 
-			$user->setPassword($hash);
-			$user->setRoles($roles);
-			$user->setIsRegistered(false);
+          $user->setPassword($hash);
+          $user->setRoles($roles);
+          $user->setIsRegistered(false);
 
-            $manager->persist($user);
-            $manager->flush();
+          $manager->persist($user);
+          $manager->flush();
 
-			$this->addFlash('success', "Votre compte a bien été créé");
+          $this->addFlash('success', "Votre compte a bien été créé");
 
-			return $this->redirectToRoute('security_login');
+          return $this->redirectToRoute('security_login');
         }
 
         return $this->render('security/registration.html.twig', [
-            'form' => $form->createView()
+          'form' => $form->createView()
         ]);
+      }
     }
 
 	/**
@@ -64,17 +67,21 @@ class SecurityController extends AbstractController
 	 */
 	public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker): Response
 	{
-		if($authChecker->isGranted('ROLE_USER'))
+		if ($this->getUser())
 		{
-			return $this->redirectToRoute('home');
+			return $this->redirectToRoute('catalogue');
 		}
-		$error = $authenticationUtils->getLastAuthenticationError();
-		$lastUsername = $authenticationUtils->getLastUsername();
+		else
+		{
+			$error = $authenticationUtils->getLastAuthenticationError();
+			$lastUsername = $authenticationUtils->getLastUsername();
 
-		return $this->render('security/login.html.twig', [
-			'error' => $error,
-			'lastUsername' => $lastUsername
-		]);
+			return $this->render('security/login.html.twig', [
+				'error' => $error,
+				'lastUsername' => $lastUsername
+			]);
+		}
+
 	}
 
 	/**
@@ -87,11 +94,21 @@ class SecurityController extends AbstractController
 	}
 
 	/**
+	 * Method to log out users
+	 * @Route("/compte", name="account")
+	 */
+	public function redirectAccount()
+	{
+		return $this->redirectToRoute('security_profil');
+	}
+
+	/**
 	 * Method to complete registration in user account
 	 * @Route("/compte/profil", name="security_profil")
 	 */
 	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user = null, AuthorizationCheckerInterface $authChecker): Response
 	{
+
 		if($authChecker->isGranted('ROLE_ADMIN'))
 		{
 			return $this->redirectToRoute('admin');
@@ -100,28 +117,28 @@ class SecurityController extends AbstractController
 		{
 			return $this->redirectToRoute('security_login');
 		}
+    
 		$user = $this->getUser();
 
-		$form = $this->createForm(ProfilFormType::class, $user, [
-			'validation_groups' => ['profil'] 
-		]);
-		$form->handleRequest($request);
+			$form = $this->createForm(ProfilFormType::class, $user, [
+				'validation_groups' => ['profil'] 
+			]);
+			$form->handleRequest($request);
 
-		if($form->isSubmitted() && $form->isValid())
-		{
+			if($form->isSubmitted() && $form->isValid())
+			{
 
-			$user->setIsRegistered(true);
+				$user->setIsRegistered(true);
 
-			$manager->persist($user);
-			$manager->flush();
+				$manager->persist($user);
+				$manager->flush();
 
-			$this->addFlash('success', "Votre profil a bien été mis à jour");
+				$this->addFlash('success', "Votre profil a bien été mis à jour");
+			}
+
+			return $this->render('security/profil.html.twig', [
+				'form' => $form->createView()
+			]);
 		}
-
-		return $this->render('security/profil.html.twig', [
-			'form' => $form->createView()
-		]);
-		
 	}
-    
 }
