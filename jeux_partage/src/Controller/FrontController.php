@@ -20,6 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class FrontController extends AbstractController
 {
@@ -141,42 +142,51 @@ class FrontController extends AbstractController
 	 * @Route("/compte/jeux", name="account_games")
 	 * @Route("/compte/jeux/supprimer/{id}", name="account_games_delete")
 	 */
-	public function showGames(EntityManagerInterface $manager, GameRepository $gameRepo, BorrowingRepository $borrowingRepo, Game $game = null, User $user = null): Response
+	public function showGames(EntityManagerInterface $manager, GameRepository $gameRepo, BorrowingRepository $borrowingRepo, Game $game = null, User $user = null, AuthorizationCheckerInterface $authChecker): Response
 	{
 		$user = $this->getUser();
-	
-		$games = $gameRepo->findBy(array('owner' => $user, 'isArchived' => false));
 
-		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
-		$borrowedGamesId= array();
-		foreach ($borrowings as $key => $value) {
-			array_push($borrowedGamesId, $value->getGame()->getId());
-		}
-
-		if($game != null) 
+		if($authChecker->isGranted('ROLE_USER'))
 		{
-			$gameId = $game->getId();
-			$gameName = $game->getName();
-			if(in_array($gameId, $borrowedGamesId))
-			{
-				$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
-				return $this->redirectToRoute('account_games');
-			}
-			else
-			{
-				$game->setIsArchived(true);
-				$manager->persist($game);
-				$manager->flush();
+			$games = $gameRepo->findBy(array('owner' => $user, 'isArchived' => false));
 
-				$this->addFlash('success', "Votre jeu $gameName a bien été supprimé");
-				return $this->redirectToRoute('account_games');
+			$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+			$borrowedGamesId= array();
+			foreach ($borrowings as $key => $value) {
+				array_push($borrowedGamesId, $value->getGame()->getId());
 			}
-			
+
+			if($game != null) 
+			{
+				$gameId = $game->getId();
+				$gameName = $game->getName();
+				if(in_array($gameId, $borrowedGamesId))
+				{
+					$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
+					return $this->redirectToRoute('account_games');
+				}
+				else
+				{
+					$game->setIsArchived(true);
+					$manager->persist($game);
+					$manager->flush();
+
+					$this->addFlash('success', "Votre jeu $gameName a bien été supprimé");
+					return $this->redirectToRoute('account_games');
+				}
+				
+			}
+		}
+		else
+		{
+			return $this->redirectToRoute('security_login');
 		}
 		
 		return $this->render('front/account_games.html.twig', [
 			'games' => $games
 		]);
+	
+		
 	}
 
 	/**

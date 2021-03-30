@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -21,8 +22,13 @@ class SecurityController extends AbstractController
 	 * Method to register users
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker): Response
     {
+		if($authChecker->isGranted('ROLE_USER'))
+		{
+			return $this->redirectToRoute('security_login');
+		}
+
         $user = new User;
         $form = $this->createForm(RegistrationFormType::class, $user, [
 			'validation_groups' => ['registration']
@@ -56,12 +62,14 @@ class SecurityController extends AbstractController
 	 * Method to authenticate users
 	 * @Route("/connexion", name="security_login")
 	 */
-	public function login(AuthenticationUtils $authenticationUtils): Response
+	public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker): Response
 	{
+		if($authChecker->isGranted('ROLE_USER'))
+		{
+			return $this->redirectToRoute('home');
+		}
 		$error = $authenticationUtils->getLastAuthenticationError();
 		$lastUsername = $authenticationUtils->getLastUsername();
-
-		dump($authenticationUtils);
 
 		return $this->render('security/login.html.twig', [
 			'error' => $error,
@@ -82,8 +90,16 @@ class SecurityController extends AbstractController
 	 * Method to complete registration in user account
 	 * @Route("/compte/profil", name="security_profil")
 	 */
-	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user = null): Response
+	public function profilUpdate(Request $request, EntityManagerInterface $manager, User $user = null, AuthorizationCheckerInterface $authChecker): Response
 	{
+		if($authChecker->isGranted('ROLE_ADMIN'))
+		{
+			return $this->redirectToRoute('admin');
+		}
+		elseif(!$authChecker->isGranted('ROLE_USER') && !$authChecker->isGranted('ROLE_ADMIN')) 
+		{
+			return $this->redirectToRoute('security_login');
+		}
 		$user = $this->getUser();
 
 		$form = $this->createForm(ProfilFormType::class, $user, [

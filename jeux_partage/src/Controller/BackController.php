@@ -22,13 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class BackController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(): Response
+    public function index(AuthorizationCheckerInterface $authChecker): Response
     {
         return $this->render('back/index.html.twig');
     }
@@ -38,16 +39,14 @@ class BackController extends AbstractController
      * @Route("/admin/utilisateurs", name="admin_users")
      * @Route("/admin/utilisateur/{id}/suppression", name="admin_delete_user")
      */
-    public function adminUsers(UserRepository $repoUsers, BorrowingRepository $borrowingRepo, EntityManagerInterface $manager, User $user = null): Response
+    public function adminUsers(UserRepository $repoUsers, BorrowingRepository $borrowingRepo, GameRepository $gameRepo, EntityManagerInterface $manager, User $user = null): Response
     {
         $columns = $manager->getClassMetadata(User::class)->getFieldNames();
 
         $users = $repoUsers->findBy(array("isArchived" => false));
 
         $borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
-		// dump($borrowings);
 
-        // Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
 		$borrowedGamesLenderId= array();
 		foreach ($borrowings as $key => $value) {
 			array_push($borrowedGamesLenderId, $value->getLender()->getId());
@@ -56,8 +55,6 @@ class BackController extends AbstractController
 		foreach ($borrowings as $key => $value) {
 			array_push($borrowedGamesBorrowerId, $value->getBorrower()->getId());
 		}
-        // dump($borrowedGamesLenderId);
-        // dump($borrowedGamesBorrowerId);
 		
         if($user != null)
         {
@@ -73,6 +70,14 @@ class BackController extends AbstractController
 			}
 			else
 			{
+				$games = $gameRepo->findBy(['owner' => $user]);
+
+				foreach ($games as $key => $game) {
+					$game->setIsArchived(true);
+					$manager->persist($game);
+                	$manager->flush();
+				}
+
                 $user->setIsArchived(true);
                 $user->setEmail("deleted@mail.com");
 				$manager->persist($user);
@@ -130,8 +135,6 @@ class BackController extends AbstractController
         $games = $repoGames->findBy(array("isArchived" => false));
 
 		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
-		// dump($borrowings);
-    // Map containing borrowing objects for games not yet returned : is used in template to update status (available for borrowing or not) and if not available, display the presumed date of return (endDate)
 
 		$borrowedGamesId= array();
 		foreach ($borrowings as $key => $value) {
@@ -240,8 +243,6 @@ class BackController extends AbstractController
         }
 
         $categories = $repoCategory->findAll();
-
-        //dump($category);
 
         return $this->render('back/admin_categories.html.twig',[
             'columns'=> $columns,

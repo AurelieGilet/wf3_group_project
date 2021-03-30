@@ -19,7 +19,7 @@ class MessageController extends AbstractController
     /**
      * @Route("/messagerie/emprunt/{id}", name="messenger_borrowing")
      */
-    public function index(MessengerAppFormType $form, MessageRepository $messageRepo, Message $message = null, BorrowingRepository $borrowingRepo, Borrowing $borrowing = null, User $user = null, Request $request, EntityManagerInterface $manager ): Response
+    public function message(MessengerAppFormType $form, MessageRepository $messageRepo, Message $message = null, BorrowingRepository $borrowingRepo, Borrowing $borrowing = null, User $user = null, Request $request, EntityManagerInterface $manager ): Response
     {
 		$user = $this->getUser();
 		$messages = $messageRepo->findBy(['borrowing' => $borrowing]);
@@ -43,8 +43,6 @@ class MessageController extends AbstractController
 
 			return $this->redirectToRoute('messenger_borrowing', ['id' => $borrowing->getId() ]);
 		}
-
-		
 
         return $this->render('message/borrowing_message_app.html.twig', [
 			'messages' => $messages,
