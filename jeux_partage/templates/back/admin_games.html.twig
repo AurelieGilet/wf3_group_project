@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="h1 my-4">Gestion des Jeux</h1>
+    <h1 class="h1 mt-3 mb-4">Gestion des Jeux</h1>
 
     {% for label, messages in app.flashes(["success", "danger"]) %}
         {% for message in messages %}
@@ -27,7 +27,7 @@
                         <th class="align-middle font-weight-bold">JOUEURS MIN</th>
                     {% elseif column == "maxPlayers" %}
                         <th class="align-middle font-weight-bold">JOUEURS MAX</th>
-                    {% elseif column != "owner_id" and column != "category_id" %}
+                    {% elseif column != "owner_id" and column != "category_id" and column != "isArchived" %}
                         <th class="align-middle font-weight-bold">{{column|upper}}</th>
                     {% endif %}
                 {% endfor %}
@@ -45,7 +45,7 @@
                     <td class="align-middle">{{game.minPlayers}}</td>
                     <td class="align-middle">{{game.maxPlayers}}</td>
                     <td class="align-middle">{{game.description|striptags|slice(0,50)}}...</td>
-                    <td class="align-middle"><img src="{{ asset('uploads/images/' ~ game.image) }}" alt="jeu {{game.name}}" height="80px" width="auto"></td>
+                    <td class="align-middle"><a href="{{ path('detail', {'id': game.id}) }}"><img src="{{ asset('uploads/images/' ~ game.image) }}" alt="jeu {{game.name}}" height="80px" width="auto"></a></td>
                     <td class="align-middle">{{game.category.name}}</td>
 
                     <td class="align-middle"><a href="{{ path("admin_edit_game", {"id": game.id}) }}" class="edit-backoffice btn-jp"></a></td>

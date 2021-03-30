@@ -66,6 +66,51 @@ body {
 
 main {
     min-height: 50vh;
+    position: relative;
+    z-index: 1;
+}
+
+.circle {
+    border: #f7cc99 solid 5px;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0.1;
+}
+
+.circle::before {
+    content: "";
+    float: left;
+    padding-top: 100%;
+}
+
+#circle1 {
+    width: 11.8%;
+    top: 19.5%;
+    left: 7.5%;
+}
+
+#circle2 {
+    width: 11%;
+    top: 35%;
+    left: 85%;
+}
+
+#circle3 {
+    width: 10%;
+    top: 74%;
+    left: 30%;
+}
+
+#circle4 {
+    width: 8%;
+    top: 50%;
+    left: 49%;
+}
+
+#circle5 {
+    width: 5%;
+    top: 76%;
+    left: 80%;
 }
 
 .h1 {
@@ -399,6 +444,7 @@ nav button {
 	top: 50%;
 	right: 0;
 	transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -417,6 +463,7 @@ nav button {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
     display: none;
 }
 
@@ -643,14 +690,6 @@ transform: rotate(45deg);
     text-align: center;
 }
 
-.size-game-name
-{
-    font-size: 2rem;
-	line-height: 2.5rem;
-    margin-bottom:0.4rem;
-    color: #8a0030;
-}
-
 .btn-card
 {
 	margin-top: 0 !important;
@@ -717,11 +756,19 @@ transform: rotate(45deg);
     width: auto;
 }
 
-.size-name
+.size-game-name
 {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     margin-bottom: 0.4em;
     color: #8a0030;
+}
+
+.finger_icon {
+    width: 30px;
+    height: 15px;
+    margin: 0 0.4em;
+    position: relative;
+    top: 2px;
 }
 
 .btn-resize {
@@ -773,6 +820,12 @@ transform: rotate(45deg);
 
 .backoffice .card-body {
     padding-left: 10% !important;
+}
+
+.backoffice h4 {
+    font-size: 1.6rem;
+    margin-bottom: 0.4em;
+    color: #8a0030;
 }
 
 .backoffice p, .backoffice ul {
@@ -899,42 +952,6 @@ footer a:last-child {
     .dices_icon img {
         margin: 0 0.6em;
     }
-
-/* ********************** SIZE TABLE Back-Office EMPRUNT & CATEGORY ********************** */
-    
-      /* .th-size
-      {
-          font-size:0.8rem;
-      }
-    
-      .td-size
-      {
-        font-size: 0.8rem;
-      } 
-    
-      .table td, table th
-      {
-        padding: 0.4rem 0 0.6rem 0!important;
-
-      } 
-      
-      .size-button-emprunt-hover
-      {
-        font-size: 0.6rem!important;
-        background-size: 60%;
-        border: none;
-        background-image: url(../img/delete.png);
-      } 
-
-
-      .size-button-category-hover
-      {
-        font-size: 0.6rem!important;
-        background-size: 60%;
-        border: none;
-      } */
-
-    
     /* ********************** FIN HOME ********************** */
     
     .p_login {
@@ -983,7 +1000,7 @@ footer a:last-child {
         font-size: 1.8rem;
         margin-bottom: 1.5vh;
     }
-    header h2 a, .size-name {
+    header h2 a, .size-game-name, .backoffice h4 {
         font-size: 1.8rem !important;
     }
     header a, .home p, .btn-jp, label, input, select, .custom-file-label, .card-text {
@@ -1034,53 +1051,21 @@ footer a:last-child {
     }
     .dice_pawns {
         width: 14%;
+        bottom: 5%;
     }
 
-     /* ********************** SIZE CATALOG TITLE  & TITLE DETAIL ********************** */
+    /* ********************** SIZE CATALOG TITLE & TITLE DETAIL ********************** */
 
     .size-title
     {
         font-size: 3.5rem;
-     }
-     .btn-resize {
-         font-size: 1rem;
-     }
-     .backoffice {
-         width: 100%;
-     }
-
-    /* ********************** SIZE TABLE Back-Office EMPRUNT & CATEGORY ********************** */
-    
-    /* .th-size
-    {
-        font-size:0.8rem;
     }
-  
-    .td-size
-    {
-        font-size: 0.8rem;
-    } 
-  
-    .table td, table th
-    {
-        padding: 0.4rem 0 0.4rem 0!important;
-        
-    } 
-    
-    .size-button-emprunt-hover
-    {
-        font-size: 0.6rem!important;
-        background-size: 60%;
-        border: none;
-        
-    } 
-
-    .size-button-category-hover
-    {
-        font-size: 0.6rem!important;
-        background-size: 60%;
-        border: none;
-    }  */
+    .btn-resize {
+        font-size: 1rem;
+    }
+    .backoffice {
+        width: 100%;
+    }
    
     /* ********************** DEBUT FOOTER ********************** */
     footer {
@@ -1160,6 +1145,15 @@ footer a:last-child {
     }
     .dice_pawns {
         width: 10%;
+        bottom: 0;
+    }
+    .dice_pawns img {
+        min-width: 55px;
+        min-height: 40px;
+    }
+    .finger_icon {
+        width: 25px;
+        height: 13px;
     }
 
     /* ********************** SIZE CATALOG/DETAIL TITLE & SIZE DETAIL TITLE GAME ********************** */
@@ -1169,65 +1163,19 @@ footer a:last-child {
         font-size: 2.5rem;
     }
 
-    .size-game-name
-    {
-        font-size: 1.8rem;
-    }
-
     /* ********************** SIZE CARD CATALOG ********************** */
 
     .card-deck, .size-card {
         width: 100% !important;
     }
   
-    .size-name 
+    .size-game-name, .backoffice h4
     {
-        font-size: 1.5rem !important;
+        font-size: 1.8rem !important;
     }
     
     .up {
     height: 30px;
     width: 30px;
     }
-
-    /* ********************** SIZE TABLE Back-Office EMPRUNT & CATEGORY ********************** */
-
-  /* .th-size
-  {
-    font-size:0.4rem;
-  }
-
-  .td-size
-  {
-    font-size: 0.4rem;
-
-  } 
-
-  .table td, table th
-  {
-    padding: 0.4rem 0 0.4rem 0!important;
-    
-  }  
-
-  .size-button
-  {
-    font-size: 0.4rem!important;
-    background-size: 46%;
-  } 
-
-  .size-button-emprunt-hover
-  {
-    font-size: 0.3rem!important;
-    background-size: 80%;
-
-  }
-
-  .size-button-category-hover
-  {
-    font-size: 0.3rem!important;
-    background-size: 80%;
-
-  } */
-
-  
 }
