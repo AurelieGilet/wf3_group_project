@@ -120,25 +120,24 @@ class SecurityController extends AbstractController
     
 		$user = $this->getUser();
 
-			$form = $this->createForm(ProfilFormType::class, $user, [
-				'validation_groups' => ['profil'] 
-			]);
-			$form->handleRequest($request);
+		$form = $this->createForm(ProfilFormType::class, $user, [
+			'validation_groups' => ['profil'] 
+		]);
+		$form->handleRequest($request);
 
-			if($form->isSubmitted() && $form->isValid())
-			{
+		if($form->isSubmitted() && $form->isValid())
+		{
 
-				$user->setIsRegistered(true);
+			$user->setIsRegistered(true);
 
-				$manager->persist($user);
-				$manager->flush();
+			$manager->persist($user);
+			$manager->flush();
 
-				$this->addFlash('success', "Votre profil a bien été mis à jour");
-			}
-
-			return $this->render('security/profil.html.twig', [
-				'form' => $form->createView()
-			]);
+			$this->addFlash('success', "Votre profil a bien été mis à jour");
 		}
+
+		return $this->render('security/profil.html.twig', [
+			'form' => $form->createView()
+		]);
 	}
 }
