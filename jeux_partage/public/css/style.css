@@ -855,6 +855,29 @@ transform: rotate(45deg);
 .up:hover {
     opacity: 1;
 }
+/*********************** MESSAGERIE ********************** */
+
+.bg-beige
+{
+    background-color: #f7cd9960;
+    border-radius: 5px;
+}
+
+.bg-gris
+{
+    background-color: rgba(240, 240, 240, 0.856);
+    border-radius: 5px;
+}
+
+/* .test-inset 
+{
+    border: inset rgb(235, 232, 232) 5px;
+
+}  */
+
+
+
+
 
 /* ********************** DEBUT FOOTER ********************** */
 
