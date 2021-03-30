@@ -1,6 +1,3 @@
-{% block javascripts %} 
-<script src="{{asset('js/messenger_ajax.js')}}"></script> 
-{% endblock %}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -9,27 +6,47 @@
 
 <section class="row justify-content-center">
 	<div class="col-md-8">
-		<div class="table d-flex flex-column test-inset" style= "width: 100%; height: 250px; overflow: auto; padding: 5px;">
-			{% for message in messages %}
-				<div class="p-2 m-2 w-50 {% if message.author == app.user %}bg-gris align-self-end{% else %}bg-beige align-self-start{% endif %}">
-					<p class="font-weight-bold">{{message.author.username|title}}:</p> 
-					<p>{{message.content|nl2br}}</p>
-					<small class="text-muted font-italic">Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</small>
-				</div>
-			{% endfor %}
+		<div id="message-board" class="table d-flex flex-column test-inset" style= "width: 100%; height: 300px; overflow: auto; padding: 5px;">
 		</div>
 	</div>	
 		<div class="col-md-10">
-			{{ form_start(form, {'attr' : {'class': 'col-md-8 mx-auto py-4 row justify-content-around' }}) }}
+			{{ form_start(form, {'attr' : {'id': 'messenger_form', 'class': 'col-md-8 mx-auto pt-4 row justify-content-around' }}) }}
 
-				{# {{ form_row(form.content, {'label' : "Ecrivez votre message", 'attr' : {'rows': "5" }}) }} #}
-
-				{{ form_row(form.content, {'label' : "Message ", 'attr' : {'rows': "5"}}) }}
+				{{ form_row(form.content, {'label' : "Message ", 'attr' : {'rows': "2"}}) }}
 				{{ form_row(form.save, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 
 			{{ form_end(form) }}
 		</div>
 		
 </section>
+
+<script>
+	$(document).ready(function() {
+
+		function refreshPage() { 
+			$.get({
+				url: "{{ path('messenger_ajax_request', {'id': borrowing.id}) }}",
+				dataType : "html",
+				success:  function(data) {
+
+					$('#message-board').html(data);
+				}
+			});
+		}
+		setInterval(refreshPage, 2000);
+
+		$( "#messenger_form" ).submit(function(e) {
+			e.preventDefault();
+
+			var $form = $(e.currentTarget);
+			$.ajax({
+				url: "{{ path('messenger_ajax_send', {'id': borrowing.id}) }}",
+				method: 'POST',
+				data: $form.serialize()
+			});
+			$("#messenger_app_form_content").val("");
+		});
+	});
+</script> 
 
 {% endblock %}
