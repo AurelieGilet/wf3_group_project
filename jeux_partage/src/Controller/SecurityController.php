@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
 	 * Method to register users
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker): Response
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
       if ($this->getUser())
       {
@@ -65,7 +65,7 @@ class SecurityController extends AbstractController
 	 * Method to authenticate users
 	 * @Route("/connexion", name="security_login")
 	 */
-	public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker): Response
+	public function login(AuthenticationUtils $authenticationUtils): Response
 	{
 		if ($this->getUser())
 		{
