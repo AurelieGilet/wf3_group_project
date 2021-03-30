@@ -71,46 +71,38 @@ main {
 }
 
 .circle {
-    border: #f7cc99 solid 5px;
-    border-radius: 50%;
+    /* border: #f7cc99 solid 5px; */
+    /* border-radius: 50%; */
     position: absolute;
-    opacity: 0.1;
 }
 
-.circle::before {
+/* .circle::before {
     content: "";
     float: left;
     padding-top: 100%;
-}
+} */
 
 #circle1 {
     width: 11.8%;
-    top: 19.5%;
-    left: 7.5%;
+    top: 15%;
+    left: 4%;
+    opacity: 0.1;
 }
 
 #circle2 {
     width: 11%;
     top: 35%;
     left: 85%;
+    opacity: 0.1;
+    transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
 }
 
 #circle3 {
     width: 10%;
-    top: 74%;
-    left: 30%;
-}
-
-#circle4 {
-    width: 8%;
-    top: 50%;
-    left: 49%;
-}
-
-#circle5 {
-    width: 5%;
-    top: 76%;
-    left: 80%;
+    top: 78%;
+    left: 11%;
+    opacity: 0.5;
 }
 
 .h1 {

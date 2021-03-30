@@ -95,45 +95,52 @@ class FrontController extends AbstractController
 	 */
 	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, User $user = null): Response
 	{
-		// TO DO: security control controller side to prevent borrowing if game is already borrowed
-		$borrowing = new Borrowing;
-		$user = $this->getUser();
-		
-		$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
-
-		$startDate = new \DateTime;
-		$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
-
-		$form = $this->createForm(BorrowingFormType::class, $borrowing);
-		$form->handleRequest($request);
-
-		if($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() == true)
+		if (!$this->getUser())
 		{
-			$borrowing->setLender($lender);
-			$borrowing->setBorrower($user);
-			$borrowing->setGame($game);
-			$borrowing->setStartDate($startDate);
-			$borrowing->setEndDate($endDate);
-
-			$manager->persist($borrowing);
-			$manager->flush();
-
-			$this->addFlash('success', "Votre emprunt est validé");
-
-			return $this->redirectToRoute('account_games_borrowed');
+			return $this->redirectToRoute('security_login');
 		}
-		elseif($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() != true)
+		else
 		{
-			$this->addFlash('danger', "Vous devez compléter votre profil avant de pouvoir emprunter un jeu");
-			return $this->redirectToRoute('security_profil');
-		}
+			// TO DO: security control controller side to prevent borrowing if game is already borrowed
+			$borrowing = new Borrowing;
+			$user = $this->getUser();
+			
+			$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
 
-		return $this->render('front/borrowing.html.twig', [
-			'game' => $game, 
-			'form' => $form->createView(),
-			'startDate' => $startDate,
-			'endDate' => $endDate
-		]);
+			$startDate = new \DateTime;
+			$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
+
+			$form = $this->createForm(BorrowingFormType::class, $borrowing);
+			$form->handleRequest($request);
+
+			if($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() == true)
+			{
+				$borrowing->setLender($lender);
+				$borrowing->setBorrower($user);
+				$borrowing->setGame($game);
+				$borrowing->setStartDate($startDate);
+				$borrowing->setEndDate($endDate);
+
+				$manager->persist($borrowing);
+				$manager->flush();
+
+				$this->addFlash('success', "Votre emprunt est validé");
+
+				return $this->redirectToRoute('account_games_borrowed');
+			}
+			elseif($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() != true)
+			{
+				$this->addFlash('danger', "Vous devez compléter votre profil avant de pouvoir emprunter un jeu");
+				return $this->redirectToRoute('security_profil');
+			}
+
+			return $this->render('front/borrowing.html.twig', [
+				'game' => $game, 
+				'form' => $form->createView(),
+				'startDate' => $startDate,
+				'endDate' => $endDate
+			]);
+		}
 	}
 
 	/**
@@ -143,40 +150,47 @@ class FrontController extends AbstractController
 	 */
 	public function showGames(EntityManagerInterface $manager, GameRepository $gameRepo, BorrowingRepository $borrowingRepo, Game $game = null, User $user = null): Response
 	{
-		$user = $this->getUser();
-	
-		$games = $gameRepo->findBy(array('owner' => $user, 'isArchived' => false));
-
-		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
-		$borrowedGamesId= array();
-		foreach ($borrowings as $key => $value) {
-			array_push($borrowedGamesId, $value->getGame()->getId());
-		}
-
-		if($game != null) 
+		if (!$this->getUser())
 		{
-			$gameId = $game->getId();
-			$gameName = $game->getName();
-			if(in_array($gameId, $borrowedGamesId))
-			{
-				$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
-				return $this->redirectToRoute('account_games');
-			}
-			else
-			{
-				$game->setIsArchived(true);
-				$manager->persist($game);
-				$manager->flush();
+			return $this->redirectToRoute('security_login');
+		}
+		else
+		{
+			$user = $this->getUser();
+		
+			$games = $gameRepo->findBy(array('owner' => $user, 'isArchived' => false));
 
-				$this->addFlash('success', "Votre jeu $gameName a bien été supprimé");
-				return $this->redirectToRoute('account_games');
+			$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
+			$borrowedGamesId= array();
+			foreach ($borrowings as $key => $value) {
+				array_push($borrowedGamesId, $value->getGame()->getId());
+			}
+
+			if($game != null) 
+			{
+				$gameId = $game->getId();
+				$gameName = $game->getName();
+				if(in_array($gameId, $borrowedGamesId))
+				{
+					$this->addFlash("danger", "Impossible de supprimer le jeu $gameName : il est emprunté");
+					return $this->redirectToRoute('account_games');
+				}
+				else
+				{
+					$game->setIsArchived(true);
+					$manager->persist($game);
+					$manager->flush();
+
+					$this->addFlash('success', "Votre jeu $gameName a bien été supprimé");
+					return $this->redirectToRoute('account_games');
+				}
+				
 			}
 			
+			return $this->render('front/account_games.html.twig', [
+				'games' => $games
+			]);
 		}
-		
-		return $this->render('front/account_games.html.twig', [
-			'games' => $games
-		]);
 	}
 
 	/**
@@ -186,61 +200,68 @@ class FrontController extends AbstractController
 	 */
 	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager,Game $game = null, User $user = null): Response
 	{
-		// TO DO: security control to prevent editing or deleting of a lended game
-		$user = $this->getUser();
-
-		if(!$game)
+		if (!$this->getUser())
 		{
-			$game = new Game;
+			return $this->redirectToRoute('security_login');
 		}
-
-		$form = $this->createForm(GameFormType::class, $game);
-		$form->handleRequest($request);
-
-		if($form->isSubmitted() && $form->isValid())
+		else
 		{
-			/** @var UploadedFile $imageFile */
-			$imageFile = $form->get('image')->getData();
+			// TO DO: security control to prevent editing or deleting of a lended game
+			$user = $this->getUser();
 
-			if($imageFile)
+			if(!$game)
 			{
-				$gameName = $game->getName();
-				$safeFilename = $slugger->slug($gameName);
-				$filename = $safeFilename.'-'.uniqid().'-'.$imageFile->guessExtension();
-				try {
-					$imageFile->move(
-						$this->getParameter('images_directory'),
-						$filename
-					);
-				} catch (FileException $e) {
-					
+				$game = new Game;
+			}
+
+			$form = $this->createForm(GameFormType::class, $game);
+			$form->handleRequest($request);
+
+			if($form->isSubmitted() && $form->isValid())
+			{
+				/** @var UploadedFile $imageFile */
+				$imageFile = $form->get('image')->getData();
+
+				if($imageFile)
+				{
+					$gameName = $game->getName();
+					$safeFilename = $slugger->slug($gameName);
+					$filename = $safeFilename.'-'.uniqid().'-'.$imageFile->guessExtension();
+					try {
+						$imageFile->move(
+							$this->getParameter('images_directory'),
+							$filename
+						);
+					} catch (FileException $e) {
+						
+					}
+					$game->setImage($filename);
 				}
-				$game->setImage($filename);
+				
+				$game->setOwner($user);
+
+				if(!$game->getId())
+				{
+					$message = "Le jeu " . $game->getName() . " a bien été ajouté à votre compte";
+				}
+				else
+				{
+					$message = "Le jeu " . $game->getName() . " a bien été modifié";
+				}
+
+				$manager->persist($game);
+				$manager->flush();
+
+				$this->addFlash('success', $message);
+
+				return $this->redirectToRoute('account_games');
 			}
-			
-			$game->setOwner($user);
 
-			if(!$game->getId())
-			{
-				$message = "Le jeu " . $game->getName() . " a bien été ajouté à votre compte";
-			}
-			else
-			{
-				$message = "Le jeu " . $game->getName() . " a bien été modifié";
-			}
-
-			$manager->persist($game);
-			$manager->flush();
-
-			$this->addFlash('success', $message);
-
-			return $this->redirectToRoute('account_games');
+			return $this->render('front/account_games_registration.html.twig', [
+				'form' => $form->createView(), 
+				'gameName' => $game->getName()
+			]);
 		}
-
-		return $this->render('front/account_games_registration.html.twig', [
-			'form' => $form->createView(), 
-			'gameName' => $game->getName()
-		]);
 	}
 
 	/**
@@ -251,27 +272,34 @@ class FrontController extends AbstractController
 	 */
 	public function gamesBorrowed(EntityManagerInterface $manager, BorrowingRepository $borrowingRepo, Borrowing $borrowing = null): Response
 	{
-		$user = $this->getUser();
-
-		$borrowings = $borrowingRepo->findBy(['borrower' => $user]);
-
-		if($borrowing != null && $borrowing->getGiveawayDate() == null)
+		if (!$this->getUser())
 		{
-			$manager->remove($borrowing);
-			$manager->flush();
-
-			$this->addFlash('success', "Votre emprunt a bien été annulé");
-			return $this->redirectToRoute('account_games_borrowed');
+			return $this->redirectToRoute('security_login');
 		}
-		elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
+		else
 		{
-			$this->addFlash('danger', "Votre emprunt ne peut pas être annulé");
-			return $this->redirectToRoute('account_games_borrowed');
-		}
+			$user = $this->getUser();
 
-		return $this->render('front/account_games_borrowed.html.twig', [
-			'borrowings' => $borrowings
-		]);
+			$borrowings = $borrowingRepo->findBy(['borrower' => $user]);
+
+			if($borrowing != null && $borrowing->getGiveawayDate() == null)
+			{
+				$manager->remove($borrowing);
+				$manager->flush();
+
+				$this->addFlash('success', "Votre emprunt a bien été annulé");
+				return $this->redirectToRoute('account_games_borrowed');
+			}
+			elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
+			{
+				$this->addFlash('danger', "Votre emprunt ne peut pas être annulé");
+				return $this->redirectToRoute('account_games_borrowed');
+			}
+
+			return $this->render('front/account_games_borrowed.html.twig', [
+				'borrowings' => $borrowings
+			]);
+		}
 	}
 
 	/**
@@ -282,26 +310,33 @@ class FrontController extends AbstractController
 	 */
 	public function gamesLended(BorrowingRepository $borrowingRepo, Borrowing $borrowing = NULL, Request $request, EntityManagerInterface $manager): Response
 	{
-		$user = $this->getUser();
-		$lendings = $borrowingRepo->findBy(['lender' => $user]);
-
-		if($borrowing != null && $borrowing->getGiveawayDate() == null)
+		if (!$this->getUser())
 		{
-			$manager->remove($borrowing);
-			$manager->flush();
-
-			$this->addFlash('success', "Votre prêt a bien été annulé");
-			return $this->redirectToRoute('account_games_lended');
+			return $this->redirectToRoute('security_login');
 		}
-		elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
+		else
 		{
-			$this->addFlash('danger', "Votre prêt ne peut pas être annulé");
-			return $this->redirectToRoute('account_games_lended');
-		}
+			$user = $this->getUser();
+			$lendings = $borrowingRepo->findBy(['lender' => $user]);
 
-		return $this->render('front/account_games_lended.html.twig', [
-			'lendings' => $lendings
-		]);
+			if($borrowing != null && $borrowing->getGiveawayDate() == null)
+			{
+				$manager->remove($borrowing);
+				$manager->flush();
+
+				$this->addFlash('success', "Votre prêt a bien été annulé");
+				return $this->redirectToRoute('account_games_lended');
+			}
+			elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
+			{
+				$this->addFlash('danger', "Votre prêt ne peut pas être annulé");
+				return $this->redirectToRoute('account_games_lended');
+			}
+
+			return $this->render('front/account_games_lended.html.twig', [
+				'lendings' => $lendings
+			]);
+		}
 	}
 
 	/**
@@ -312,33 +347,37 @@ class FrontController extends AbstractController
 	 */
 	public function lendingValidation(Borrowing $borrowing = NULL, Request $request, EntityManagerInterface $manager): Response
 	{
-
-		if($borrowing != null)
+		if (!$this->getUser())
 		{
-			if($borrowing->getGiveawayDate() == null && $borrowing->getReturnDate() == null)
-			{
-				$borrowing->setGiveawayDate(new \DateTime);
-				$manager->persist($borrowing);
-				$manager->flush();
-
-				$this->addFlash('success', "Le jeu a été remis à l'emprunteur");
-
-				return $this->redirectToRoute('account_games_lended');
-			}
-			elseif($borrowing->getReturnDate() == null && $borrowing->getGiveawayDate() != null)
-			{
-				$borrowing->setReturnDate(new \DateTime);
-				$manager->persist($borrowing);
-				$manager->flush();
-
-				$this->addFlash('success', "Le jeu a été rendu par l'emprunteur");
-				
-				return $this->redirectToRoute('account_games_lended');
-			}
+			return $this->redirectToRoute('security_login');
 		}
+		else
+		{
+			if($borrowing != null)
+			{
+				if($borrowing->getGiveawayDate() == null && $borrowing->getReturnDate() == null)
+				{
+					$borrowing->setGiveawayDate(new \DateTime);
+					$manager->persist($borrowing);
+					$manager->flush();
 
-		return $this->render('front/account_games_lended.html.twig');
+					$this->addFlash('success', "Le jeu a été remis à l'emprunteur");
+
+					return $this->redirectToRoute('account_games_lended');
+				}
+				elseif($borrowing->getReturnDate() == null && $borrowing->getGiveawayDate() != null)
+				{
+					$borrowing->setReturnDate(new \DateTime);
+					$manager->persist($borrowing);
+					$manager->flush();
+
+					$this->addFlash('success', "Le jeu a été rendu par l'emprunteur");
+					
+					return $this->redirectToRoute('account_games_lended');
+				}
+			}
+
+			return $this->render('front/account_games_lended.html.twig');
+		}
 	}
-
-
 }
