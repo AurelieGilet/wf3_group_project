@@ -2,26 +2,31 @@
 
 {% block body %}
 
-<h1 class="h1 mt-3 mb-4">Conversation echange du jeu {{borrowing.game.name}}</h1>
+<h1 class="h1 mt-3 mb-4">Conversation échange du jeu {{borrowing.game.name}}</h1>
 
 <section class="row justify-content-center">
-	<div class="table d-flex flex-column" style= "border: 1px solid black; width: 100%; height: 250px; overflow: auto; padding: 5px;">
-		{% for message in messages %}
-			<div class="p-2 m-2 w-50 {% if message.author == app.user %}bg-primary align-self-end{% else %}bg-secondary align-self-start{% endif %}">
-				<p class="font-weight-bold">{{message.author.username|title}}:</p> 
-				<p>{{message.content|nl2br}}</p>
-				<small class="text-muted font-italic">Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</small>
-			</div>
-		{% endfor %}
-	</div>
-	<div class="col-md-10">
-		{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around' }}) }}
+	<div class="col-md-8">
+		<div class="table d-flex flex-column test-inset" style= "width: 100%; height: 250px; overflow: auto; padding: 5px;">
+			{% for message in messages %}
+				<div class="p-2 m-2 w-50 {% if message.author == app.user %}bg-gris align-self-end{% else %}bg-beige align-self-start{% endif %}">
+					<p class="font-weight-bold">{{message.author.username|title}}:</p> 
+					<p>{{message.content|nl2br}}</p>
+					<small class="text-muted font-italic">Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</small>
+				</div>
+			{% endfor %}
+		</div>
+	</div>	
+		<div class="col-md-10">
+			{{ form_start(form, {'attr' : {'class': 'col-md-8 mx-auto py-4 row justify-content-around' }}) }}
 
-			{{ form_row(form.content, {'label' : "Message", 'attr' : {'rows': "4" }}) }}
-			{{ form_row(form.save, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+				{# {{ form_row(form.content, {'label' : "Ecrivez votre message", 'attr' : {'rows': "5" }}) }} #}
 
-		{{ form_end(form) }}
-	</div>
+				{{ form_row(form.content, {'label' : "Message ", 'attr' : {'rows': "5"}}) }}
+				{{ form_row(form.save, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+
+			{{ form_end(form) }}
+		</div>
+		
 </section>
 
 {% endblock %}
