@@ -20,6 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class FrontController extends AbstractController
 {
@@ -148,7 +149,7 @@ class FrontController extends AbstractController
 	 * @Route("/compte/jeux", name="account_games")
 	 * @Route("/compte/jeux/supprimer/{id}", name="account_games_delete")
 	 */
-	public function showGames(EntityManagerInterface $manager, GameRepository $gameRepo, BorrowingRepository $borrowingRepo, Game $game = null, User $user = null): Response
+	public function showGames(EntityManagerInterface $manager, GameRepository $gameRepo, BorrowingRepository $borrowingRepo, Game $game = null, User $user = null, AuthorizationCheckerInterface $authChecker): Response
 	{
 		if (!$this->getUser())
 		{
