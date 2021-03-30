@@ -847,11 +847,12 @@ transform: rotate(45deg);
 .up:hover {
     opacity: 1;
 }
+
 /*********************** MESSAGERIE ********************** */
 
 .bg-beige
 {
-    background-color: #f7cd9960;
+    background-color: rgba(247, 205, 153, 0.7);
     border-radius: 5px;
 }
 
@@ -866,6 +867,7 @@ transform: rotate(45deg);
     border: inset rgb(235, 232, 232) 5px;
 
 }  */
+
 
 /* .cadre-carte
 {
@@ -884,9 +886,6 @@ transform: rotate(45deg);
 
 }
 
-
-
-
 /* ********************** DEBUT FOOTER ********************** */
 
 footer {
@@ -894,20 +893,116 @@ footer {
     font-size: 0.9rem;
 }
 
-footer p, footer a, footer div {
+footer p:first-child, footer div:first-child, footer span, .footer, #contact {
     color: rgb(100, 100, 100);
 }
 
-footer p {
+#contact:hover {
+    text-decoration: underline;
+}
+
+footer p:first-child {
     font-style: italic;
 }
 
-footer a {
+footer .separate {
     margin: 0 1em;
 }
 
-footer a:last-child {
-    margin-right: 0;
+/* ********************** MODAL MENTIONS LEGALES ********************** */
+
+#modal_ML {
+    cursor: pointer;
+}
+
+#modal_ML:hover {
+    text-decoration: underline;
+}
+
+.modal-dialog {
+    width: initial !important;
+}
+
+.modal-header
+{
+    padding: 0.5rem;
+}
+
+.modal-header h2
+{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #8a0030;
+    margin: 0 auto;
+}
+
+.modal-header .btn-close
+{
+    opacity: 0.9;
+    margin: 0;
+}
+
+.btn-close {
+    color: #000a1e !important;
+}
+
+.btn-close:focus {
+    box-shadow: none;
+}
+
+.modal-body h2
+{
+    font-size: 1.2rem;
+	margin: 1rem;
+    font-weight: bold;
+    color: rgb(0, 10, 30);
+}
+
+.modal-body h3
+{
+    font-size: 1rem;
+	margin: 1rem;
+    padding-left: 1rem;
+    font-weight: bold;
+    color: rgb(0, 10, 30);
+}
+
+.modal-body p
+{
+    font-size: 0.95rem;
+    margin: 1rem;
+    color: rgb(0, 10, 30);
+}
+
+.modal-body a
+{
+    text-decoration: none;
+    color: #8a0030;
+}
+
+.modal-body a:hover
+{
+    color: #8a0030;
+    text-decoration: underline;
+    text-decoration-color: #f3bc75;
+}
+
+.modal-body ul
+{
+    margin: 0 2rem;
+}
+
+.modal strong
+{
+    font-weight: bold;
+}
+
+@media screen and (max-width: 575.98px)	
+{
+    .modal-body
+    {
+        padding: 0;
+    }
 }
 
 /* ********************** FIN FOOTER ********************** */
@@ -1003,7 +1098,7 @@ footer a:last-child {
         font-size: 0.9rem !important;
         flex-wrap: wrap;
     }
-    footer p, footer div {
+    footer p:first-child, footer div:first-child {
         width: 100%;
         text-align: center;
     }
@@ -1104,7 +1199,7 @@ footer a:last-child {
         font-size: 1rem !important;
 		flex-wrap: wrap;
     }
-    footer p, footer div {
+    footer p:first-child, footer div:first-child, .footer {
         width: 100%;
         text-align: center;
     }
@@ -1163,7 +1258,7 @@ footer a:last-child {
     .dices_icon {
         width: 15%;
     }
-    footer div, footer p {
+    footer div:first-child, footer p:first-child, .footer {
         font-size: 0.65rem;
     }
     .p_login {

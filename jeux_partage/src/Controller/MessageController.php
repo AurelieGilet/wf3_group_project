@@ -21,33 +21,55 @@ class MessageController extends AbstractController
      */
     public function message(MessengerAppFormType $form, MessageRepository $messageRepo, Message $message = null, BorrowingRepository $borrowingRepo, Borrowing $borrowing = null, User $user = null, Request $request, EntityManagerInterface $manager ): Response
     {
-		$user = $this->getUser();
-		$messages = $messageRepo->findBy(['borrowing' => $borrowing]);
-
-		dump($borrowing);
-
-		$message = new Message;
-
-		$form = $this->createForm(MessengerAppFormType::class, $message);
-		$form->handleRequest($request);
-
-
-		if($form->isSubmitted() && $form->isValid())
+		if (!$this->getUser())
 		{
-			$message->setBorrowing($borrowing);
-			$message->setAuthor($user);
-			$message->setCreatedAt(new \DateTime);
-
-			$manager->persist($message);
-			$manager->flush();
-
-			return $this->redirectToRoute('messenger_borrowing', ['id' => $borrowing->getId() ]);
+			return $this->redirectToRoute('security_login');
 		}
+		else
+		{
+			$user = $this->getUser();
+			$messages = $messageRepo->findBy(['borrowing' => $borrowing]);
 
-        return $this->render('message/borrowing_message_app.html.twig', [
-			'messages' => $messages,
-			'borrowing' => $borrowing,
-			'form' => $form->createView()
-        ]);
+			dump($borrowing);
+
+			$message = new Message;
+
+			$form = $this->createForm(MessengerAppFormType::class, $message);
+			$form->handleRequest($request);
+
+
+			if($form->isSubmitted() && $form->isValid())
+			{
+				$message->setBorrowing($borrowing);
+				$message->setAuthor($user);
+				$message->setCreatedAt(new \DateTime);
+
+				$manager->persist($message);
+				$manager->flush();
+
+				return $this->redirectToRoute('messenger_borrowing', ['id' => $borrowing->getId() ]);
+			}
+
+			return $this->render('message/borrowing_message_app.html.twig', [
+				'messages' => $messages,
+				'borrowing' => $borrowing,
+				'form' => $form->createView()
+			]);
+		}
     }
+
+	/**
+	 * @Route("/messagerie", name="messenger")
+	 */
+	public function redirectMessenger()
+	{
+		if (!$this->getUser())
+		{
+			return $this->redirectToRoute('security_login');
+		}
+		else
+		{
+			return $this->redirectToRoute('account_games_borrowed');
+		}
+	}
 }
