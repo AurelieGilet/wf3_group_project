@@ -1,0 +1,10 @@
+{# This is a template fragment called in borrowing_message_app.html.twig #}
+
+{% for message in messages %}
+	<div class="p-2 m-2 w-50 {% if message.author == app.user %}bg-gris align-self-end{% else %}bg-beige align-self-start{% endif %}">
+		<p class="font-weight-bold">{{message.author.username|title}}:</p> 
+		<p>{{message.content|nl2br}}</p>
+		<small class="text-muted font-italic">Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</small>
+	</div>
+{% endfor %}
+

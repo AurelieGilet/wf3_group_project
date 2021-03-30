@@ -10,7 +10,7 @@
 
 	<section class="row justify-content-center">
 		<div class="col-md-10">
-			<div class="table col-md-11 mx-auto d-flex flex-column test-inset" style= "width: 100%; height: 250px; overflow: auto; scrollbar-width: thin; padding: 5px;">
+			<div id="message-board" class="table col-md-11 mx-auto d-flex flex-column test-inset" style= "width: 100%; height: 250px; overflow: auto; scrollbar-width: thin; padding: 5px;">
 				{% for message in messages %}
 					<div class="p-2 m-1 {% if message.author == app.user %}bg-gris align-self-end{% else %}bg-beige align-self-start{% endif %}" style="width: max-content; max-width: 60%;">
 						<p class="font-weight-bold">{{message.author.username|title}} :</p> 
@@ -22,9 +22,7 @@
 		</div>	
 
 		<div class="col-md-10">
-			{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-3 row justify-content-around' }}) }}
-
-				{# {{ form_row(form.content, {'label' : "Ecrivez votre message", 'attr' : {'rows': "4" }}) }} #}
+			{{ form_start(form, {'attr' : {'id': 'messenger_form', 'class': 'col-md-12 mx-auto py-3 row justify-content-around' }}) }}
 
 				{{ form_row(form.content, {'label' : "Message ", 'attr' : {'rows': "4"}}) }}
 				{{ form_row(form.save, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
@@ -32,5 +30,34 @@
 			{{ form_end(form) }}
 		</div>
 </section>
+
+<script>
+	$(document).ready(function() {
+
+		function refreshPage() { 
+			$.get({
+				url: "{{ path('messenger_ajax_request', {'id': borrowing.id}) }}",
+				dataType : "html",
+				success:  function(data) {
+
+					$('#message-board').html(data);
+				}
+			});
+		}
+		setInterval(refreshPage, 2000);
+
+		$( "#messenger_form" ).submit(function(e) {
+			e.preventDefault();
+
+			var $form = $(e.currentTarget);
+			$.ajax({
+				url: "{{ path('messenger_ajax_send', {'id': borrowing.id}) }}",
+				method: 'POST',
+				data: $form.serialize()
+			});
+			$("#messenger_app_form_content").val("");
+		});
+	});
+</script> 
 
 {% endblock %}
