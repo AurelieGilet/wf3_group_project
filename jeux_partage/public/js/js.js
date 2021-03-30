@@ -61,4 +61,7 @@ $(document).ready(function() {
             .html(inputFile.files[0].name);
     });
 
+    // fermeture modal CGU
+    $('#modal').modal('hide');
+
 });

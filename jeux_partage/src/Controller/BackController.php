@@ -314,7 +314,7 @@ class BackController extends AbstractController
     /**
      * @Route("/admin/emprunts", name="admin_borrowings")
      */
-    public function adminBorrowing(EntityManagerInterface $manager, BorrowingRepository $repoBorrowing, Borrowing $borrowing = null):Response
+    public function adminBorrowing(EntityManagerInterface $manager, BorrowingRepository $repoBorrowing, Borrowing $borrowing = null): Response
     {
         $schemaManager = $manager->getConnection()->getSchemaManager();
         // array of Doctrine\DBAL\Schema\Column
@@ -332,5 +332,14 @@ class BackController extends AbstractController
             'columns' => $columnNames,
             'borrowings' => $borrowings
         ]);
+    }
+    
+                // ************* PAGE CONTACT *****************
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(): Response
+    {
     }
 }
