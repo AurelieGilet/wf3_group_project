@@ -868,6 +868,24 @@ transform: rotate(45deg);
 
 }  */
 
+
+/* .cadre-carte
+{
+    background-image: url("../img/cadre_carte.png"); 
+    background-size: 80% 57%;
+    background-position: center;
+    background-position:top;
+    background-repeat: no-repeat;
+    
+} */
+
+
+.ombre
+{
+    box-shadow: 3px 2px 12px rgba(151, 151, 151, 0.705);
+
+}
+
 /* ********************** DEBUT FOOTER ********************** */
 
 footer {
