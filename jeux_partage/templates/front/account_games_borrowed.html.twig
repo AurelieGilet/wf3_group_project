@@ -8,9 +8,6 @@
 
 	<h1 class="h1 mt-3 mb-4">Liste des jeux empruntés</h1>
 
-	<p class="card-text my-3 px-3 text-center font-italic">Contactez le possesseur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a">messagerie</a>.</p>
-	<p class="card-text my-3 px-3 text-center font-italic">Tant que le jeu n'a pas été récupéré, vous pouvez annuler l'emprunt via le lien de suppression associé à celui-ci.</p>
-
 	{% for label, messages in app.flashes(["danger", "success"]) %}
 		{% for message in messages %}
 			<div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
@@ -21,41 +18,46 @@
 		{% endfor %}
 	{% endfor %}
 
-	<div class="row align-items-center">
-		{% for borrowing in borrowings %}
+	
+	{% if borrowings|length > 0 %}
 
-			<div class="col-md-6 col-lg-4 mt-4">
-				<div class="card my-4 shadow-sm col_rwd">
-					<div id="photo_account_games">
-						<img src="{{ asset('uploads/images/' ~ borrowing.game.image) }}" alt="{{borrowing.game.name}}">
-					</div>	
-					<div class="card-body card_account_games">
-						<h4 class="text-center size-name">{{borrowing.game.name}}</h4>
-						
-						<p class="card-text my-1"><span>Catégorie :</span> {{borrowing.game.category.name}}</p>
-						<p class="card-text my-1"><span>Age :</span> {{borrowing.game.public}}</p>
-						<p class="card-text my-1"><span>Nombre de joueurs :</span> {{borrowing.game.minPlayers}} {% if borrowing.game.maxPlayers != NULL and borrowing.game.maxPlayers != borrowing.game.minPlayers %} à {{borrowing.game.maxPlayers}} {% endif %}</p>
-						<p class="card-text my-1"><span>Début de l'emprunt :</span> {{borrowing.startDate|date('d/m/Y')}}</p>
-						<p class="card-text my-1"><span>Fin de l'emprunt :</span> {{borrowing.endDate|date('d/m/Y')}}</p>
-						<p class="card-text my-1"><span>Statut :</span> {% if borrowing.returnDate == NULL %} <span class="text-danger" style="text-decoration: none;">NON RENDU</span> {% else %} <span class="text-success" style="text-decoration: none;">RENDU</span> {% endif %} </p>
-						{% if borrowing.giveawayDate == NULL %}
-						<p class="card-text my-1"><span class="text-danger font-italic" style="text-decoration: none;">Jeu non remis par le propriétaire</span></p>
-						{% elseif borrowing.giveawayDate != NULL and borrowing.returnDate == NULL %}
-						<p class="card-text my-1"><span class="text-success font-italic" style="text-decoration: none;">Jeu remis par le propriétaire</span></p>
-						{% endif %} 
+		<p class="card-text my-3 px-3 text-center font-italic"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Contactez le possesseur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a"> messagerie</a>.</p>
+		<p class="card-text my-3 px-3 text-center font-italic"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Tant que le jeu n'a pas été récupéré, vous pouvez annuler l'emprunt via le lien de suppression associé à celui-ci.</p>
+		
+		<div class="row">
+			{% for borrowing in borrowings %}
+				<div class="col-md-6 col-lg-4 mt-4 mb-1 px-0 px-sm-2">
+					<div class="card my-4 shadow-sm col_rwd">
+						<div id="photo_account_games">
+							<img src="{{ asset('uploads/images/' ~ borrowing.game.image) }}" alt="{{borrowing.game.name}}">
+						</div>	
+						<div class="card-body card_account_games">
+							<h4 class="text-center size-game-name">{{borrowing.game.name}}</h4>
+							
+							<p class="card-text my-1"><span>Catégorie :</span> {{borrowing.game.category.name}}</p>
+							<p class="card-text my-1"><span>Age :</span> {{borrowing.game.public}}</p>
+							<p class="card-text my-1"><span>Nombre de joueurs :</span> {{borrowing.game.minPlayers}} {% if borrowing.game.maxPlayers != NULL and borrowing.game.maxPlayers != borrowing.game.minPlayers %} à {{borrowing.game.maxPlayers}} {% endif %}</p>
+							<p class="card-text my-1"><span>Début de l'emprunt :</span> {{borrowing.startDate|date('d/m/Y')}}</p>
+							<p class="card-text my-1"><span>Fin de l'emprunt :</span> {{borrowing.endDate|date('d/m/Y')}}</p>
+							<p class="card-text my-1"><span>Statut :</span> {% if borrowing.returnDate == NULL %} <span class="text-danger" style="text-decoration: none;">NON RENDU</span> {% else %} <span class="text-success" style="text-decoration: none;">RENDU</span> {% endif %} </p>
+							{% if borrowing.giveawayDate == NULL %}
+							<p class="card-text my-1"><span class="text-danger font-italic" style="text-decoration: none;">Jeu non remis par le propriétaire</span></p>
+							{% elseif borrowing.giveawayDate != NULL and borrowing.returnDate == NULL %}
+							<p class="card-text my-1"><span class="text-success font-italic" style="text-decoration: none;">Jeu remis par le propriétaire</span></p>
+							{% endif %} 
 
-						<div class="btn-group d-flex justify-content-center">
-							<a href="{{ path('detail', {'id': borrowing.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
-							<a href="{{ path('messenger_borrowing', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
-							<a href="{{ path('account_games_borrowing_cancel', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize {% if borrowing.giveawayDate != NULL %} disabled {% endif %}" onclick="return(confirm('Voulez-vous vraiment annuler cet emprunt ?'))" id="delete"></a>
+							<div class="btn-group d-flex justify-content-center">
+								<a href="{{ path('detail', {'id': borrowing.game.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Voir</a>
+								<a href="{{ path('messenger_borrowing', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize">Messagerie</a>
+								<a href="{{ path('account_games_borrowing_cancel', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-secondary btn-resize {% if borrowing.giveawayDate != NULL %} disabled {% endif %}" onclick="return(confirm('Voulez-vous vraiment annuler cet emprunt ?'))" id="delete"></a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-		{% endfor %}
-	</div>
-
-
+			{% endfor %}
+		</div>
+	{% else %}
+		<p class="text-center font-italic my-5 mx-auto">Vous n'avez pas encore emprunté de jeux, <a href="{{ path('catalogue') }}" class="font-weight-bold underline_a">commencez dès maintenant</a></p>
+	{% endif %}
 
 {% endblock %}

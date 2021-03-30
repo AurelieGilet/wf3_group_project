@@ -6,55 +6,56 @@
 
 
 {% block body %}
-        <h1 class="h1 mt-3 mb-4">Gestion des Emprunts</h1>
+    <h1 class="h1 mt-3 mb-4">Gestion des Emprunts</h1>
 
-  {% for message in app.flashes("success") %}
-        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
-			<span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
-        		{{message}}
-			</span>
-        </div>
-{% endfor %}
-<div class= "overflow_table">
-    <table class="table table-bordered table-striped text-center">
-        <tr class="align-middle">
-               
-            {% for column in columns %}
-                {% if column == "lender_id" %}
-                        <th class="align-middle font-weight-bold th-size">Prêteur</th>
-                    {% elseif column == "borrower_id" %}
-                        <th class="align-middle font-weight-bold th-size">Emprunteur</th>
-                    {% elseif column == "game_id" %}
-                        <th class="align-middle font-weight-bold th-size">Jeux</th>
-                    {% elseif column == "start_date" %}
-                        <th class="align-middle font-weight-bold th-size">Début date du prêt</th>
-                    {% elseif column == "end_date"%}
-                        <th class="align-middle font-weight-bold th-size">Date de fin du prêt </th>
-                    {% elseif column == "giveaway_date" %}
-                        <th class="align-middle font-weight-bold th-size">Date de remise</th>
-                    {% elseif column == "return_date"%} 
-                        <th class="align-middle font-weight-bold th-size">Date de retour</th>
-                    {% else %}
-                        <th class="align-middle font-weight-bold th-size"> {{column|upper }}</th>
-                {% endif %}
-            {% endfor %}
-        </tr>
+    {% for label, messages in app.flashes(["success", "danger"]) %}
+        {% for message in messages %}
+            <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-4">
+                <span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
+                    {{message}}
+                </span>
+            </div>
+        {% endfor %}
+    {% endfor %}
 
-        {% for borrowing in borrowings %}
+    <div class= "overflow_table">
+        <table class="table table-bordered table-striped text-center">
             <tr class="align-middle">
-                <td class="align-middle">{{ borrowing.id }}</td>
-                <td class="align-middle">{{ borrowing.lender.id }}</td> 
-                <td class="align-middle">{{ borrowing.borrower.id }}</td> 
-                <td class="align-middle">{{ borrowing.game.id }}</td>
-                <td class="align-middle">{{ borrowing.startDate|date("d/m/Y") }}</td>
-                <td class="align-middle">{{ borrowing.endDate|date("d/m/Y") }}</td>
-                <td class="align-middle">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>
-                <td class="align-middle">{{ borrowing.returnDate|date("d/m/Y") }}</td>
+                
+                {% for column in columns %}
+                    {% if column == "lender_id" %}
+                        <th class="align-middle font-weight-bold">PRETEUR</th>
+                    {% elseif column == "borrower_id" %}
+                        <th class="align-middle font-weight-bold">EMPRUNTEUR</th>
+                    {% elseif column == "game_id" %}
+                        <th class="align-middle font-weight-bold">JEU</th>
+                    {% elseif column == "start_date" %}
+                        <th class="align-middle font-weight-bold">DEBUT DU PRET</th>
+                    {% elseif column == "end_date"%}
+                        <th class="align-middle font-weight-bold">FIN DU PRET</th>
+                    {% elseif column == "giveaway_date" %}
+                        <th class="align-middle font-weight-bold">DATE DE REMISE</th>
+                    {% elseif column == "return_date"%} 
+                        <th class="align-middle font-weight-bold">DATE DE RETOUR</th>
+                    {% else %}
+                        <th class="align-middle font-weight-bold"> {{column|upper}}</th>
+                    {% endif %}
+                {% endfor %}
+                
             </tr>
 
-            
-        {% endfor %} 
-
-    </table>
-</di>    
+            {% for borrowing in borrowings %}
+                <tr class="align-middle">
+                    <td class="align-middle">{{ borrowing.id }}</td>
+                    <td class="align-middle">{{ borrowing.lender.id }}</td> 
+                    <td class="align-middle">{{ borrowing.borrower.id }}</td> 
+                    <td class="align-middle">{{ borrowing.game.id }}</td>
+                    <td class="align-middle">{{ borrowing.startDate|date("d/m/Y") }}</td>
+                    <td class="align-middle">{{ borrowing.endDate|date("d/m/Y") }}</td>
+                    <td class="align-middle">{{ borrowing.giveawayDate|date("d/m/Y") }}</td>
+                    <td class="align-middle">{{ borrowing.returnDate|date("d/m/Y") }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>    
 {% endblock %}

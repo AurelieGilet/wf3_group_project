@@ -168,7 +168,7 @@ class FrontController extends AbstractController
 				$manager->persist($game);
 				$manager->flush();
 
-				$this->addFlash('success', "Votre jeux $gameName a bien été supprimé");
+				$this->addFlash('success', "Votre jeu $gameName a bien été supprimé");
 				return $this->redirectToRoute('account_games');
 			}
 			
@@ -265,7 +265,7 @@ class FrontController extends AbstractController
 		}
 		elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
 		{
-			$this->addFlash('danger', "Votre emprunt ne peut être annulé");
+			$this->addFlash('danger', "Votre emprunt ne peut pas être annulé");
 			return $this->redirectToRoute('account_games_borrowed');
 		}
 
@@ -295,7 +295,7 @@ class FrontController extends AbstractController
 		}
 		elseif($borrowing != null && $borrowing->getGiveawayDate() != null)
 		{
-			$this->addFlash('danger', "Votre prêt ne peut être annulé");
+			$this->addFlash('danger', "Votre prêt ne peut pas être annulé");
 			return $this->redirectToRoute('account_games_lended');
 		}
 

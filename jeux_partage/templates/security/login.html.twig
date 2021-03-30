@@ -6,7 +6,7 @@
 
 {% block body %}
 
-	<h1 class="h1 mt-3 mb-4">Connexion</h1>
+    <h1 class="h1 mt-3 mb-4">Connexion</h1>
 
     {% for label, messages in app.flashes(["danger", "success"]) %}
         {% for message in messages %}
@@ -18,15 +18,15 @@
         {% endfor %}
     {% endfor %}
 
-	{% if error %}
+    {% if error %}
         <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
-			<span class="bg-msg text-danger font-italic rounded text-center mx-auto py-2 px-4">
+            <span class="bg-msg text-danger font-italic rounded text-center mx-auto py-2 px-4">
                 {{error.messageKey | trans(error.messageData, 'security') }}
-			</span>
+            </span>
         </div>
-	{% endif %}
+    {% endif %}
 
-	<form method="post" class="col-md-10 mx-auto py-4" action="{{ path('security_login') }}">
+    <form method="post" class="col-md-10 mx-auto py-4" action="{{ path('security_login') }}">
         <div class="row justify-content-around">
             <div class="form-group col-lg-5">
                 <label for="username">Email</label>
@@ -40,7 +40,7 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         </div>
 
-		<p class="p_login">Pas encore de compte ? <a href="{{ path('security_registration') }}" class="font-weight-bold underline_a">Inscrivez-vous ici</a></p>
+        <p class="p_login">Pas encore de compte ? <a href="{{ path('security_registration') }}" class="font-weight-bold underline_a">Inscrivez-vous ici</a></p>
             
         <div class="row justify-content-around">
             <div class="col-12 mx-auto row justify-content-around">
@@ -52,4 +52,5 @@
     <div class="dice_pawns">
         <img src="{{ asset('img/logo-jeux-societe.png') }}" alt="illustration pions et dé">
     </div>
+
 {% endblock %}
