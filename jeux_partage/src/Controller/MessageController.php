@@ -41,7 +41,7 @@ class MessageController extends AbstractController
 			$manager->persist($message);
 			$manager->flush();
 
-			// return $this->redirectToRoute('messenger_borrowing', {'id': $borrowing->getId() });
+			return $this->redirectToRoute('messenger_borrowing', ['id' => $borrowing->getId() ]);
 		}
 
 		
