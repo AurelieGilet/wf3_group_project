@@ -11,13 +11,7 @@
 	<section class="row justify-content-center">
 		<div class="col-md-10">
 			<div id="message-board" class="table col-md-11 mx-auto d-flex flex-column test-inset" style= "width: 100%; height: 250px; overflow: auto; scrollbar-width: thin; padding: 5px;">
-				{% for message in messages %}
-					<div class="p-2 m-1 {% if message.author == app.user %}bg-gris align-self-end{% else %}bg-beige align-self-start{% endif %}" style="width: max-content; max-width: 60%;">
-						<p class="font-weight-bold">{{message.author.username|title}} :</p> 
-						<p>{{message.content|nl2br}}</p>
-						<small class="text-muted font-italic" style ="font-size: 0.8rem;">Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</small>
-					</div>
-				{% endfor %}
+
 			</div>
 		</div>	
 
