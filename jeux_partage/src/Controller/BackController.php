@@ -8,12 +8,12 @@ use App\Entity\Category;
 use App\Entity\Borrowing;
 use App\Form\GameFormType;
 use App\Form\CategoryFormType;
+use App\Form\BorrowingFormType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
 use App\Form\AdminRegistrationFormType;
-use App\Form\BorrowingFormType;
 use App\Repository\BorrowingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +79,7 @@ class BackController extends AbstractController
                 $manager->flush();
     
 				$this->addFlash("success", "Le membre $userName a bien été supprimé");
+                dump($user);
 			}
 
             return $this->redirectToRoute("admin_users");

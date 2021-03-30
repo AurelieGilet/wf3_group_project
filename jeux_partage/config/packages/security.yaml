@@ -43,4 +43,4 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-    access_denied_url: /home
+    access_denied_url: home
