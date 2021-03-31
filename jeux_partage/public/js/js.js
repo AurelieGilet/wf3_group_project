@@ -64,4 +64,12 @@ $(document).ready(function() {
     // fermeture modal CGU
     $('#modal').modal('hide');
 
+    //gif au revoir
+    $("#gifQuitter").on('click'), function()
+    {
+        
+        $("gif").delay(2000).attr("src", "");
+    }
+   
+
 });

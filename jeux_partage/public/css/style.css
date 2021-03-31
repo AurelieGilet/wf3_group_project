@@ -872,7 +872,7 @@ transform: rotate(45deg);
 /* .cadre-carte
 {
     background-image: url("../img/cadre_carte.png"); 
-    background-size: 80% 57%;
+    background-size: 90% 200%;
     background-position: center;
     background-position:top;
     background-repeat: no-repeat;

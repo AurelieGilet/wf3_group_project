@@ -106,7 +106,7 @@
                         <div>
                             <li class="d-flex justify-content-start align-items-center">
                                 <img src="{{ asset('img/logout.png') }}" alt="icone déconnexion" id="logout_icon">
-                                <a href="{{ path('security_logout') }}" class="nav-link px-2 py-0">Quitter</a>
+                                <a href="{{ path('security_logout') }}" class="nav-link px-2 py-0" id="gifQuitter">Quitter</a>
                             </li>
                             <div class="d-none d-lg-block nav_hover"></div>
                         </div>
@@ -118,8 +118,10 @@
             <div class="circle d-flex justify-content-center align-items-center" id="circle1"><img src="{{ asset('img/chips.png') }}" alt="" width="55%" height="auto"></div>
             <div class="circle d-flex justify-content-center align-items-center" id="circle2"><img src="{{ asset('img/cards.png') }}" alt="" width="60%" height="auto"></div>
             <div class="circle d-flex justify-content-center align-items-center" id="circle3"><img src="{{ asset('img/domino.png') }}" alt="" width="70%" height="auto"></div>
-
-            <main>
+            {# <div class="d-flex justify-content-center">
+            <img id="gif" src="https://media1.tenor.com/images/f23ef5fdbec173df7a036565f949a838/tenor.gif?itemid=19344474" width="60%">
+            </div>
+            <main> #}
                 {% block body %}{% endblock %}
 
                 <a href="#home"><div class="up"></div></a>
