@@ -110,7 +110,7 @@ CREATE TABLE `game` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `public` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `min_players` int(11) NOT NULL,
-  `max_players` int(11) NOT NULL,
+  `max_players` int(11) DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_archived` tinyint(1) NOT NULL DEFAULT 0

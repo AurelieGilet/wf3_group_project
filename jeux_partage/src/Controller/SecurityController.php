@@ -104,7 +104,7 @@ class SecurityController extends AbstractController
 	}
 
 	/**
-	 * Method to log out users
+	 * Method to redirect user if they try to access "/compte" route that doesn't exist
 	 * @Route("/compte", name="account")
 	 */
 	public function redirectAccount()
