@@ -91,7 +91,7 @@ class SecurityController extends AbstractController
 	public function animeLogout()
 	{
 
-		return $this->render('security/logout');
+		return $this->render('security/logout.html.twig');
 	}
 
 	/**
