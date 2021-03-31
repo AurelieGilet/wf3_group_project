@@ -35,6 +35,7 @@ class GameFormType extends AbstractType
 			])
 			->add('public', ChoiceType::class, [
 				'choices' => [
+					'' => '',
 					'6 ans et +' => '6+',
 					'8 ans et +' => '8+',
 					'10 ans et +' => '10+',

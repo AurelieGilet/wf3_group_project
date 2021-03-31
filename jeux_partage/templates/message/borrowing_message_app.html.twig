@@ -6,52 +6,65 @@
 
 {% block body %}
 
-	<h1 class="h1 mt-4 mb-5">Conversation échange de {{borrowing.game.name}}</h1>
+	<h1 class="h1 mt-4 mb-5">Conversation pour la remise de <span>{{borrowing.game.name}}</span></h1>
 
 	<section class="row justify-content-center">
-		<div class="col-md-10">
-			<div id="message-board" class="table col-md-11 mx-auto d-flex flex-column test-inset" style= "width: 100%; height: 250px; overflow: auto; scrollbar-width: thin; padding: 5px;">
-
+		<div class="col-lg-8 col-md-10">
+			<div id="message-board" class="table col-md-11 mx-auto d-flex flex-column-reverse test-inset ombre" style= "width: 90%; height: 350px; margin: 0 auto; overflow: auto; scrollbar-width: thin; padding: 5px;">
 			</div>
 		</div>	
 
-		<div class="col-md-10">
+		<div class="col-lg-8 col-md-10">
 			{{ form_start(form, {'attr' : {'id': 'messenger_form', 'class': 'col-md-12 mx-auto py-3 row justify-content-around' }}) }}
 
-				{{ form_row(form.content, {'label' : "Message ", 'attr' : {'rows': "4"}}) }}
+				{{ form_row(form.content, {'label' : "Message ", 'attr' : {'rows': "4", 'placeholder': "Messagerie instantanée"}}) }}
 				{{ form_row(form.save, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 
 			{{ form_end(form) }}
 		</div>
-</section>
+	</section>
 
-<script>
-	$(document).ready(function() {
+	<script>
+		$(document).ready(function() {
 
-		function refreshPage() { 
-			$.get({
-				url: "{{ path('messenger_ajax_request', {'id': borrowing.id}) }}",
-				dataType : "html",
-				success:  function(data) {
+			function refreshPage() { 
+				$.get({
+					url: "{{ path('messenger_ajax_request', {'id': borrowing.id}) }}",
+					dataType : "html",
+					success:  function(data) {
 
-					$('#message-board').html(data);
+						$('#message-board').html(data);
+					}
+				});
+			}
+			setInterval(refreshPage, 2000);
+
+			$( "#messenger_form" ).submit(function(e) {
+				e.preventDefault();
+
+				var $form = $(e.currentTarget);
+				$.ajax({
+					url: "{{ path('messenger_ajax_send', {'id': borrowing.id}) }}",
+					method: 'POST',
+					data: $form.serialize()
+				});
+				$("#messenger_app_form_content").val("");
+			});
+			$( "#messenger_form" ).keypress(function(e) {
+				if (event.keyCode == 13 || event.keyCode == 61) 
+				{
+					e.preventDefault();
+
+					var $form = $(e.currentTarget);
+					$.ajax({
+						url: "{{ path('messenger_ajax_send', {'id': borrowing.id}) }}",
+						method: 'POST',
+						data: $form.serialize()
+					});
+					$("#messenger_app_form_content").val("");
 				}
 			});
-		}
-		setInterval(refreshPage, 2000);
-
-		$( "#messenger_form" ).submit(function(e) {
-			e.preventDefault();
-
-			var $form = $(e.currentTarget);
-			$.ajax({
-				url: "{{ path('messenger_ajax_send', {'id': borrowing.id}) }}",
-				method: 'POST',
-				data: $form.serialize()
-			});
-			$("#messenger_app_form_content").val("");
 		});
-	});
-</script> 
+	</script> 
 
 {% endblock %}

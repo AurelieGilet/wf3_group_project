@@ -18,13 +18,13 @@
         <div class="col-md-10">
 			{{ form_start(form, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around' }}) }}
 
-				{{ form_row(form.name, {'label' : "Nom du jeu", 'attr' : {'placeholder': "Nom du jeu" }}) }}
+				{{ form_row(form.name, {'label' : "Jeu", 'attr' : {'placeholder': "Nom du jeu" }}) }}
 				{{ form_row(form.category, {'label' : "Catégorie"}) }}
 				{{ form_row(form.minPlayers, {'label' : "Nombre de joueurs min", 'attr' : {'placeholder': "-" }}) }}
 				{{ form_row(form.maxPlayers, {'label' : "Nombre de joueurs max", 'attr' : {'placeholder': "-" }}) }}
 				{{ form_row(form.public, {'label' : "Age"}) }}
-				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "Format jpg, jpeg ou png" }}) }}
-				{{ form_row(form.description, {'label' : "Règle du jeu", 'attr' : {'rows': "4" }}) }}
+				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "jpg, jpeg ou png" }}) }}
+				{{ form_row(form.description, {'label' : "Règle du jeu", 'attr' : {'rows': "4", 'placeholder': "Détaillez la règle du jeu"}}) }}
 
 				{% if gameName %}
 				{{ form_row(form.save, {'label' : "Modifier", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
