@@ -86,6 +86,16 @@ class SecurityController extends AbstractController
 
 	/**
 	 * Method to log out users
+	 * @Route("/aurevoir", name="logout")
+	 */
+	public function animeLogout()
+	{
+
+		return $this->render('security/logout');
+	}
+
+	/**
+	 * Method to log out users
 	 * @Route("/deconnexion", name="security_logout")
 	 */
 	public function logout()

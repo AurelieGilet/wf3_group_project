@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+    <div class="d-flex justify-content-center">
+        <img id="gif" src="https://media1.tenor.com/images/f23ef5fdbec173df7a036565f949a838/tenor.gif?itemid=19344474" width="60%">
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        function redirect() {
+            location.href= "{{ path('security_logout')}}"
+        }        
+        setInterval(redirect, 3000);  
+    }); 
+    </script>
+
+{% endblock %}
