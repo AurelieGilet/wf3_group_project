@@ -7,7 +7,7 @@
 {% block body %}
 
 	<h1 class="h1 mt-3 mb-4">
-		{% if gameName %}
+		{% if gameName != null %}
 		Modification du jeu "{{gameName}}"
 		{% else %}
 		Enregistrer un jeux
@@ -26,7 +26,7 @@
 				{{ form_row(form.image, {'label' : "Photo du jeu (2 Mo max)", 'attr' : {'placeholder': "jpg, jpeg ou png" }}) }}
 				{{ form_row(form.description, {'label' : "Règle du jeu", 'attr' : {'rows': "4", 'placeholder': "Détaillez la règle du jeu"}}) }}
 
-				{% if gameName %}
+				{% if gameName != null  %}
 				{{ form_row(form.save, {'label' : "Modifier", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 				{% else %}
 				{{ form_row(form.save, {'label' : "Enregistrer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}

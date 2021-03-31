@@ -8,8 +8,17 @@
 	{% if categoryName != null %}
 	<h2 class="size-game-name text-center mt-3 mb-4">{{categoryName|title}}</h2>
 	{% endif %}
-	
 
+	{% for label, messages in app.flashes(["danger", "success"]) %}
+		{% for message in messages %}
+			<div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mb-3">
+				<span class="bg-msg text-{{label}} font-italic rounded text-center mx-auto py-2 px-4">
+					{{message}}
+				</span>
+			</div>
+		{% endfor %}
+	{% endfor %}
+	
 	<div class="row align-item-center">
 		<div class="card-deck w-100 mx-auto">
 
