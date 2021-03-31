@@ -104,12 +104,17 @@ class FrontController extends AbstractController
 		}
 		else
 		{
+			$user = $this->getUser();
+
 			$borrowedGame = $borrowingRepo->findBy(array('game' => $game, 'returnDate' => null));
 
-			if(!$borrowedGame) 
+			if ($user == $game->getOwner()) {
+				$this->addFlash('danger', "Vous ne pouvez pas emprunter vos propres jeux");
+					return $this->redirectToRoute('catalogue');
+			}
+			elseif(!$borrowedGame) 
 			{
 				$borrowing = new Borrowing;
-				$user = $this->getUser();
 				
 				$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
 
