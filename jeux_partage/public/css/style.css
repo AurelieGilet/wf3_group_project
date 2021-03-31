@@ -86,22 +86,22 @@ main {
     width: 11.8%;
     top: 15%;
     left: 4%;
-    opacity: 0.1;
+    opacity: 0.15;
 }
 
 #circle2 {
     width: 11%;
-    top: 35%;
+    top: 38%;
     left: 85%;
-    opacity: 0.1;
+    opacity: 0.15;
     transform: rotate(30deg);
     -webkit-transform: rotate(30deg);
 }
 
 #circle3 {
     width: 10%;
-    top: 78%;
-    left: 11%;
+    top: 80%;
+    left: 8%;
     opacity: 0.5;
 }
 
@@ -134,7 +134,9 @@ input:focus, select:focus {
 }
 
 textarea {
+    font-size: 1.1rem !important;
     border-color: rgba(0, 10, 30, 0.9) !important;
+    font-style: italic;
 }
 
 textarea:focus, .btn:focus, .custom-file-label:focus, .custom-file-input:focus {
@@ -145,9 +147,9 @@ textarea:focus, .btn:focus, .custom-file-label:focus, .custom-file-input:focus {
 	margin-bottom: 1.5rem;
 }
 
-.form-control, select, option, .custom-file-label {
+.form-control, select, .custom-file-label {
     border-radius: 0;
-    color: rgb(100, 100, 100);
+    color: #8a0030;
 }
 
 .custom-file-label::after {
@@ -858,7 +860,7 @@ transform: rotate(45deg);
 
 .bg-gris
 {
-    background-color: rgba(240, 240, 240, 0.856);
+    background-color: rgb(240, 240, 240);
     border-radius: 5px;
 }
 
@@ -883,7 +885,12 @@ transform: rotate(45deg);
 .ombre
 {
     box-shadow: 3px 2px 12px rgba(151, 151, 151, 0.705);
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
 
+textarea {
+    border-radius: .25rem !important;
 }
 
 /* ********************** DEBUT FOOTER ********************** */
@@ -1098,9 +1105,13 @@ footer .separate {
         font-size: 0.9rem !important;
         flex-wrap: wrap;
     }
-    footer p:first-child, footer div:first-child {
+    footer p:first-child, footer div:first-child, .footer {
         width: 100%;
         text-align: center;
+    }
+    footer div:first-child {
+        display: flex;
+        justify-content: center;
     }
     footer p {
         margin-bottom: 0.5vh;
@@ -1266,8 +1277,8 @@ footer .separate {
         margin: 1.2em;
     }
     .p_profil {
-        font-size: 0.8rem;
-        margin: 1.8em;
+        font-size: 0.9rem;
+        margin: 1.5em;
     }
     .dice_pawns {
         width: 10%;

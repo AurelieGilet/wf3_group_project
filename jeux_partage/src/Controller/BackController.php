@@ -20,6 +20,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -137,7 +141,7 @@ class BackController extends AbstractController
 
 		$borrowings = $borrowingRepo->findBy(['returnDate' => NULL]);
 
-		$borrowedGamesId= array();
+		$borrowedGamesId = array();
 		foreach ($borrowings as $key => $value) {
 			array_push($borrowedGamesId, $value->getGame()->getId());
 		}
@@ -284,7 +288,6 @@ class BackController extends AbstractController
 
     /**
      * @Route("/admin/categorie/{id}/modification", name="admin_edit_category")
-     * 
      */
     public function adminEditCategory(Request $request, EntityManagerInterface $manager, Category $category): Response
     {
@@ -339,7 +342,62 @@ class BackController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(): Response
+    public function contact(Request $request): Response
     {
+        $defaultData = array();
+        
+        $formContact = $this->createFormBuilder($defaultData)
+            ->add('firstname', TextType::class, [
+				'row_attr' => ['class' => 'col-lg-5']
+			])
+            ->add('lastname', TextType::class, [
+				'row_attr' => ['class' => 'col-lg-5']
+			])
+            ->add('email', EmailType::class, [
+				'row_attr' => ['class' => 'col-lg-5']
+			])
+            ->add('username', TextType::class, [
+				'required' => false,
+				'row_attr' => ['class' => 'col-lg-5']
+			])
+            ->add('msg_contact', TextareaType::class, [
+				'row_attr' => ['class' => 'col-lg-11']
+			])
+            ->add('send', SubmitType::class, [
+				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
+			])
+            ->getForm();
+
+        $formContact->handleRequest($request);
+
+        if ($formContact->isSubmitted() && $formContact->isValid()) 
+        {
+            $data = $formContact->getData();    // data is an array with "firstname", "lastname", "email", "username", "msg_contact" keys
+            
+            $defaultData = ['message' => 'Votre message a bien été envoyé'];
+        }
+
+        // if($request->isMethod('POST'))
+        // {
+        //     $contact = $request->request->all();
+        //     dump($contact);
+
+        //     if($request->request->get('firstname') && $request->request->get('lastname') && $request->request->get('email') && $request->request->get('msg_contact'))
+        //     {
+        //     //     $manager->persist($contact);
+        //     //     $manager->flush();
+
+        //         $this->addFlash("success", "Votre message a bien été envoyé");
+        //     }
+        // }
+
+        $contact = $request->request->all();
+        dump($contact);
+
+        return $this->render('back/contact.html.twig', [
+            'formContact' => $formContact->createView(),
+            'defaultData' => $defaultData,
+            'contact' => $contact,
+        ]);
     }
 }
