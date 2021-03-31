@@ -5,5 +5,5 @@
 		<p class="font-weight-bold">{{message.author.username|title}} :</p> 
 		<p>{{message.content|nl2br}}</p>
 		<small class="text-muted font-italic" style ="font-size: 0.8rem;">Le {{ message.createdAt|date('d/m/Y à H:i:s') }}</small>
-	</div>
+	</div>	
 {% endfor %}
