@@ -9,7 +9,7 @@
    
 	<h1 class="h1 mt-3 mb-4">Votre profil</h1>
 
-	<p class="text-center my-4 font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Pour pouvoir emprunter et enregistrer des jeux, votre profil doit être <span style="text-decoration: underline;">entièrement complété</span></p>
+	<p class="text-center my-4 font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Pour emprunter et enregistrer des jeux, votre profil doit être <span style="text-decoration: underline;">entièrement complété</span></p>
 
 	{% for label, messages in app.flashes(["danger", "success"]) %}
 		{% for message in messages %}

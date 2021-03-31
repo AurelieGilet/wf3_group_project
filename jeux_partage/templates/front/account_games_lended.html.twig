@@ -6,7 +6,7 @@
 
 {% block body %}
 
-	<h1 class="h1 mt-3 mb-4">Liste des jeux prêtés</h1>
+	<h1 class="h1 mt-3 mb-4">Jeux prêtés</h1>
 
 	{% for label, messages in app.flashes(["danger", "success"]) %}
 		{% for message in messages %}
@@ -20,13 +20,13 @@
 
 	{% if lendings|length > 0 %}
 
-		<p class="card-text my-md-2 my-1 px-3 text-center font-italic"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Contactez l'emprunteur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la <a href="" class="font-weight-bold underline_a">messagerie</a>.</p>
+		<p class="my-md-2 my-1 px-0 px-sm-4 px-md-5 text-center font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Contactez l'emprunteur du jeu afin de convenir d'un rendez-vous pour l'échange par le biais de la messagerie.</p>
 		
-		<p class="card-text my-md-2 my-1 px-3 text-center font-italic"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Tant que le jeu n'a pas été remis à l'emprunteur, vous pouvez annuler sa demande via le lien de suppression associé à celle-ci.</p>
+		<p class="my-md-2 my-1 px-0 px-sm-4 px-md-5 text-center font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Tant que le jeu n'a pas été remis à l'emprunteur, vous pouvez annuler sa demande via le lien de suppression associé à celle-ci.</p>
 
-		<p class="card-text my-md-2 my-1 px-3 text-center font-italic"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span class="font-weight-bold" style="text-decoration: none;">Jeu remis</span>".</p>
+		<p class="my-md-2 my-1 px-0 px-sm-4 px-md-5 text-center font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Lorsque vous aurez remis le jeu à l'emprunteur, vous devrez confirmer cette remise en cliquant sur "<span class="font-weight-bold" style="text-decoration: none;">Jeu remis</span>".</p>
 		
-		<p class="card-text my-md-2 my-1 px-3 text-center font-italic"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span class="font-weight-bold" style="text-decoration: none;">Jeu rendu</span>".</p>
+		<p class="my-md-2 my-1 px-0 px-sm-4 px-md-5 text-center font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Lorsque l'emprunteur vous aura rendu le jeu, vous devrez confirmer ce retour en cliquant sur"<span class="font-weight-bold" style="text-decoration: none;">Jeu rendu</span>".</p>
 		
 		<div class="row">
 			{% for lending in lendings %}

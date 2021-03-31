@@ -8,31 +8,61 @@
 
     <h1 class="h1 mt-3 mb-4">Contactez-nous</h1>
 
-    <form method="post" class="col-md-10 mx-auto py-4" action="{{ path('security_login') }}">
+    <p class="my-3 px-0 px-sm-4 px-md-5 text-center font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Si vous souhaitez des renseignements sur JEUX PARTAGE et son fonctionnement, alors cette page est pour vous, que vous soyez déjà inscrit ou pas encore. Vous pouvez également nous envoyer un mail à <a href="mailto:jeux-partage@outlook.fr" class="font-weight-bold underline_a"> jeux-partage@outlook.fr</a></p>
+    <p class="my-3 px-0 px-sm-4 px-md-5 text-center font-italic p_profil"><img src="{{ asset('img/finger.png') }}" alt="" class="finger_icon"> Toutefois si l'objet de votre contact porte sur un emprunt ou un prêt avec un autre utilisateur, nous ne gérons pas les conflits liés aux échanges entre les membres</p>
+
+    {% if defaultData is not empty %}
+        <div class="col-lg-8 d-flex justify-content-center align-items-center mx-auto mt-4 mb-3">
+            <span class="bg-msg text-success font-italic rounded text-center mx-auto py-2 px-4">
+                {{defaultData.message}}
+            </span>
+        </div>
+    {% endif %}
+
+    <section class="row justify-content-center">
+        <div class="col-md-10">
+            {{ form_start(formContact, {'attr' : {'class': 'col-md-12 mx-auto py-4 row justify-content-around', 'id': 'formContact'}, 'action': '' }) }}
+
+                {{ form_row(formContact.firstname, {'label' : "Prénom", 'attr' : {'placeholder': "Votre prénom"}}) }}
+                {{ form_row(formContact.lastname, {'label' : "Nom", 'attr' : {'placeholder': "Votre nom"}}) }}
+                {{ form_row(formContact.email, {'attr': {'placeholder': 'Email'}}) }}
+                {{ form_row(formContact.username, {'label' : "Nom d'utilisateur", 'attr' : {'placeholder': "Si vous avez un compte"}}) }}
+                {{ form_row(formContact.msg_contact, {'label' : "Message", 'attr' : {'rows': "4", 'placeholder': "Indiquez votre message" }}) }}
+				{{ form_row(formContact.send, {'label' : "Envoyer", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+
+            {{ form_end(formContact) }}
+        </div>
+    </section>
+
+    {# <form method="post" class="col-md-10 mx-auto py-4" action="">
         <div class="row justify-content-around">
             <div class="form-group col-lg-5">
-                <label for="username">Email</label>
-                <input type="email" class="form-control" id="username" name="_username" value="{{lastUsername}}" placeholder="Adresse e-mail">
+                <label for="firstname">Prénom</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="" placeholder="Votre prénom">
             </div>
             <div class="form-group col-lg-5">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" name="_password" placeholder="Mot de passe">
+                <label for="lastname">Nom</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" value="" placeholder="Votre nom">
             </div>
-            
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="form-group col-lg-5">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="" placeholder="Votre e-mail">
+            </div>
+            <div class="form-group col-lg-5">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="username" name="username" value="" placeholder="Si vous avez un compte">
+            </div>
+            <div class="form-group col-lg-11">
+                <label for="msg_contact">Message</label>
+                <textarea class="form-control" name="msg_contact" id="msg_contact" rows="4" value="" placeholder="Votre message"></textarea>
+            </div>
         </div>
-
-        <p class="p_login">Pas encore de compte ? <a href="{{ path('security_registration') }}" class="font-weight-bold underline_a">Inscrivez-vous ici</a></p>
             
         <div class="row justify-content-around">
             <div class="col-12 mx-auto row justify-content-around">
-                <button type="submit" class="btn-jp mx-auto mt-4 mb-3">Connexion</button>
+                <button type="submit" class="btn-jp mx-auto mt-4 mb-3">Envoyer</button>
             </div>
         </div>
-    </form>
-
-    <div class="dice_pawns">
-        <img src="{{ asset('img/logo-jeux-societe.png') }}" alt="illustration pions et dé">
-    </div>
+    </form> #}
 
 {% endblock %}
