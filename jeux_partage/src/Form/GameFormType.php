@@ -4,8 +4,6 @@ namespace App\Form;
 
 use App\Entity\Game;
 use App\Entity\Category;
-use App\Repository\GameRepository;
-use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 
@@ -56,8 +53,8 @@ class GameFormType extends AbstractType
 			->add('image', FileType::class, [
 				'row_attr' => ['class' => 'col-lg-5'],
 				'label' => "Photo du jeu",
-				'mapped' => false, 
-				'required' => false, 
+				'mapped' => true, 
+				'required' => true, 
 				'data_class' => null,
 				'constraints' => [ 
 					new File([

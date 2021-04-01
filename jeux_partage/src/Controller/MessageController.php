@@ -17,15 +17,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MessageController extends AbstractController
 {
 	/**
+	 * Method to access specific exchange conversation in the messenger app
      * @Route("/messagerie/emprunt/{id}", name="messenger_borrowing")
      */
     public function message(MessengerAppFormType $form, Borrowing $borrowing = null): Response
     {
+		$user = $this->getUser();
 
-		$message = new Message;
+		if($borrowing->getLender() == $user || $borrowing->getBorrower() == $user)
+		{
+			$message = new Message;
+			$form = $this->createForm(MessengerAppFormType::class, $message);
+		}
+		else
+		{
+			$this->addFlash('danger', "Cet echange n'est pas le vôtre");
+			return $this->redirectToRoute('security_profil');
+		}
 
-		$form = $this->createForm(MessengerAppFormType::class, $message);
-	
         return $this->render('message/borrowing_message_app.html.twig', [
 			'borrowing' => $borrowing,
 			'form' => $form->createView()
@@ -33,30 +42,30 @@ class MessageController extends AbstractController
     }
 
 	/**
+	 * Method to fetch messages for a specific exchange
 	 * @Route("/messages/emprunt/{id}", name="messenger_ajax_request")
 	 */
 	public function showMessages(MessageRepository $messageRepo, Borrowing $borrowing = null): Response
 	{
 		$messages = $messageRepo->findBy(['borrowing' => $borrowing]);
-		dump($messages);
 
 		return $this->render('message/_messages.html.twig', [
 			'messages' => $messages
 		]);
-		
 	}
 
 	/**
+	 * Method to send new message related to specific exchange
 	 * @Route("/messages/emprunt/envoi/{id}", name="messenger_ajax_send")
 	 */
 	public function sendMessage(Borrowing $borrowing = null, User $user = null, Request $request, EntityManagerInterface $manager)    
 	{
-      $user = $this->getUser();
+		$user = $this->getUser();
 
-      $message = new Message;
+		$message = new Message;
 
-      $form = $this->createForm(MessengerAppFormType::class, $message);
-      $form->handleRequest($request);
+		$form = $this->createForm(MessengerAppFormType::class, $message);
+		$form->handleRequest($request);
 
 			if($form->isSubmitted() && $form->isValid())
 			{
@@ -84,7 +93,7 @@ class MessageController extends AbstractController
 		}
 		else
 		{
-			return $this->redirectToRoute('account_games_borrowed');
+			return $this->redirectToRoute('security_profil');
 		}
 	}
 }

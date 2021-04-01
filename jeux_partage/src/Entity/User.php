@@ -36,6 +36,12 @@ class User implements UserInterface
 	 * @Assert\NotBlank(
 	 * 		message="Merci de saisir un nom d'utilisateur"
 	 * )
+     * 
+     * @Assert\Length(
+	 * 		min="4", 
+	 * 		minMessage="Merci de saisir un nom d'utilisateur d'au moins 4 caractères",
+	 * 		groups={"registration"}
+	 * )
      */
     private $username;
 

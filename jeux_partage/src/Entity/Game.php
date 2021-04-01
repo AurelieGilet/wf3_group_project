@@ -67,7 +67,6 @@ class Game
 
     /**
      * @ORM\Column(type="string", length=255)
-	 * 
      */
     private $image;
 
@@ -80,6 +79,11 @@ class Game
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="games")
      * @ORM\JoinColumn(nullable=false)
+	 * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de selectionner une catégorie",
+	 * 		groups={"game_registration"}
+	 * )
      */
     private $category;
 

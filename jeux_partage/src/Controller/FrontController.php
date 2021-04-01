@@ -4,17 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\User;
-use App\Entity\Borrowing;
 use App\Entity\Category;
+use App\Entity\Borrowing;
 use App\Form\GameFormType;
+use App\Form\GameEditFormType;
 use App\Form\BorrowingFormType;
-use App\Repository\BorrowingRepository;
-use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\BorrowingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -94,7 +96,7 @@ class FrontController extends AbstractController
 	 * Method to borrow a game
 	 * @Route("/emprunts/{id}", name="borrowing")
 	 */
-	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, User $user = null): Response
+	public function borrowing(Request $request, EntityManagerInterface $manager, Borrowing $borrowing = null, Game $game, UserRepository $userRepo, BorrowingRepository $borrowingRepo, User $user = null): Response
 	{
 		if (!$this->getUser())
 		{
@@ -102,39 +104,53 @@ class FrontController extends AbstractController
 		}
 		else
 		{
-			// TO DO: security control controller side to prevent borrowing if game is already borrowed
-			$borrowing = new Borrowing;
 			$user = $this->getUser();
+
+			$borrowedGame = $borrowingRepo->findBy(array('game' => $game, 'returnDate' => null));
+
+			if ($user == $game->getOwner()) {
+				$this->addFlash('danger', "Vous ne pouvez pas emprunter vos propres jeux");
+					return $this->redirectToRoute('catalogue');
+			}
+			elseif(!$borrowedGame) 
+			{
+				$borrowing = new Borrowing;
+				
+				$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
+
+				$startDate = new \DateTime;
+				$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
+
+				$form = $this->createForm(BorrowingFormType::class, $borrowing);
+				$form->handleRequest($request);
+
+				if($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() == true)
+				{
+					$borrowing->setLender($lender);
+					$borrowing->setBorrower($user);
+					$borrowing->setGame($game);
+					$borrowing->setStartDate($startDate);
+					$borrowing->setEndDate($endDate);
+
+					$manager->persist($borrowing);
+					$manager->flush();
+
+					$this->addFlash('success', "Votre emprunt est validé");
+
+					return $this->redirectToRoute('account_games_borrowed');
+				}
+				elseif($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() != true)
+				{
+					$this->addFlash('danger', "Vous devez compléter votre profil avant de pouvoir emprunter un jeu");
+					return $this->redirectToRoute('security_profil');
+				}
+			}
+			else 
+			{
+				$this->addFlash('danger', "Ce jeu est déjà emprunté");
+					return $this->redirectToRoute('catalogue');
+			}
 			
-			$lender = $userRepo->findOneBy(['id' => $game->getOwner()]);
-
-			$startDate = new \DateTime;
-			$endDate = (new \DateTime)->add(new \DateInterval('P1M'));
-
-			$form = $this->createForm(BorrowingFormType::class, $borrowing);
-			$form->handleRequest($request);
-
-			if($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() == true)
-			{
-				$borrowing->setLender($lender);
-				$borrowing->setBorrower($user);
-				$borrowing->setGame($game);
-				$borrowing->setStartDate($startDate);
-				$borrowing->setEndDate($endDate);
-
-				$manager->persist($borrowing);
-				$manager->flush();
-
-				$this->addFlash('success', "Votre emprunt est validé");
-
-				return $this->redirectToRoute('account_games_borrowed');
-			}
-			elseif($form->isSubmitted() && $form->isValid() && $user->getIsRegistered() != true)
-			{
-				$this->addFlash('danger', "Vous devez compléter votre profil avant de pouvoir emprunter un jeu");
-				return $this->redirectToRoute('security_profil');
-			}
-
 			return $this->render('front/borrowing.html.twig', [
 				'game' => $game, 
 				'form' => $form->createView(),
@@ -195,11 +211,10 @@ class FrontController extends AbstractController
 	}
 
 	/**
-	 * Method on user account to add a new game or edit an existing one
+	 * Method on user account to add a new game
 	 * @Route("/compte/jeux/nouveau", name="account_games_create")
-	 * @Route("/compte/jeux/edit/{id}", name="account_games_edit")
 	 */
-	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager,Game $game = null, User $user = null): Response
+	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager, User $user = null): Response
 	{
 		if (!$this->getUser())
 		{
@@ -207,14 +222,10 @@ class FrontController extends AbstractController
 		}
 		else
 		{
-			// TO DO: security control to prevent editing or deleting of a lended game
 			$user = $this->getUser();
 
-			if(!$game)
-			{
-				$game = new Game;
-			}
-
+			$game = new Game;
+			
 			$form = $this->createForm(GameFormType::class, $game);
 			$form->handleRequest($request);
 
@@ -222,12 +233,12 @@ class FrontController extends AbstractController
 			{
 				/** @var UploadedFile $imageFile */
 				$imageFile = $form->get('image')->getData();
-
-				if($imageFile)
+				
+				if($imageFile != null)
 				{
 					$gameName = $game->getName();
 					$safeFilename = $slugger->slug($gameName);
-					$filename = $safeFilename.'-'.uniqid().'-'.$imageFile->guessExtension();
+					$filename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 					try {
 						$imageFile->move(
 							$this->getParameter('images_directory'),
@@ -238,17 +249,10 @@ class FrontController extends AbstractController
 					}
 					$game->setImage($filename);
 				}
-				
+
 				$game->setOwner($user);
 
-				if(!$game->getId())
-				{
-					$message = "Le jeu " . $game->getName() . " a bien été ajouté à votre compte";
-				}
-				else
-				{
-					$message = "Le jeu " . $game->getName() . " a bien été modifié";
-				}
+				$message = "Le jeu " . $game->getName() . " a bien été ajouté à votre compte";
 
 				$manager->persist($game);
 				$manager->flush();
@@ -257,7 +261,64 @@ class FrontController extends AbstractController
 
 				return $this->redirectToRoute('account_games');
 			}
+			
+			return $this->render('front/account_games_registration.html.twig', [
+				'form' => $form->createView(), 
+				'gameName' => null
+			]);
+		}
+	}
 
+	/**
+	 * Method on user account to add a new game or edit an existing one
+	 * @Route("/compte/jeux/edit/{id}", name="account_games_edit")
+	 */
+	public function editGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager,Game $game = null): Response
+	{
+		if (!$this->getUser())
+		{
+			return $this->redirectToRoute('security_login');
+		}
+		else
+		{
+			$form = $this->createForm(GameEditFormType::class, $game);
+			$form->handleRequest($request);
+
+			if($form->isSubmitted() && $form->isValid())
+			{
+				/** @var UploadedFile $imageFile */
+				$imageFile = $form->get('image')->getData();
+				
+				if($imageFile != null)
+				{
+					$gameName = $game->getName();
+					$safeFilename = $slugger->slug($gameName);
+					$filename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+					try {
+						$imageFile->move(
+							$this->getParameter('images_directory'),
+							$filename
+						);
+					} catch (FileException $e) {
+						
+					}
+					$game->setImage($filename);
+				}
+				else
+				{
+					$game->setImage($game->getImage());
+				}
+
+				$message = "Le jeu " . $game->getName() . " a bien été modifié";
+
+				$manager->persist($game);
+				$manager->flush();
+
+				$this->addFlash('success', $message);
+
+				return $this->redirectToRoute('account_games');
+			}
+			
 			return $this->render('front/account_games_registration.html.twig', [
 				'form' => $form->createView(), 
 				'gameName' => $game->getName()

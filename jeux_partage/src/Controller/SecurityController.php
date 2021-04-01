@@ -86,6 +86,16 @@ class SecurityController extends AbstractController
 
 	/**
 	 * Method to log out users
+	 * @Route("/aurevoir", name="logout")
+	 */
+	public function animeLogout()
+	{
+
+		return $this->render('security/logout.html.twig');
+	}
+
+	/**
+	 * Method to log out users
 	 * @Route("/deconnexion", name="security_logout")
 	 */
 	public function logout()
@@ -94,7 +104,7 @@ class SecurityController extends AbstractController
 	}
 
 	/**
-	 * Method to log out users
+	 * Method to redirect user if they try to access "/compte" route that doesn't exist
 	 * @Route("/compte", name="account")
 	 */
 	public function redirectAccount()

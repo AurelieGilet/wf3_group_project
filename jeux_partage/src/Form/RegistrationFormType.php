@@ -27,12 +27,6 @@ class RegistrationFormType extends AbstractType
             ->add('confirm_password', PasswordType::class, [
                 'row_attr' => ['class' => 'col-lg-5']
             ])
-            // ->add('roles')
-            // ->add('firstname')
-            // ->add('lastname')
-            // ->add('address')
-            // ->add('zipcode')
-            // ->add('city')
 			->add('save', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
 			])
