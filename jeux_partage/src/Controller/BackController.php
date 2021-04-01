@@ -276,6 +276,9 @@ class BackController extends AbstractController
 				$message = "La catégorie " . $category->getName() . " a bien été enregistrée ";
 			}
                 
+            $manager->persist($category);
+            $manager->flush();
+            
             $this->addFlash('success', $message);
 
             return $this->redirectToRoute('admin_categories');
