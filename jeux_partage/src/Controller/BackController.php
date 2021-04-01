@@ -92,7 +92,7 @@ class BackController extends AbstractController
                 $manager->flush();
     
 				$this->addFlash("success", "Le membre $userName a bien été supprimé");
-                dump($user);
+                //dump($user);
 			}
 
             return $this->redirectToRoute("admin_users");
@@ -383,7 +383,7 @@ class BackController extends AbstractController
             ->add('msg_contact', TextareaType::class, [
 				'row_attr' => ['class' => 'col-lg-11'],
                 'constraints' => [new NotBlank(["message" => "Merci de saisir un message"]),
-                                  new Length(['min' => 10, 'max' => 2000, "message" => "Merci de saisir un email valide"])]
+                                  new Length(['min' => 10, 'max' => 2000, "minMessage" => "Votre message doit faire plus de 10 caractères", "maxMessage" => "Votre message ne peut pas faire plus de 2000 caractères"])]
 			])
             ->add('send', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
