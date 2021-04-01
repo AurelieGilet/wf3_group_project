@@ -92,7 +92,7 @@ class BackController extends AbstractController
                 $manager->flush();
     
 				$this->addFlash("success", "Le membre $userName a bien été supprimé");
-                dump($user);
+                // dump($user);
 			}
 
             return $this->redirectToRoute("admin_users");
@@ -383,7 +383,7 @@ class BackController extends AbstractController
             ->add('msg_contact', TextareaType::class, [
 				'row_attr' => ['class' => 'col-lg-11'],
                 'constraints' => [new NotBlank(["message" => "Merci de saisir un message"]),
-                                  new Length(["min" => 10, "max" => 2000, "minMessage" => "Votre message doit faire entre 10 et 2000 caractères", "maxMessage" => "Votre message doit faire entre 10 et 2000 caractères"])]
+                                  new Length(['min' => 10, 'max' => 2000, "minMessage" => "Votre message doit faire entre 10 et 2000 caractères", "maxMessage" => "Votre message doit faire entre 10 et 2000 caractères"])]
 			])
             ->add('send', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
@@ -414,7 +414,7 @@ class BackController extends AbstractController
         // }
 
         $contact = $request->request->all();
-        dump($contact);
+        // dump($contact);
 
         return $this->render('back/contact.html.twig', [
             'formContact' => $formContact->createView(),
