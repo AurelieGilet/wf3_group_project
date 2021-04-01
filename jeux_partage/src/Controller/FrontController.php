@@ -226,7 +226,9 @@ class FrontController extends AbstractController
 
 			$game = new Game;
 			
-			$form = $this->createForm(GameFormType::class, $game);
+			$form = $this->createForm(GameFormType::class, $game, [
+				'validation_groups' => ['game_registration']
+			]);
 			$form->handleRequest($request);
 
 			if($form->isSubmitted() && $form->isValid())
@@ -281,7 +283,9 @@ class FrontController extends AbstractController
 		}
 		else
 		{
-			$form = $this->createForm(GameEditFormType::class, $game);
+			$form = $this->createForm(GameEditFormType::class, $game, [
+				'validation_groups' => ['game_registration']
+			]);
 			$form->handleRequest($request);
 
 			if($form->isSubmitted() && $form->isValid())
@@ -438,7 +442,6 @@ class FrontController extends AbstractController
 					return $this->redirectToRoute('account_games_lended');
 				}
 			}
-
 			return $this->render('front/account_games_lended.html.twig');
 		}
 	}

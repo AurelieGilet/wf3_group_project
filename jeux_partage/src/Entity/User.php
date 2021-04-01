@@ -13,11 +13,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  * 		fields={"email"},
- * 		message="Un compte existe déjà avec cet email"
+ * 		message="Un compte existe déjà avec cet email",
+ * 		groups={"registration"}
  * )
  * @UniqueEntity(
  * 		fields={"username"},
- * 		message="Ce nom d'utilisateur existe déjà"
+ * 		message="Ce nom d'utilisateur existe déjà",
+ * 		groups={"registration"}
  * )
  * 
  */
