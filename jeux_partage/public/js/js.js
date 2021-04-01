@@ -40,18 +40,27 @@ $(document).ready(function() {
     });
 
     // illustrations background main
-    $("#circle1, #circle2, #circle4, #circle5").on("mouseover", function() {
-        $(this).css({"opacity" : "0.8"});
+    setInterval(function() {
+        $("#circle1, #circle2, #circle4, #circle5").animate({"opacity" : "0.5"}, 6000);
+        $("#circle1, #circle2, #circle4, #circle5").animate({"opacity" : "0.05"}, 6000);
+    
+        $("#circle3").animate({"opacity" : "1"}, 6000);
+        $("#circle3").animate({"opacity" : "0.6"}, 6000);
     });
-    $("#circle1, #circle2, #circle4, #circle5").on("mouseout", function() {
-        $(this).css({"opacity" : "0.15"});
-    });
-    $("#circle3").on("mouseover", function() {
-        $(this).css({"opacity" : "1"});
-    });
-    $("#circle3").on("mouseout", function() {
-        $(this).css({"opacity" : "0.5"});
-    });
+    
+    // $("#circle1, #circle2, #circle4, #circle5").on("mouseover", function() {
+    //     $(this).css({"opacity" : "0.7"});
+    // });
+    // $("#circle1, #circle2, #circle4, #circle5").on("mouseout", function() {
+    //     $(this).css({"opacity" : "0.15"});
+    // });
+    // $("#circle3").on("mouseover", function() {
+    //     $(this).css({"opacity" : "1"});
+    // });
+    // $("#circle3").on("mouseout", function() {
+    //     $(this).css({"opacity" : "0.6"});
+    // });
+
 
     // affichage nom fichier photo jeu
     $('.custom-file-input').on('change', function(event) {
@@ -60,9 +69,4 @@ $(document).ready(function() {
             .find('.custom-file-label')
             .html(inputFile.files[0].name);
     });
-
-    // fermeture modal CGU
-    $('#modal').modal('hide');
-
-   
 });

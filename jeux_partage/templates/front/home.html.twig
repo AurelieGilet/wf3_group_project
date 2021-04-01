@@ -3,7 +3,7 @@
 {% block body %}
     <section class="home d-flex flex-column justify-content-between">
         <!-- <img src="{{ asset('img/board-game.jpg') }}" alt="plateau jeu de société" width="100%" height="auto"> -->
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="zoomInUp d-flex justify-content-center align-items-center">
             <h1>JEUX PARTAGE</h1>
             <div class="dices_icon">
                 <img src="{{ asset('img/dices.png') }}" alt="dés de jeux">
@@ -16,11 +16,9 @@
         <p>Nous espérons que vous ferez de belles découvertes dans notre catalogue parmi entre autres des jeux de cartes, mémoire, stratégie ou encore adresse. A vous les longues parties de jeu distrayantes et animées. </p>
         <p>Alors à vos marques, prêts ? Jouez ! </p>
         
-
-		{% if not app.user %}
-        <a href="{{ path('security_registration') }}" class="btn-jp">Inscription</a>
-		{% endif %}
-
+        {% if not app.user %}
+            <a href="{{ path('security_registration') }}" class="btn-jp">Inscription</a>
+        {% endif %}
 
     </section>
      

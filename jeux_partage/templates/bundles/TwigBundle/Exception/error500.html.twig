@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Erreur 500 !
+{% endblock %}
+
+{% block body %}
+    
+    <section class="error">
+        <h1 class="h1 my-3">500 - Erreur interne</h1>
+
+        <img src="{{ asset('img/error_500.png') }}" alt="erreur 500">
+
+        <p class="my-3 px-0 px-sm-4 px-md-5">Le serveur a rencontré une erreur interne qui l’a empêché de valider ta réponse à l'énigme sacrée. <br> Retente ta chance plus tard ou contacte-nous si l'erreur persiste</p>
+
+        <a href="{{ path('contact') }}" class="btn-jp">Nous contacter</a>
+    </section>
+    
+{% endblock %}

@@ -27,7 +27,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	box-sizing: border-box;
-	color: #000a1e;
+	color: rgb(0, 10, 30);
 	font-family: 'Patrick_Hand', cursive; letter-spacing: 0.5px;
 }
 
@@ -93,16 +93,16 @@ main {
     width: 11%;
     top: 38%;
     left: 85%;
-    opacity: 0.15;
+    opacity: 0.2;
     transform: rotate(30deg);
     -webkit-transform: rotate(30deg);
 }
 
 #circle3 {
     width: 10%;
-    top: 80%;
+    top: 82%;
     left: 8%;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .h1 {
@@ -123,14 +123,14 @@ label {
 input, select, .custom-file-label {
     font-size: 1.1rem !important;
     border: none !important;
-    border-bottom: #000a1e solid 3px !important;
+    border-bottom: #000a1e solid 2px !important;
     padding: 0 0.5rem !important;
     font-style: italic;
 }
 
 input:focus, select:focus {
     box-shadow: none !important;
-    border-bottom: #f3bc75 solid 3px !important;
+    border-bottom: #f3bc75 solid 2px !important;
 }
 
 textarea {
@@ -150,6 +150,11 @@ textarea:focus, .btn:focus, .custom-file-label:focus, .custom-file-input:focus {
 .form-control, select, .custom-file-label {
     border-radius: 0;
     color: #8a0030;
+}
+
+.invalid-feedback {
+    font-size: 75% !important;
+    font-style: italic;
 }
 
 .custom-file-label::after {
@@ -182,7 +187,7 @@ header nav a:focus {
     margin-top: 1em !important;
     border-radius: 5px;
     border: #8a0030 solid 1px;
-    background-color: #f7cc99; 
+    background-color: rgb(247, 204, 153); 
     color: #8a0030;
     font-size: 1.1rem;
     align-self: center;
@@ -401,7 +406,7 @@ header li:hover, #navbarDropdown1:hover, .dropdown-item:hover {
 }
 
 .dropdown-menu {
-    background-color: #f7cc99;
+    background-color: rgb(247, 204, 153);
     border-radius: 5px;
     padding: 0;
 }
@@ -423,7 +428,7 @@ header li:hover, #navbarDropdown1:hover, .dropdown-item:hover {
 .dropdown-item:active, .btn-outline-secondary:active {
     background-color: #f3bc75 !important;
     color: #8a0030 !important;
-    border-color: #8a0030 !important;
+    border-color: rgb(138, 0, 48) !important;
 }
 
 nav button {
@@ -578,7 +583,48 @@ transform: rotate(45deg);
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
     background-color: #8a0030;
+}
+
+.zoomInUp {
+    -webkit-animation-name: zoomInUp;
+    animation-name: zoomInUp;
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
     }
+    @-webkit-keyframes zoomInUp {
+    0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    }
+    60% {
+    opacity: 1;
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    }
+    }
+    @keyframes zoomInUp {
+    0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    }
+    60% {
+    opacity: 1;
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    }
+} 
 
 .dices_icon {
     width: 14%;
@@ -586,8 +632,10 @@ transform: rotate(45deg);
 
 .dices_icon img {
     width: 70%;
+    min-width: 25px;
     max-width: 80px;
     height: auto;
+    min-height: 25px;
     max-height: 80px;
     margin: 0 1em;
 }
@@ -832,8 +880,8 @@ transform: rotate(45deg);
 }
 
 .up {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     background-image: url(../img/up.jpg);
     background-position: contain;
     background-repeat: no-repeat;
@@ -848,6 +896,29 @@ transform: rotate(45deg);
 
 .up:hover {
     opacity: 1;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error span {
+    text-decoration: underline;
+}
+
+.error p {
+    font-size: 1.3rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.error img {
+    width: 450px;
+    height: auto;
+    margin: 1em;
 }
 
 /*********************** MESSAGERIE ********************** */
@@ -897,7 +968,7 @@ textarea {
 
 footer {
     margin-top: 3vh;
-    font-size: 0.9rem;
+    font-size: 0.95rem !important;
 }
 
 footer p:first-child, footer div:first-child, footer span, .footer, #contact {
@@ -1099,10 +1170,14 @@ footer .separate {
     .backoffice {
         width: 100%;
     }
+    .error img {
+        width: 350px;
+    }
    
     /* ********************** DEBUT FOOTER ********************** */
     footer {
         font-size: 0.9rem !important;
+        margin-top: 8vh;
         flex-wrap: wrap;
     }
     footer p:first-child, footer div:first-child, .footer {
@@ -1224,8 +1299,12 @@ footer .separate {
         width: 95%;
         padding: 1.5vh;
     }
+    .circle {
+        display: none;
+        z-index: -5;
+    }
     .h1 {
-        font-size: 2.1rem;
+        font-size: 2rem;
     }
     header {
         margin-bottom: 3vh !important;
@@ -1270,7 +1349,7 @@ footer .separate {
         width: 15%;
     }
     footer div:first-child, footer p:first-child, .footer {
-        font-size: 0.65rem;
+        font-size: 0.72rem;
     }
     .p_login {
         font-size: 0.8rem;
@@ -1314,5 +1393,13 @@ footer .separate {
     .up {
     height: 30px;
     width: 30px;
+    }
+    
+    .error {
+        margin-bottom: 0.5em;
+    }
+
+    .error img {
+        width: 300px;
     }
 }
