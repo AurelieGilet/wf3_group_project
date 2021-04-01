@@ -383,7 +383,7 @@ class BackController extends AbstractController
             ->add('msg_contact', TextareaType::class, [
 				'row_attr' => ['class' => 'col-lg-11'],
                 'constraints' => [new NotBlank(["message" => "Merci de saisir un message"]),
-                                  new Length(['min' => 10, 'max' => 2000, "message" => "Merci de saisir un email valide"])]
+                                  new Length(["min" => 10, "max" => 2000, "minMessage" => "Votre message doit faire entre 10 et 2000 caractères", "maxMessage" => "Votre message doit faire entre 10 et 2000 caractères"])]
 			])
             ->add('send', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
