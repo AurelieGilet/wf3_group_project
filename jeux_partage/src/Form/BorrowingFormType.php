@@ -15,7 +15,6 @@ class BorrowingFormType extends AbstractType
         $builder
 			->add('save', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-3 text-center']
-              
 			])
         ;
     }

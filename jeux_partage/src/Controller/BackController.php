@@ -284,12 +284,18 @@ class BackController extends AbstractController
 				$message = "La catégorie " . $category->getName() . " a bien été enregistrée ";
 			}
                 
+            $manager->persist($category);
+            $manager->flush();
+            
             $this->addFlash('success', $message);
+
+			$manager->persist($category);
+			$manager->flush();
 
             return $this->redirectToRoute('admin_categories');
         }
 
-        return $this->render('back/admin_form_category.html.twig', [
+        return $this->render('back/admin_create_category.html.twig', [
                 'formCategory' => $formCategory->createView()
         ]);
     }
