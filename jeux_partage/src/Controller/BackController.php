@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Entity\Borrowing;
 use App\Form\GameFormType;
 use App\Form\CategoryFormType;
+use App\Form\GameEditFormType;
 use App\Form\BorrowingFormType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\GameRepository;
@@ -19,6 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -27,6 +29,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 
 class BackController extends AbstractController
 {
@@ -178,7 +182,9 @@ class BackController extends AbstractController
      */
     public function editGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager, Game $game): Response
     {
-        $formGame = $this->createForm(GameFormType::class, $game);
+        $formGame = $this->createForm(GameEditFormType::class, $game, [
+            "validation_groups" => ["game_registration"]
+        ]);
         
         $formGame->handleRequest($request);
 
@@ -265,7 +271,9 @@ class BackController extends AbstractController
             $category = new Category;
         }
 
-        $formCategory = $this->createForm(CategoryFormType::class, $category);
+        $formCategory = $this->createForm(CategoryFormType::class, $category, [
+            "validation_groups" => ["category_registration"]
+        ]);
 
         $formCategory->handleRequest($request);
 
@@ -291,7 +299,9 @@ class BackController extends AbstractController
      */
     public function adminEditCategory(Request $request, EntityManagerInterface $manager, Category $category): Response
     {
-        $formCategory = $this->createForm(CategoryFormType::class, $category);
+        $formCategory = $this->createForm(CategoryFormType::class, $category, [
+            "validation_groups" => ["category_registration"]
+        ]);
         
         $formCategory->handleRequest($request);
 
@@ -348,20 +358,26 @@ class BackController extends AbstractController
         
         $formContact = $this->createFormBuilder($defaultData)
             ->add('firstname', TextType::class, [
-				'row_attr' => ['class' => 'col-lg-5']
+				'row_attr' => ['class' => 'col-lg-5'],
+                'constraints' => [new NotBlank(["message" => "Merci de saisir votre prénom"])]
 			])
             ->add('lastname', TextType::class, [
-				'row_attr' => ['class' => 'col-lg-5']
+				'row_attr' => ['class' => 'col-lg-5'],
+                'constraints' => [new NotBlank(["message" => "Merci de saisir votre nom"])]
 			])
             ->add('email', EmailType::class, [
-				'row_attr' => ['class' => 'col-lg-5']
+				'row_attr' => ['class' => 'col-lg-5'],
+                'constraints' => [new NotBlank(["message" => "Merci de saisir votre email"]),
+                                  new Email(["message" => "Merci de saisir un email valide"])]
 			])
             ->add('username', TextType::class, [
 				'required' => false,
 				'row_attr' => ['class' => 'col-lg-5']
 			])
             ->add('msg_contact', TextareaType::class, [
-				'row_attr' => ['class' => 'col-lg-11']
+				'row_attr' => ['class' => 'col-lg-11'],
+                'constraints' => [new NotBlank(["message" => "Merci de saisir un message"]),
+                                  new Length(['min' => 10, 'max' => 2000, "message" => "Merci de saisir un email valide"])]
 			])
             ->add('send', SubmitType::class, [
 				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
