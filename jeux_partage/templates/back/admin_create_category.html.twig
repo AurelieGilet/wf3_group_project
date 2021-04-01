@@ -10,8 +10,8 @@
 
         {{ form_start(formCategory, {'attr' : {'class' : 'col-md-12 mx-auto py-4 row justify-content-around'} })}}
 
-        {{ form_row(formCategory.name, {'label' : "Nom de la catégorie"}) }}
-		{{ form_row(formCategory.save, {'label' : "Ajouter", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
+        {{ form_row(formCategory.name, {'label' : "Catégorie", 'attr' : {'placeholder': "Nom de la catégorie"}}) }}
+	{{ form_row(formCategory.save, {'label' : "Ajouter", 'attr' : {'class': 'btn-jp mx-auto mt-4'}}) }}
 
         {{ form_end(formCategory)}}
 
