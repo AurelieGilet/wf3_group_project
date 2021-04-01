@@ -43,7 +43,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir une adresse email",
+	 * 		message="Merci de saisir un email",
 	 * 		groups={"registration"}
 	 * )
 	 * 
@@ -58,8 +58,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
 	 * 
      * @Assert\Length(
-	 * 		min="7", 
-	 * 		minMessage="Votre mot de passe doit faire au moins 7 caractères",
+	 * 		min="8", 
+	 * 		minMessage="8 caractères minimum",
 	 * 		groups={"registration"}
 	 * )
 	 * 
@@ -67,11 +67,6 @@ class User implements UserInterface
 	 * 		message="Merci de saisir un mot de passe",
 	 * 		groups={"registration"}
 	 * )
-     * @Assert\EqualTo(
-     * 		propertyPath="confirm_password",
-     *      message="Les mots de passe ne sont pas identiques",
-	 * 		groups={"registration"}
-     * )
      */
     private $password;
 
@@ -82,7 +77,7 @@ class User implements UserInterface
 	 * )
      * @Assert\EqualTo(
      * 		propertyPath="password",
-     *      message="Les mots de passe ne sont pas identiques",
+     *      message="Mots de passe non identiques",
 	 * 		groups={"registration"}
      * )
      */
@@ -127,13 +122,13 @@ class User implements UserInterface
      * @ORM\Column(type="integer", nullable=true)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir votre code postal",
+	 * 		message="Merci de saisir votree code postal",
 	 * 		groups={"profil"}
 	 * )
 	 *  
 	 * @Assert\Regex(
      *     pattern="/^78[0-9]{3}$/",
-     *     message="Votre code postal doit commencer par 78 et comporter 5 chiffres",
+     *     message="Votre code postal doit commencer par 78",
 	 * 	   groups={"profil"}
 	 * )
      */
@@ -143,7 +138,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir votre ville de résidence",
+	 * 		message="Merci de saisir votre ville",
 	 * 		groups={"profil"}
 	 * )
      */

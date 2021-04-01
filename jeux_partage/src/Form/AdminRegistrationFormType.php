@@ -16,7 +16,7 @@ class AdminRegistrationFormType extends AbstractType
     {
         $builder
             ->add('roles', CollectionType::class, [
-                'row_attr' => ['class' => 'col-lg-5'],
+                'row_attr' => ['class' => 'col-10 col-sm-7 col-md-5 col-xl-4 col-xxl-2'],
                 'label_format' => "Rôle", 
                 'entry_type' => ChoiceType::class,
                 'entry_options' => [
@@ -27,7 +27,7 @@ class AdminRegistrationFormType extends AbstractType
                 ]
             ])
 			->add('save', SubmitType::class, [
-				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
+				'row_attr' => ['class' => 'col-md-12 d-flex justify-content-center']
 			])
         ;
     }

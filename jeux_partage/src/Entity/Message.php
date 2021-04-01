@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -36,6 +37,11 @@ class Message
 
     /**
      * @ORM\Column(type="text")
+     * 
+	 * @Assert\NotBlank(
+	 * 		message="Merci de saisir un message",
+	 * 		groups={"message_registration"}
+	 * )
      */
     private $content;
 

@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Erreur !
+{% endblock %}
+
+{% block body %}
+
+    <section class="error">
+        <h1 class="h1 my-3">Erreur</h1>
+
+        <p class="my-5 px-0 px-sm-4 px-md-5">L'énigme sacrée pose bien des difficultés à beaucoup. <br> Retourne fouiller sur le site pour en venir à bout</p>
+        
+        <a href="{{ path('home') }}" class="btn-jp">Retour à la page d'accueil</a>
+    </section>
+    
+{% endblock %}

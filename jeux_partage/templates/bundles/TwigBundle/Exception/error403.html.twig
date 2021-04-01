@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Erreur 403 !
+{% endblock %}
+
+{% block body %}
+    
+    <section class="error">
+        <h1 class="h1 my-3">403 - Accès refusé</h1>
+
+        <img src="{{ asset('img/error_403.png') }}" alt="erreur 403 forbidden">
+
+        <p class="my-3 px-0 px-sm-4 px-md-5">On dirait que tu n'as toujours pas la réponse à l'énigme sacrée pour obtenir ton laissez-passer</p>
+        
+        <a href="{{ path('home') }}" class="btn-jp">Retour à la page d'accueil</a>
+    </section>
+    
+{% endblock %}

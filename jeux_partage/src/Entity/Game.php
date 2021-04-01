@@ -24,7 +24,7 @@ class Game
      * @ORM\Column(type="string", length=255)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci de saisir un nom de jeu",
+	 * 		message="Merci de saisir le nom du jeu",
 	 * 		groups={"game_registration"}
 	 * )
      */
@@ -34,7 +34,7 @@ class Game
      * @ORM\Column(type="string", length=255)
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci d'indiquer à partir de quel age ce jeu est accessible",
+	 * 		message="Merci d'indiquer la tranche d'âge",
 	 * 		groups={"game_registration"}
 	 * )
      */
@@ -44,7 +44,7 @@ class Game
      * @ORM\Column(type="integer")
 	 * 
 	 * @Assert\NotBlank(
-	 * 		message="Merci d'indiquer le nombre de joueur minimum",
+	 * 		message="Indiquer le nombre de joueur minimum",
 	 * 		groups={"game_registration"}
 	 * )
      */

@@ -15,10 +15,10 @@ class CategoryFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'row_attr' => ['class' => 'col-lg-5']
+                'row_attr' => ['class' => 'col-10 col-sm-7 col-md-5 col-xl-4 col-xxl-2']
             ])
 			->add('save', SubmitType::class, [
-				'row_attr' => ['class' => 'col-lg-10 d-flex justify-content-center']
+				'row_attr' => ['class' => 'col-md-12 d-flex justify-content-center']
 			])
         ;
     }
@@ -27,6 +27,7 @@ class CategoryFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
+			'validation_groups' => ['category_registration']
         ]);
     }
 }
