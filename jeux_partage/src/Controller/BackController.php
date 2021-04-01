@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Entity\Borrowing;
 use App\Form\GameFormType;
 use App\Form\CategoryFormType;
+use App\Form\GameEditFormType;
 use App\Form\BorrowingFormType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\GameRepository;
@@ -178,7 +179,7 @@ class BackController extends AbstractController
      */
     public function editGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager, Game $game): Response
     {
-        $formGame = $this->createForm(GameFormType::class, $game);
+        $formGame = $this->createForm(GameEditFormType::class, $game);
         
         $formGame->handleRequest($request);
 
@@ -278,10 +279,13 @@ class BackController extends AbstractController
                 
             $this->addFlash('success', $message);
 
+			$manager->persist($category);
+			$manager->flush();
+
             return $this->redirectToRoute('admin_categories');
         }
 
-        return $this->render('back/admin_form_category.html.twig', [
+        return $this->render('back/admin_create_category.html.twig', [
                 'formCategory' => $formCategory->createView()
         ]);
     }
