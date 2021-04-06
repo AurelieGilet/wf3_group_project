@@ -35,7 +35,6 @@
 					</li>
 					<li>Back :
 						<ul>
-							<li>Céline S.</li>
 							<li>Aurélie</li>
 						</ul>
 					</li>
@@ -64,14 +63,22 @@
 						<h4>Table "Game" :</h4>
 						<blockquote>
 							“id" INT(11) AI PK<br>
-							"owner_id" relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à PK table membres)<br>
+							"owner_id" relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à PK table User)<br>
 							“name” VAR(255) NOT NULL<br>
-							“category” ENUM NOT NULL(adresse, memoire, cartes, connaissance, des, lettres, logique, strategie, plateaux, cooperation)<br>
-							“public” ENUM (6+, 8+, 10+) NOT NULL<br>
-							“minPlayers” INT(11) NOT NULL (1 min)<br>
-							“maxPlayers” INT(11)<br>
+							“category” relation OneToMany : INT(11) SK NOT NULL (secondary key liée à PK table Category) <br>
+							“public” VAR(255) NOT NULL<br>
+							“minPlayers” INT(11) NOT NULL<br>
+							“maxPlayers” INT(11) DEFAULT NULL<br>
 							“description” TEXT NOT NULL(regle du jeu)<br>
-							"image" VAR(255) NOT NULL(url ou input type file ?)
+							"image" VAR(255) NOT NULL
+						</blockquote>
+					</div>
+
+					<div id="categorie">
+						<h4>Table "Category" :</h4>
+						<blockquote>
+							“id" INT(11) AI PK<br>
+							“name” VAR(255) NOT NULL<br>
 						</blockquote>
 					</div>
 
@@ -82,13 +89,12 @@
 							“username” VAR(255) NOT NULL<br>
 							“email” VAR(255) NOT NULL<br>
 							"password" VAR(255) NOT NULL<br>
-							"role" json NOT NULL (["ROLE_ADMIN"] et "[ROLE_USER]"<br>
-							“firstname” VAR(255) NOT NULL<br>
-							“lastname” VAR(255) NOT NULL<br>						
-							“address” VAR(255) NOT NULL<br>
-							“zipCode” INT(5) NOT NULL (unsigned zerofill à ajouter à la bdd définitive)<br>
-							“city” VAR(255) NOT NULL<br>
-							"games" relation OneToMany
+							"role" json NOT NULL ("[ROLE_USER]" par défaut et ["ROLE_ADMIN"])<br>
+							“firstname” VAR(255) DEFAULT NULL<br>
+							“lastname” VAR(255) DEFAULT NULL<br>						
+							“address” VAR(255) DEFAULT NULL<br>
+							“zipCode” INT(5) DEFAULT NULL<br>
+							“city” VAR(255) DEFAULT NULL<br>
 						</blockquote>
 					</div>
 
@@ -96,12 +102,24 @@
 						<h4>Table "Borrowing" :</h4>
 						<blockquote>
 							“id” INT(11) AI PK<br>
-							“lender_id” relation ManyToOne : INT(11) SK  (secondary key liée à table membres) NOT NULL<br>
-							“borrower_id” relation ManyToOne : INT(11) SK  (secondary key liée à table membres) NOT NULL<br>
-							“game_id” relation ManyToOne INT(11) SK (secondary key liée à table jeux_societe) NOT NULL<br>
-							"start_date" datetime NOT NULL<br>
-							"end_date" datetime NOT NULL<br>
-							"return_date" datetime<br>
+							“lender_id” relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à table User)<br>
+							“borrower_id” relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à table User)<br>
+							“game_id” relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à table User)<br>
+							"start_date" DATETIME NOT NULL<br>
+							"end_date" DATETIME NOT NULL<br>
+							"giveaway_date" DATETIME DEFAULT NULL<br>
+							"return_date" DATETIME DEFAULT NULL
+						</blockquote>
+					</div>
+
+					<div id="messages">
+						<h4>Table "Message" :</h4>
+						<blockquote>
+							“id” INT(11) AI PK<br>
+							“borrowing_id” relation ManyToOne : INT(11) SK NOT NULL (secondary key liée à table Borrowing)<br>
+							“author_id” relation OneToMany : INT(11) SK NOT NULL (secondary key liée à table User)<br>
+							“created_at” DATETIME NOT NULL<br>
+							"content" text NOT NULL<br>
 						</blockquote>
 					</div>
 				</div>
@@ -209,7 +227,7 @@
 						<li>Système de bannissement si rating trop bas</li>
 						<li>fonction recherche et affichage profil autres membres</li>
 						<li>système de forum entre membres (pour discuter des jeux, organiser des rencontres jeux, ...)</li>
-						<li>système de caution pour les jeux</li>
+						<li>deploiement au niveau national</li>
 					</ul>
 				</div>
 			</section>
