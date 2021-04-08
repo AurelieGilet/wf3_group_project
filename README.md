@@ -1,4 +1,4 @@
-# <b>:chess_pawn: Bienvenue sur Jeux Partage ! :game_die:</b>
+<h1 align="center">:chess_pawn: Bienvenue sur Jeux Partage ! :game_die:</h1>
 
 <b>![accueil](https://user-images.githubusercontent.com/75724762/114068898-b1ca1e00-989e-11eb-8508-c37845bec57b.png)</b>
 
