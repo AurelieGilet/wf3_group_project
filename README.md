@@ -1,6 +1,6 @@
-# Bienvenue sur Jeux Partage !
+# <b>:chess_pawn: Bienvenue sur Jeux Partage ! :game_die:</b>
 
-![accueil](https://user-images.githubusercontent.com/75724762/114068898-b1ca1e00-989e-11eb-8508-c37845bec57b.png)
+<b>![accueil](https://user-images.githubusercontent.com/75724762/114068898-b1ca1e00-989e-11eb-8508-c37845bec57b.png)</b>
 
 Projet de groupe final de la formation Développeur Web de WebForce3. 
 
