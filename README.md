@@ -23,7 +23,7 @@ Certaines fonctionnalités backend ont été développées en Ajax (messagerie).
 
 ## Qui l'a fait ?
 
-3 développeuses web junior en l'espace de 10 jours:
+3 développeuses web junior en l'espace de 10 jours :
 
 * [Aurélie Gilet](https://github.com/AurelieGilet)
   - Conception et mise en place de la base de données
