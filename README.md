@@ -5,7 +5,9 @@ Projet de groupe de fin de formation WebForce3.
 ## Qu'est-ce que c'est ?
 
 C'est un site de mise en relation de personnes qui souhaitent partager leurs jeux de société.
+
 Le concept inital est limité aux habitants des Yvelines. Il est basé sur la convivialité et la bienveillance de personnes qui souhaitent partager leur passion des jeux de sociétés.
+
 Chacun est libre de s'y inscrire, d'emprunter les jeux qui l'interesse et d'ajouter ses propres jeux au catalogue commun afin que d'autre puisse les emprunter.
 Une messagerie privée entre les deux utilisateurs concernés par un emprunt (l'emprunteur et le possesseur du jeu) leur permet de s'organiser pour l'echange.
 
