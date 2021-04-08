@@ -1,6 +1,6 @@
 # Bienvenue sur Jeux Partage !
 
-Projet de groupe de fin de formation WebForce3. 
+Projet de groupe final de la formation Développeur Web de WebForce3. 
 
 ## Qu'est-ce que c'est ?
 
