@@ -41,6 +41,7 @@ Certaines fonctionnalités backend ont été développées en Ajax (messagerie).
 
 * Envoi d'email de confirmation d'inscription avec lien de vérification
 * Réinitialisation du mot de passe en cas d'oubli
+* Envoi notifications en cas de messages (suite à un emprunt)
 * Option de recherche des jeux par nom ou autre caractéristique
 * Intégration d'une API Google Map sur le détail des jeux pour afficher leur localisation
 * Système de réservation en cas d'indisponibilité d'un jeu
