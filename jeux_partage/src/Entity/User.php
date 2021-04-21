@@ -136,7 +136,7 @@ class User implements UserInterface
 	 *  
 	 * @Assert\Regex(
      *     pattern="/^78[0-9]{3}$/",
-     *     message="Votre code postal doit commencer par 78",
+     *     message="Votre code postal doit être situé dans les Yvelines",
 	 * 	   groups={"profil"}
 	 * )
      */

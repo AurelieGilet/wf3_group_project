@@ -216,13 +216,19 @@ class FrontController extends AbstractController
 	 */
 	public function createGame(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager, User $user = null): Response
 	{
+		$user = $this->getUser();
+
 		if (!$this->getUser())
 		{
 			return $this->redirectToRoute('security_login');
 		}
+		elseif( $user->getIsRegistered() != true)
+		{
+			$this->addFlash('danger', "Vous devez compléter votre profil avant de pouvoir emprunter un jeu");
+			return $this->redirectToRoute('security_profil');
+		}
 		else
 		{
-			$user = $this->getUser();
 
 			$game = new Game;
 			
